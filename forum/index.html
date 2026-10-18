@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIDO — Đạo Tràng Trực Tuyến &amp; Diễn Đàn Pháp Đàm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAF7F2;
+      --card: #FFFFFF;
+      --border: #EAE3D9;
+      --text: #2D2A26;
+      --text-muted: #6B655F;
+      --terracotta: #C05A3E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 3rem; }
+    header { background: #fff; border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .post-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    .form-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    input, textarea { border: 1px solid var(--border); padding: 0.6rem; border-radius: 6px; font-size: 0.9rem; background: #FFFDF9; }
+    .btn { background: var(--terracotta); color: #fff; border: none; padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .btn:hover { background: #A8482E; }
+    .topic-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; transition: transform 0.15s; }
+    .topic-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.03); }
+    .topic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .topic-author { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.4rem; color: var(--terracotta); }
+    .topic-time { font-size: 0.75rem; color: var(--text-muted); }
+    .topic-title { font-family: 'Merriweather', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; color: #1e1b18; }
+    .topic-content { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <span style="font-size: 1.5rem;">🪷</span>
+      <div>
+        <div style="font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.2rem;">LIDO — Diễn Đàn Pháp Đàm</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Chia sẻ kinh nghiệm tu học &amp; thực hành chánh niệm</div>
+      </div>
+    </div>
+    <a href="../index.html" style="text-decoration: none; font-size: 0.85rem; font-weight: 600; color: var(--terracotta);">← Quay lại Trang Chủ</a>
+  </header>
+
+  <div class="container">
+    <!-- Gửi bài viết mới -->
+    <div class="post-box">
+      <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1rem; font-size: 1.2rem; color: var(--terracotta);">✍️ Đặt Câu Hỏi / Chia Sẻ Chiêm Nghiệm</h3>
+      <div class="form-group">
+        <label>Pháp danh / Tên của bạn:</label>
+        <input type="text" id="post-author" placeholder="Ví dụ: Đạo hữu Minh Tâm">
+      </div>
+      <div class="form-group">
+        <label>Tiêu đề chủ đề thảo luận:</label>
+        <input type="text" id="post-title" placeholder="Ví dụ: Cách định tâm khi nghe nhạc thiền 432Hz lúc làm việc">
+      </div>
+      <div class="form-group">
+        <label>Nội dung chia sẻ hoặc nghi vấn Phật pháp:</label>
+        <textarea id="post-content" rows="4" placeholder="Viết chia sẻ với tâm thái hòa ái, xây dựng..."></textarea>
+      </div>
+      <button class="btn" onclick="submitPost()">Gửi Bài Thảo Luận</button>
+    </div>
+
+    <!-- Danh sách chủ đề -->
+    <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1rem; font-size: 1.3rem;">🌿 Các Chủ Đề Đang Đàm Luận</h3>
+    <div id="topics-list"></div>
+  </div>
+
+  <script>
+    let siteData = {};
+
+    async function loadTopics() {
+      const local = localStorage.getItem("lido_site_data");
+      if (local) {
+        siteData = JSON.parse(local);
+      } else {
+        const res = await fetch("../data/site_data.json");
+        siteData = await res.json();
+      }
+      renderTopics();
+    }
+
+    function renderTopics() {
+      const cont = document.getElementById("topics-list");
+      const list = siteData.forum_topics || [];
+      if (list.length === 0) {
+        cont.innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem;">Chưa có bài viết nào. Hãy là người đầu tiên gieo duyên!</div>`;
+        return;
+      }
+      cont.innerHTML = list.map(t => `
+        <div class="topic-card">
+          <div class="topic-header">
+            <div class="topic-author"><span>${t.avatar || '🪷'}</span> ${t.author}</div>
+            <div class="topic-time">${t.time}</div>
+          </div>
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-content">${t.content}</div>
+        </div>
+      `).join("");
+    }
+
+    function submitPost() {
+      const author = document.getElementById("post-author").value.trim();
+      const title = document.getElementById("post-title").value.trim();
+      const content = document.getElementById("post-content").value.trim();
+
+      if (!author || !title || !content) {
+        return alert("Vui lòng điền đầy đủ Tên, Tiêu đề và Nội dung bài viết.");
+      }
+
+      if (!siteData.forum_topics) siteData.forum_topics = [];
+      siteData.forum_topics.unshift({
+        id: "post-" + Date.now(),
+        author,
+        avatar: "🪷",
+        title,
+        content,
+        time: "Vừa xong",
+        replies_count: 0
+      });
+
+      localStorage.setItem("lido_site_data", JSON.stringify(siteData));
+      document.getElementById("post-author").value = "";
+      document.getElementById("post-title").value = "";
+      document.getElementById("post-content").value = "";
+      alert("Đã đăng bài thảo luận thành công!");
+      renderTopics();
+    }
+
+    loadTopics();
+  </script>
+</body>
+</html>

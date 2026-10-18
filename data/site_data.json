@@ -1,0 +1,195 @@
+{
+  "site_config": {
+    "site_title": "LIDO — Miền Cực Lạc & Đại Tạng Phật Giáo Gốc",
+    "meta_title": "LIDO — Tủ Sách Phật Giáo Nguyên Thủy & Nhạc Thiền 432Hz | Đạo Phật Gốc",
+    "meta_description": "Trọn bộ 5 Bộ Kinh Tạng Nikāya & Tủ sách Trưởng lão Thích Thông Lạc kết hợp Nhạc thiền 432Hz định tâm, chữa lành trầm cảm, buông xả muộn phiền.",
+    "hero_slogan": "Về Miền Tỉnh Thức — Trở Về Nguồn Cội Lời Phật Dạy",
+    "hero_sub": "Hành trình trở về Chánh Pháp nguyên bản không mê tín: Khám phá trọn bộ Đại Tạng Kinh Nikāya & Giáo trình đạo đức làm chủ Sinh - Già - Bệnh - Chết, hòa quyện trong làn sóng nhạc thiền định tâm 432Hz phụng sự cộng đồng.",
+    "quote": "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình.",
+    "quote_source": "Kinh Pháp Cú (Dhammapada), Kệ số 2 — HT. Thích Minh Châu dịch",
+    "donate_bank": {
+      "bank_name": "BIDV — Ngân Hàng TMCP Đầu Tư & Phát Triển Việt Nam",
+      "account_name": "NGUYEN ANH TUAN",
+      "account_number": "1401132757",
+      "transfer_syntax": "Ho Tri Tu Sach LIDO",
+      "qr_image": "assets/bidv_qr.png"
+    }
+  },
+  "featured_videos": [
+    {
+      "id": "vid-01",
+      "title": "Nhạc Thiền Bồ Đề Nguyệt Ảnh — 100 Lời Phật Dạy Về Tham Sân Si (Kinh Nikāya)",
+      "youtube_id": "94IPu4HPcUc",
+      "views": "128,500+ lượt nghe",
+      "duration": "3 Giờ",
+      "category": "Thiền Định & Chữa Lành",
+      "desc": "Bản hòa tấu chuông xoay Tây Tạng và sáo trúc tĩnh lặng tần số 432Hz, giải tỏa căng thẳng lo âu, soi rọi 100 lời vàng răn dạy về Tham Sân Si trong Kinh Tạng Nikāya."
+    },
+    {
+      "id": "vid-02",
+      "title": "Nhạc Thiền Hòa Tấu Vô Ưu Tĩnh Lặng — 50 Lời Phật Dạy Về Buông Xả Giúp Tâm Tĩnh An Lạc",
+      "youtube_id": "IR25mm93aCo",
+      "views": "85,600+ lượt nghe",
+      "duration": "2 Giờ 30 Phút",
+      "category": "Buông Xả & Tĩnh Lặng",
+      "desc": "Giai điệu thanh thoát đưa tâm thức rời xa bão giông cuộc đời, lắng nghe 50 lời Phật dạy về buông xả chấp niệm để tìm lại an nhiên tự tại."
+    },
+    {
+      "id": "vid-03",
+      "title": "Nhạc Thiền Tây Tạng 1 Giờ — Tiếng Hát Chữa Lành Thân Tâm, Tẩy Sạch Phiền Não (432Hz)",
+      "youtube_id": "TucEOKw7enY",
+      "views": "92,400+ lượt nghe",
+      "duration": "1 Giờ",
+      "category": "Tần Số Chữa Lành 432Hz",
+      "desc": "Tần số năng lượng cao tẩy rửa năng lượng tiêu cực, xoa dịu thần kinh, hỗ trợ giấc ngủ sâu và tái tạo nguyên khí an lành."
+    }
+  ],
+  "categories": [
+    { "id": "all", "name": "Tất Cả Kinh Sách" },
+    { "id": "nikaya", "name": "5 Bộ Kinh Nikāya (Pāli)" },
+    { "id": "thonglac", "name": "Trưởng Lão Thích Thông Lạc" },
+    { "id": "thien", "name": "Thiền Định & Làm Chủ Bệnh" }
+  ],
+  "books": [
+    {
+      "id": "bk-trungbo",
+      "title": "Kinh Trung Bộ (Majjhima Nikāya)",
+      "author": "Đức Thế Tôn",
+      "translator": "Hòa thượng Thích Minh Châu dịch",
+      "category": "nikaya",
+      "category_label": "Kinh Nikāya",
+      "badge": "Đại Tạng Gốc",
+      "summary": "152 bài kinh cốt tủy, ngọn đuốc sáng rọi cho hành giả thực hành Giới - Định - Tuệ, phá vỡ vô minh và lậu hoặc.",
+      "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-trung-bo/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-truongbo",
+      "title": "Kinh Trường Bộ (Dīgha Nikāya)",
+      "author": "Đức Thế Tôn",
+      "translator": "Hòa thượng Thích Minh Châu dịch",
+      "category": "nikaya",
+      "category_label": "Kinh Nikāya",
+      "badge": "Đại Tạng Gốc",
+      "summary": "34 bài kinh dài đồ sộ ghi chép tường tận cuộc đời hóa độ, giới luật căn bản và những lời di huấn tối hậu trước khi Đức Phật nhập Niết-bàn.",
+      "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-truong-bo/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-tuongung",
+      "title": "Kinh Tương Ưng Bộ (Saṃyutta Nikāya)",
+      "author": "Đức Thế Tôn",
+      "translator": "Hòa thượng Thích Minh Châu dịch",
+      "category": "nikaya",
+      "category_label": "Kinh Nikāya",
+      "badge": "Đại Tạng Gốc",
+      "summary": "Tập hợp các bài kinh liên kết theo từng chuyên đề then chốt: Ngũ Uẩn, Thập Nhị Duyên Khởi, Tứ Diệu Đế và Bát Chánh Đạo.",
+      "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tuong-ung-bo/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-tangchi",
+      "title": "Kinh Tăng Chi Bộ (Aṅguttara Nikāya)",
+      "author": "Đức Thế Tôn",
+      "translator": "Hòa thượng Thích Minh Châu dịch",
+      "category": "nikaya",
+      "category_label": "Kinh Nikāya",
+      "badge": "Đại Tạng Gốc",
+      "summary": "Hàng ngàn pháp thoại thực tế được xếp theo pháp số (từ một pháp đến mười một pháp), cẩm nang sống tỉnh giác của người cư sĩ.",
+      "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tang-chi-bo/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-tieubo",
+      "title": "Kinh Tiểu Bộ (Khuddaka Nikāya)",
+      "author": "Đức Thế Tôn",
+      "translator": "Hòa thượng Thích Minh Châu dịch",
+      "category": "nikaya",
+      "category_label": "Kinh Nikāya",
+      "badge": "Đại Tạng Gốc",
+      "summary": "Bao gồm Kinh Pháp Cú, Phật Tự Thuyết, Phật Ngôn, Kinh Tập... chứa đựng những vần thơ Phật giáo trác tuyệt rung động tâm can.",
+      "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tieu-bo/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-duongvexuphat",
+      "title": "Đường Về Xứ Phật (Trọn bộ 10 Tập)",
+      "author": "Trưởng lão Thích Thông Lạc",
+      "translator": "Tu Viện Chơn Như",
+      "category": "thonglac",
+      "category_label": "Trưởng Lão Thích Thông Lạc",
+      "badge": "Khai Sáng Chánh Kiến",
+      "summary": "Tác phẩm lịch sử chấn động, phục hồi con đường tu tập giới luật thanh tịnh của Đức Phật, đập tan mê tín dị đoan và tà giáo.",
+      "read_url": "https://daophatgoc.com/duong-ve-xu-phat-tap-1/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-37pham",
+      "title": "Ba Mươi Bảy Phẩm Trợ Đạo",
+      "author": "Trưởng lão Thích Thông Lạc",
+      "translator": "Tu Viện Chơn Như",
+      "category": "thien",
+      "category_label": "Thực Hành Giải Thoát",
+      "badge": "Giáo Trình Tu Chứng",
+      "summary": "Kim chỉ nam thực hành từng pháp môn trợ đạo: Tứ Niệm Xứ, Tứ Chánh Cần, Tứ Như Ý Túc... giúp chứng ngộ giải thoát ngay hiện kiếp.",
+      "read_url": "https://daophatgoc.com/ba-muoi-bay-pham-tro-dao/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-lamchusinhgia",
+      "title": "Pháp Tu Làm Chủ Sinh, Già, Bệnh, Chết",
+      "author": "Trưởng lão Thích Thông Lạc",
+      "translator": "Tu Viện Chơn Như",
+      "category": "thien",
+      "category_label": "Thực Hành Giải Thoát",
+      "badge": "Bí Quyết Đẩy Lùi Bệnh",
+      "summary": "Phương pháp Định Niệm Hơi Thở và Thân Hành Niệm tác ý chuyển nghiệp, làm chủ cơn đau nhức, đẩy lui bệnh tật và an nhiên tự tại.",
+      "read_url": "https://daophatgoc.com/phap-tu-cua-phat-lam-chu-sinh-gia-benh-chet/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-daoduclamnguoi",
+      "title": "Đạo Đức Làm Người & Đức Hiếu Sinh",
+      "author": "Trưởng lão Thích Thông Lạc",
+      "translator": "Tu Viện Chơn Như",
+      "category": "thonglac",
+      "category_label": "Trưởng Lão Thích Thông Lạc",
+      "badge": "Đạo Đức Nhân Bản",
+      "summary": "Nền tảng sống không làm khổ mình, không làm khổ người và không làm khổ muôn loài. Cội rễ chuyển hóa gia đình hạnh phúc bền vững.",
+      "read_url": "https://daophatgoc.com/dao-duc-lam-nguoi-tap-1/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    },
+    {
+      "id": "bk-nhungloigoc",
+      "title": "Những Lời Gốc Phật Dạy (Trọn bộ 4 Tập)",
+      "author": "Trưởng lão Thích Thông Lạc",
+      "translator": "Tu Viện Chơn Như",
+      "category": "thonglac",
+      "category_label": "Trưởng Lão Thích Thông Lạc",
+      "badge": "Đối Chiếu Kinh Điển",
+      "summary": "So sánh đối chiếu kinh tạng nguyên thủy và kinh điển phát triển, giúp hành giả nhận diện rõ lời dạy chân thực của Đức Từ Phụ.",
+      "read_url": "https://daophatgoc.com/nhung-loi-goc-phat-day-tap-1/",
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+    }
+  ],
+  "forum_topics": [
+    {
+      "id": "post-01",
+      "author": "Đạo hữu An Nhiên",
+      "avatar": "🪷",
+      "title": "Làm thế nào để giữ tâm không dao động khi công việc áp lực?",
+      "content": "Kính thưa quý đạo hữu, mỗi ngày nghe bản nhạc thiền 432Hz của Lido kết hợp đọc kinh Pháp Cú con thấy tâm dịu lại rất nhiều. Xin được học hỏi thêm kinh nghiệm quán niệm hơi thở khi ở văn phòng...",
+      "time": "Hôm nay lúc 14:20",
+      "replies_count": 5
+    },
+    {
+      "id": "post-02",
+      "author": "Hành giả Tuệ Minh",
+      "avatar": "🙏",
+      "title": "Hộ trì tủ sách LIDO — Cùng lan tỏa Chánh pháp vô giá",
+      "content": "Tri ân ban quản trị LIDO đã dày công xây dựng tủ sách Nguyên thủy liên kết Đại Tạng Nikāya và Trưởng lão Thích Thông Lạc. Mình vừa hoan hỷ gửi một chút tịnh tài hộ trì qua VietQR...",
+      "time": "Hôm qua lúc 21:05",
+      "replies_count": 12
+    }
+  ]
+}

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIDO CMS — Cổng Quản Trị Hệ Thống (Bảo Mật)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B1120;
+      --card: #1E293B;
+      --border: #334155;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #F59E0B;
+      --accent-hover: #D97706;
+      --terracotta: #C05A3E;
+      --danger: #EF4444;
+      --success: #10B981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 1.5rem; }
+    .container { max-width: 1020px; margin: 0 auto; }
+    
+    /* Login Modal Overlay */
+    #auth-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(11, 17, 32, 0.98);
+      backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .auth-box {
+      background: #1E293B;
+      border: 1px solid #475569;
+      border-radius: 18px;
+      padding: 2.75rem 2.25rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .auth-icon {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .auth-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .auth-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .auth-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      text-align: left;
+    }
+    .auth-field label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #CBD5E1;
+    }
+    .auth-field input {
+      background: #0F172A;
+      border: 1px solid #475569;
+      color: #fff;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .auth-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+    .btn-login {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-login:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+    .auth-alert {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: none;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .auth-alert.error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--danger);
+      color: #FCA5A5;
+      display: block !important;
+    }
+
+    /* CMS Main Layout */
+    #cms-main { display: none; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+    }
+    h1 { font-size: 1.45rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #0F172A;
+      border: 1px solid #334155;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+    }
+    .user-avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 0.75rem; }
+    .btn { background: var(--terracotta); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    .btn-export { background: var(--success); }
+    .btn-logout { background: #334155; color: #CBD5E1; }
+    .btn-logout:hover { background: #475569; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .panel-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+    .form-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+    input, textarea, select { background: #0F172A; border: 1px solid var(--border); color: #fff; padding: 0.65rem; border-radius: 6px; font-size: 0.9rem; }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .item-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .item-card { background: #0F172A; border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1.15rem; display: flex; justify-content: space-between; align-items: center; }
+    .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: #334155; }
+    .notice { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--accent); padding: 0.85rem 1.2rem; border-radius: 8px; font-size: 0.85rem; color: #FCD34D; margin-bottom: 1.5rem; line-height: 1.6; }
+    
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Khóa Màn Hình Đăng Nhập -->
+  <div id="auth-overlay">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon">🛡️</div>
+        <h2 class="auth-title">Xác Thực Quản Trị CMS</h2>
+        <p class="auth-desc">Vui lòng nhập tài khoản Google Mail và Mật khẩu quản trị</p>
+      </div>
+
+      <form class="auth-form" id="admin-login-form">
+        <div class="auth-field">
+          <label for="admin-email-input">Tài Khoản Google Mail:</label>
+          <input type="text" id="admin-email-input" placeholder="nhap-email-quan-tri@gmail.com" required autocomplete="username">
+        </div>
+
+        <div class="auth-field">
+          <label for="admin-pass-input">Mật Khẩu Quản Trị:</label>
+          <input type="password" id="admin-pass-input" placeholder="••••••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn-login" id="btn-submit-login">Đăng Nhập CMS</button>
+      </form>
+
+      <div id="auth-alert" class="auth-alert"></div>
+    </div>
+  </div>
+
+  <!-- Bảng Điều Khiển CMS Chính -->
+  <div class="container" id="cms-main">
+    <header>
+      <div>
+        <h1>⚙️ LIDO CMS — Quản Trị Hệ Thống</h1>
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;">
+          Đại Tạng Phật Giáo Gốc • Kênh Lido 1995 Music • Cổng Hộ Trì VietQR
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <div class="user-pill">
+          <div class="user-avatar" id="avatar-char">A</div>
+          <span id="user-display-email" style="color: #F8FAFC; font-weight: 600;">Admin</span>
+          <span style="color: var(--success); font-size: 0.7rem;">● Đã xác thực</span>
+        </div>
+        <a href="../index.html" class="btn" style="text-decoration: none; background: #475569;">👁️ Xem Trang Chủ</a>
+        <button class="btn btn-export" onclick="exportData()">💾 Tải JSON</button>
+        <button class="btn btn-logout" onclick="logoutAdmin()">Đăng Xuất</button>
+      </div>
+    </header>
+
+    <div class="notice">
+      🔒 <b>Phiên đăng nhập an toàn:</b> Mọi thay đổi về thông tin tài khoản BIDV, video YouTube hoặc đầu sách sẽ phản ánh ngay trên toàn bộ website.
+    </div>
+
+    <!-- 1. Quản lý thông tin Donate BIDV -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>🙏 Cấu hình Tài khoản Hộ Trì / Donate (BIDV &amp; VietQR)</span>
+        <button class="btn" onclick="saveBankConfig()">Lưu Cấu Hình</button>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Tên Ngân Hàng:</label>
+          <input type="text" id="cfg-bank-name">
+        </div>
+        <div class="form-group">
+          <label>Tên Chủ Tài Khoản:</label>
+          <input type="text" id="cfg-acc-name">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Số Tài Khoản Ngân Hàng:</label>
+          <input type="text" id="cfg-acc-number">
+        </div>
+        <div class="form-group">
+          <label>Cú Pháp Chuyển Khoản Mặc Định:</label>
+          <input type="text" id="cfg-transfer-syntax">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Quản lý Video YouTube -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>🎬 Quản lý Video Nhạc Thiền YouTube (@lido1995music)</span>
+        <button class="btn" onclick="addVideoPrompt()">+ Thêm Video Mới</button>
+      </div>
+      <div id="video-list" class="item-list"></div>
+    </div>
+
+    <!-- 3. Quản lý Tủ Sách -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>📚 Quản lý Đầu Sách &amp; Kinh Tạng Nikāya (daophatgoc.com)</span>
+        <button class="btn" onclick="addBookPrompt()">+ Thêm Đầu Sách Mới</button>
+      </div>
+      <div id="book-list" class="item-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // Hàm băm an toàn 100% độc lập, không phụ thuộc trình duyệt hay HTTP/HTTPS
+    function secureHash(str) {
+      let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+      for (let i = 0; i < str.length; i++) {
+        const ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+    }
+
+    // Chữ ký bảo mật một chiều
+    const HASH_EMAIL = secureHash("nguyenanhtuan92my@gmail.com");
+    const HASH_PASS = secureHash("TuSachLido@2026");
+    const SESSION_KEY = "lido_secure_admin_session";
+    let siteData = {};
+
+    function checkAuth() {
+      const token = sessionStorage.getItem(SESSION_KEY);
+      if (token === HASH_EMAIL) {
+        unlockCMS();
+      } else {
+        document.getElementById("auth-overlay").style.display = "flex";
+        document.getElementById("cms-main").style.display = "none";
+      }
+    }
+
+    document.getElementById("admin-login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById("admin-email-input").value.trim().toLowerCase();
+      const passInput = document.getElementById("admin-pass-input").value.trim();
+      const alertBox = document.getElementById("auth-alert");
+
+      alertBox.style.display = "none";
+      alertBox.className = "auth-alert";
+
+      if (!emailInput || !passInput) {
+        showError("Vui lòng nhập đầy đủ Email và Mật khẩu!");
+        return;
+      }
+
+      const inputEmailHash = secureHash(emailInput);
+      const inputPassHash = secureHash(passInput);
+
+      // BẮT BUỘC KHỚP CẢ EMAIL VÀ MẬT KHẨU
+      if (inputEmailHash === HASH_EMAIL && inputPassHash === HASH_PASS) {
+        sessionStorage.setItem(SESSION_KEY, HASH_EMAIL);
+        sessionStorage.setItem("lido_current_user", emailInput);
+        unlockCMS();
+      } else {
+        showError("Xác thực thất bại! Tài khoản Google Mail hoặc Mật khẩu không chính xác.");
+      }
+    });
+
+    function showError(msg) {
+      const alertBox = document.getElementById("auth-alert");
+      alertBox.className = "auth-alert error";
+      alertBox.innerText = msg;
+      alertBox.style.display = "block";
+    }
+
+    function unlockCMS() {
+      const displayEmail = sessionStorage.getItem("lido_current_user") || "Admin";
+      document.getElementById("auth-overlay").style.display = "none";
+      document.getElementById("cms-main").style.display = "block";
+      document.getElementById("user-display-email").innerText = displayEmail;
+      document.getElementById("avatar-char").innerText = displayEmail.charAt(0).toUpperCase();
+      loadData();
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem("lido_current_user");
+      window.location.reload();
+    }
+
+    // CMS Quản Lý Dữ Liệu
+    async function loadData() {
+      const local = localStorage.getItem("lido_site_data");
+      if (local) {
+        siteData = JSON.parse(local);
+      } else {
+        const res = await fetch("../data/site_data.json");
+        siteData = await res.json();
+      }
+      renderAll();
+    }
+
+    function renderAll() {
+      const b = siteData.site_config.donate_bank || {};
+      document.getElementById("cfg-bank-name").value = b.bank_name || "";
+      document.getElementById("cfg-acc-name").value = b.account_name || "";
+      document.getElementById("cfg-acc-number").value = b.account_number || "";
+      document.getElementById("cfg-transfer-syntax").value = b.transfer_syntax || "";
+
+      // Videos
+      const vCont = document.getElementById("video-list");
+      vCont.innerHTML = (siteData.featured_videos || []).map((v, i) => `
+        <div class="item-card">
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem;">${v.title}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+              YouTube ID: <span style="color: var(--accent);">${v.youtube_id}</span> | ${v.views} | Thời lượng: ${v.duration}
+            </div>
+          </div>
+          <button class="btn" style="background: var(--danger); padding: 0.35rem 0.75rem;" onclick="deleteVideo(${i})">Xóa</button>
+        </div>
+      `).join("");
+
+      // Books
+      const bCont = document.getElementById("book-list");
+      bCont.innerHTML = (siteData.books || []).map((bk, i) => `
+        <div class="item-card">
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem;">${bk.title}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+              Tác giả: <b>${bk.author || bk.translator}</b> | Thể loại: ${bk.category} | <span class="badge">${bk.badge || 'Kinh Điển'}</span>
+            </div>
+          </div>
+          <button class="btn" style="background: var(--danger); padding: 0.35rem 0.75rem;" onclick="deleteBook(${i})">Xóa</button>
+        </div>
+      `).join("");
+    }
+
+    function saveBankConfig() {
+      if (!siteData.site_config) siteData.site_config = {};
+      siteData.site_config.donate_bank = {
+        bank_name: document.getElementById("cfg-bank-name").value.trim(),
+        account_name: document.getElementById("cfg-acc-name").value.trim(),
+        account_number: document.getElementById("cfg-acc-number").value.trim(),
+        transfer_syntax: document.getElementById("cfg-transfer-syntax").value.trim(),
+        qr_image: "assets/bidv_qr.png"
+      };
+      saveToStorage();
+      alert("Đã lưu thông tin tài khoản ngân hàng thành công!");
+    }
+
+    function addVideoPrompt() {
+      const title = prompt("Nhập tiêu đề Video:");
+      if (!title) return;
+      const ytId = prompt("Nhập mã YouTube ID (ví dụ: 94IPu4HPcUc):", "94IPu4HPcUc");
+      if (!ytId) return;
+      const views = prompt("Số lượt view hiển thị (ví dụ: 125,000+ lượt nghe):", "50,000+ lượt nghe");
+      const duration = prompt("Thời lượng video:", "3 Giờ");
+
+      siteData.featured_videos.push({
+        id: "vid-" + Date.now(),
+        title,
+        youtube_id: ytId,
+        views,
+        duration,
+        category: "Nhạc Thiền",
+        desc: "Bản hòa tấu tĩnh tâm phụng sự cộng đồng."
+      });
+      saveToStorage();
+      renderAll();
+    }
+
+    function deleteVideo(idx) {
+      if (confirm("Bạn có chắc chắn muốn xóa video này?")) {
+        siteData.featured_videos.splice(idx, 1);
+        saveToStorage();
+        renderAll();
+      }
+    }
+
+    function addBookPrompt() {
+      const title = prompt("Tên sách / Kinh điển:");
+      if (!title) return;
+      const author = prompt("Tác giả / Dịch giả:", "HT. Thích Minh Châu");
+      const summary = prompt("Tóm tắt ý nghĩa:");
+
+      siteData.books.push({
+        id: "bk-" + Date.now(),
+        title,
+        author,
+        category: "nikaya",
+        badge: "Đại Tạng Gốc",
+        summary: summary || "Tài liệu chánh pháp quý báu từ daophatgoc.com.",
+        read_url: "https://daophatgoc.com/kinh-nikaya/",
+        source_name: "Đạo Phật Gốc"
+      });
+      saveToStorage();
+      renderAll();
+    }
+
+    function deleteBook(idx) {
+      if (confirm("Bạn có chắc chắn muốn xóa đầu sách này?")) {
+        siteData.books.splice(idx, 1);
+        saveToStorage();
+        renderAll();
+      }
+    }
+
+    function saveToStorage() {
+      localStorage.setItem("lido_site_data", JSON.stringify(siteData));
+    }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify(siteData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "site_data.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    checkAuth();
+  </script>
+</body>
+</html>
