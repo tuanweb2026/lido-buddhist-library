@@ -28,6 +28,20 @@ class LidoApp {
     this.initMiniPlayer();
   }
 
+  isValidSiteData(data) {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      Array.isArray(data.books) &&
+      Array.isArray(data.featured_videos) &&
+      typeof data.site_config === "object" &&
+      data.site_config !== null &&
+      typeof data.site_config.hero_slogan === "string" &&
+      typeof data.site_config.donate_bank === "object" &&
+      data.site_config.donate_bank !== null
+    );
+  }
+
   async loadData() {
     try {
       // Ưu tiên nạp dữ liệu chính thống mới nhất từ mạng kèm kiểm tra HTTP status
@@ -37,8 +51,8 @@ class LidoApp {
       }
       const data = await res.json();
       
-      // Kiểm tra tính toàn vẹn cấu trúc dữ liệu JSON
-      if (typeof data === "object" && data !== null && Array.isArray(data.books) && Array.isArray(data.featured_videos)) {
+      // Kiểm tra tính toàn vẹn cấu trúc dữ liệu JSON qua schema validator
+      if (this.isValidSiteData(data)) {
         this.siteData = data;
       } else {
         throw new Error("Dữ liệu JSON tải về không đúng cấu trúc quy định.");
@@ -49,8 +63,10 @@ class LidoApp {
         const local = localStorage.getItem("lido_site_data");
         if (local) {
           const parsedLocal = JSON.parse(local);
-          if (typeof parsedLocal === "object" && parsedLocal !== null) {
+          if (this.isValidSiteData(parsedLocal)) {
             this.siteData = parsedLocal;
+          } else {
+            console.warn("LidoApp: Bản lưu localStorage không đúng schema, bỏ qua.");
           }
         }
       } catch (parseErr) {
@@ -61,22 +77,26 @@ class LidoApp {
 
   renderHeaderAndHero() {
     const cfg = this.siteData?.site_config;
-    if (!cfg) return;
+    if (!cfg || typeof cfg !== "object") return;
 
     const heroSlogan = document.getElementById("hero-slogan");
     if (heroSlogan) {
-      const cleanSlogan = cfg.hero_slogan.replace('Về Miền Tỉnh Thức — ', '');
-      heroSlogan.innerHTML = `Về Miền Tỉnh Thức — <span>${this.escapeHtml(cleanSlogan) || 'Trở Về Cội Nguồn Lời Phật Dạy'}</span>`;
+      const rawSlogan = typeof cfg.hero_slogan === "string" ? cfg.hero_slogan : "";
+      const cleanSlogan = rawSlogan.replace('Về Miền Tỉnh Thức — ', '');
+      heroSlogan.textContent = "Về Miền Tỉnh Thức — ";
+      const span = document.createElement("span");
+      span.textContent = cleanSlogan || "Trở Về Cội Nguồn Lời Phật Dạy";
+      heroSlogan.appendChild(span);
     }
 
     const heroSub = document.getElementById("hero-sub");
-    if (heroSub) heroSub.textContent = cfg.hero_sub || "";
+    if (heroSub) heroSub.textContent = typeof cfg.hero_sub === "string" ? cfg.hero_sub : "";
 
     const heroQuote = document.getElementById("hero-quote");
-    if (heroQuote) heroQuote.textContent = `"${cfg.quote || ''}"`;
+    if (heroQuote) heroQuote.textContent = typeof cfg.quote === "string" ? `"${cfg.quote}"` : "";
 
     const heroQuoteSource = document.getElementById("hero-quote-source");
-    if (heroQuoteSource) heroQuoteSource.textContent = `— ${cfg.quote_source || ''}`;
+    if (heroQuoteSource) heroQuoteSource.textContent = typeof cfg.quote_source === "string" ? `— ${cfg.quote_source}` : "";
   }
 
   renderHealthDisclaimer() {
@@ -126,7 +146,15 @@ class LidoApp {
 
       const meta = document.createElement("div");
       meta.className = "video-meta";
-      meta.innerHTML = `<span>🔥 ${this.escapeHtml(v.views || '')}</span> <span>⏱️ ${this.escapeHtml(v.duration || '')}</span> <span>🪷 ${this.escapeHtml(v.category || '')}</span>`;
+      const spanViews = document.createElement("span");
+      spanViews.textContent = `🔥 ${v.views || ''}`;
+      const spanDur = document.createElement("span");
+      spanDur.textContent = `⏱️ ${v.duration || ''}`;
+      const spanCat = document.createElement("span");
+      spanCat.textContent = `🪷 ${v.category || ''}`;
+      meta.appendChild(spanViews);
+      meta.appendChild(spanDur);
+      meta.appendChild(spanCat);
 
       const title = document.createElement("h3");
       title.className = "video-title";
@@ -183,7 +211,7 @@ class LidoApp {
       else if (bk.category === 'thien') badgeClass = "badge-forest";
 
       // Chỉ cho phép URL an toàn (http/https)
-      const rawUrl = bk.read_url || "#";
+      const rawUrl = typeof bk.read_url === "string" ? bk.read_url : "#";
       const isSafeUrl = rawUrl.startsWith("https://") || rawUrl.startsWith("http://");
 
       const card = document.createElement("div");
@@ -194,7 +222,14 @@ class LidoApp {
 
       const headerTags = document.createElement("div");
       headerTags.className = "book-header-tags";
-      headerTags.innerHTML = `<span class="badge ${badgeClass}">${this.escapeHtml(bk.badge || 'Kinh Điển')}</span><span class="book-source-tag">${this.escapeHtml(bk.source_name || 'Đạo Phật Gốc')}</span>`;
+      const badgeSpan = document.createElement("span");
+      badgeSpan.className = `badge ${badgeClass}`;
+      badgeSpan.textContent = bk.badge || 'Kinh Điển';
+      const sourceSpan = document.createElement("span");
+      sourceSpan.className = "book-source-tag";
+      sourceSpan.textContent = bk.source_name || 'Đạo Phật Gốc';
+      headerTags.appendChild(badgeSpan);
+      headerTags.appendChild(sourceSpan);
 
       const title = document.createElement("h3");
       title.className = "book-title";
@@ -202,7 +237,11 @@ class LidoApp {
 
       const author = document.createElement("div");
       author.className = "book-author";
-      author.innerHTML = `${this.escapeHtml(bk.author || '')} • <i>${this.escapeHtml(bk.translator || '')}</i>`;
+      const authorText = document.createTextNode(`${bk.author || ''} • `);
+      const transItalic = document.createElement("i");
+      transItalic.textContent = bk.translator || '';
+      author.appendChild(authorText);
+      author.appendChild(transItalic);
 
       const summary = document.createElement("p");
       summary.className = "book-summary";

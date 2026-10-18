@@ -151,7 +151,10 @@
         Array.isArray(data.books) &&
         Array.isArray(data.featured_videos) &&
         typeof data.site_config === "object" &&
-        data.site_config !== null
+        data.site_config !== null &&
+        typeof data.site_config.hero_slogan === "string" &&
+        typeof data.site_config.donate_bank === "object" &&
+        data.site_config.donate_bank !== null
       );
     }
 
@@ -165,7 +168,7 @@
         if (isValidSiteData(data)) {
           siteData = data;
         } else {
-          console.warn("Dữ liệu mạng không đạt chuẩn schema.");
+          throw new Error("Dữ liệu mạng không đạt chuẩn schema bắt buộc.");
         }
         
         // Nạp thêm từ localStorage nếu người dùng vừa sửa nháp và hợp lệ schema
