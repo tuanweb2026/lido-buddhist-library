@@ -78,35 +78,67 @@ class LidoApp {
     const vGrid = document.getElementById("video-grid-container");
     if (!vGrid || !this.siteData?.featured_videos) return;
 
-    vGrid.innerHTML = this.siteData.featured_videos.map(v => `
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe 
-            src="https://www.youtube.com/embed/${v.youtube_id}" 
-            title="${v.title}" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-info">
-          <div class="video-meta">
-            <span>🔥 ${v.views}</span>
-            <span>⏱️ ${v.duration}</span>
-            <span>🪷 ${v.category}</span>
-          </div>
-          <h3 class="video-title">${v.title}</h3>
-          <p class="video-desc">${v.desc}</p>
-          <div class="video-actions">
-            <button class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;" onclick="lidoApp.playInMiniPlayer('${v.youtube_id}', '${v.title.replace(/'/g, "\\'")}')">
-              🎧 Phát Trình Thu Nhỏ
-            </button>
-            <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" rel="noopener noreferrer" class="link-external">
-              Xem trên YouTube ↗
-            </a>
-          </div>
-        </div>
-      </div>
-    `).join("");
+    vGrid.innerHTML = "";
+    this.siteData.featured_videos.forEach(v => {
+      // Validate YouTube ID (chỉ cho phép ký tự alphanumeric, gạch dưới, gạch ngang)
+      const cleanYtId = (v.youtube_id || "").replace(/[^a-zA-Z0-9_-]/g, "");
+      
+      const card = document.createElement("div");
+      card.className = "video-card";
+
+      const frame = document.createElement("div");
+      frame.className = "video-frame";
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/${cleanYtId}`;
+      iframe.title = v.title || "Nhạc Thiền";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      frame.appendChild(iframe);
+
+      const info = document.createElement("div");
+      info.className = "video-info";
+
+      const meta = document.createElement("div");
+      meta.className = "video-meta";
+      meta.innerHTML = `<span>🔥 ${this.escapeHtml(v.views || '')}</span> <span>⏱️ ${this.escapeHtml(v.duration || '')}</span> <span>🪷 ${this.escapeHtml(v.category || '')}</span>`;
+
+      const title = document.createElement("h3");
+      title.className = "video-title";
+      title.textContent = v.title || "";
+
+      const desc = document.createElement("p");
+      desc.className = "video-desc";
+      desc.textContent = v.desc || "";
+
+      const actions = document.createElement("div");
+      actions.className = "video-actions";
+
+      const playBtn = document.createElement("button");
+      playBtn.className = "btn btn-outline";
+      playBtn.style.fontSize = "0.8rem";
+      playBtn.style.padding = "0.4rem 0.9rem";
+      playBtn.textContent = "🎧 Phát Trình Thu Nhỏ";
+      playBtn.onclick = () => this.playInMiniPlayer(cleanYtId, v.title || "Nhạc Thiền");
+
+      const link = document.createElement("a");
+      link.href = `https://www.youtube.com/watch?v=${cleanYtId}`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.className = "link-external";
+      link.textContent = "Xem trên YouTube ↗";
+
+      actions.appendChild(playBtn);
+      actions.appendChild(link);
+
+      info.appendChild(meta);
+      info.appendChild(title);
+      info.appendChild(desc);
+      info.appendChild(actions);
+
+      card.appendChild(frame);
+      card.appendChild(info);
+      vGrid.appendChild(card);
+    });
   }
 
   renderBooks() {
@@ -118,32 +150,64 @@ class LidoApp {
       return bk.category === this.currentCategory;
     });
 
-    bGrid.innerHTML = filtered.map(bk => {
+    bGrid.innerHTML = "";
+    filtered.forEach(bk => {
       let badgeClass = "badge-gold";
       if (bk.category === 'thonglac') badgeClass = "badge-terracotta";
       else if (bk.category === 'thien') badgeClass = "badge-forest";
 
-      return `
-        <div class="book-card">
-          <div class="book-card-top">
-            <div class="book-header-tags">
-              <span class="badge ${badgeClass}">${bk.badge || 'Kinh Điển'}</span>
-              <span class="book-source-tag">${bk.source_name || 'Đạo Phật Gốc'}</span>
-            </div>
-            <h3 class="book-title">${bk.title}</h3>
-            <div class="book-author">${bk.author} • <i>${bk.translator}</i></div>
-            <p class="book-summary">${bk.summary}</p>
-          </div>
-          <div class="book-card-bottom">
-            <a href="${bk.read_url || '#'}" target="_blank" rel="noopener noreferrer" class="book-action-btn">
-              <span>Đọc trọn tác phẩm</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <span class="book-status-badge">Công đức vô lượng</span>
-          </div>
-        </div>
-      `;
-    }).join("");
+      // Chỉ cho phép URL an toàn (http/https)
+      const rawUrl = bk.read_url || "#";
+      const isSafeUrl = rawUrl.startsWith("https://") || rawUrl.startsWith("http://");
+
+      const card = document.createElement("div");
+      card.className = "book-card";
+
+      const top = document.createElement("div");
+      top.className = "book-card-top";
+
+      const headerTags = document.createElement("div");
+      headerTags.className = "book-header-tags";
+      headerTags.innerHTML = `<span class="badge ${badgeClass}">${this.escapeHtml(bk.badge || 'Kinh Điển')}</span><span class="book-source-tag">${this.escapeHtml(bk.source_name || 'Đạo Phật Gốc')}</span>`;
+
+      const title = document.createElement("h3");
+      title.className = "book-title";
+      title.textContent = bk.title || "";
+
+      const author = document.createElement("div");
+      author.className = "book-author";
+      author.innerHTML = `${this.escapeHtml(bk.author || '')} • <i>${this.escapeHtml(bk.translator || '')}</i>`;
+
+      const summary = document.createElement("p");
+      summary.className = "book-summary";
+      summary.textContent = bk.summary || "";
+
+      top.appendChild(headerTags);
+      top.appendChild(title);
+      top.appendChild(author);
+      top.appendChild(summary);
+
+      const bottom = document.createElement("div");
+      bottom.className = "book-card-bottom";
+
+      const actionLink = document.createElement("a");
+      actionLink.href = isSafeUrl ? rawUrl : "#";
+      actionLink.target = isSafeUrl ? "_blank" : "_self";
+      actionLink.rel = "noopener noreferrer";
+      actionLink.className = "book-action-btn";
+      actionLink.innerHTML = `<span>Đọc trọn tác phẩm</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+
+      const statusBadge = document.createElement("span");
+      statusBadge.className = "book-status-badge";
+      statusBadge.textContent = "Công đức vô lượng";
+
+      bottom.appendChild(actionLink);
+      bottom.appendChild(statusBadge);
+
+      card.appendChild(top);
+      card.appendChild(bottom);
+      bGrid.appendChild(card);
+    });
   }
 
   filterCategory(cat, btnElement) {
