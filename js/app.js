@@ -28,18 +28,42 @@ class LidoApp {
     this.initMiniPlayer();
   }
 
+  isValidSafeUrl(urlStr) {
+    if (typeof urlStr !== "string") return false;
+    try {
+      const parsed = new URL(urlStr);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch (e) {
+      return false;
+    }
+  }
+
   isValidSiteData(data) {
-    return (
-      typeof data === "object" &&
-      data !== null &&
-      Array.isArray(data.books) &&
-      Array.isArray(data.featured_videos) &&
-      typeof data.site_config === "object" &&
-      data.site_config !== null &&
-      typeof data.site_config.hero_slogan === "string" &&
-      typeof data.site_config.donate_bank === "object" &&
-      data.site_config.donate_bank !== null
+    if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
+    if (!Array.isArray(data.books) || !Array.isArray(data.featured_videos)) return false;
+    if (typeof data.site_config !== "object" || data.site_config === null || Array.isArray(data.site_config)) return false;
+    if (typeof data.site_config.hero_slogan !== "string") return false;
+
+    // donate_bank phải là object thực sự (không phải array hay null)
+    const bank = data.site_config.donate_bank;
+    if (typeof bank !== "object" || bank === null || Array.isArray(bank)) return false;
+
+    // Xác thực từng phần tử trong featured_videos
+    const videosValid = data.featured_videos.every(v => 
+      typeof v === "object" && v !== null && !Array.isArray(v) &&
+      typeof v.youtube_id === "string" &&
+      typeof v.title === "string"
     );
+    if (!videosValid) return false;
+
+    // Xác thực từng phần tử trong books
+    const booksValid = data.books.every(bk => 
+      typeof bk === "object" && bk !== null && !Array.isArray(bk) &&
+      typeof bk.title === "string"
+    );
+    if (!booksValid) return false;
+
+    return true;
   }
 
   async loadData() {
@@ -210,9 +234,9 @@ class LidoApp {
       if (bk.category === 'thonglac') badgeClass = "badge-terracotta";
       else if (bk.category === 'thien') badgeClass = "badge-forest";
 
-      // Chỉ cho phép URL an toàn (http/https)
-      const rawUrl = typeof bk.read_url === "string" ? bk.read_url : "#";
-      const isSafeUrl = rawUrl.startsWith("https://") || rawUrl.startsWith("http://");
+      // Chỉ cho phép URL an toàn hợp lệ theo chuẩn Web API URL (http/https)
+      const rawUrl = typeof bk.read_url === "string" ? bk.read_url : "";
+      const isSafeUrl = this.isValidSafeUrl(rawUrl);
 
       const card = document.createElement("div");
       card.className = "book-card";
