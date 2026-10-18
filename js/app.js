@@ -24,20 +24,19 @@ class LidoApp {
     this.renderVideos();
     this.renderBooks();
     this.renderDonateSection();
+    this.renderHealthDisclaimer();
     this.initMiniPlayer();
   }
 
   async loadData() {
     try {
-      const local = localStorage.getItem("lido_site_data");
-      if (local) {
-        this.siteData = JSON.parse(local);
-      } else {
-        const res = await fetch("data/site_data.json");
-        this.siteData = await res.json();
-      }
+      // Ưu tiên nạp dữ liệu chính thống mới nhất từ mạng (tránh tình trạng admin sửa nháp làm lệch màn hình khách)
+      const res = await fetch("data/site_data.json?v=" + Date.now());
+      this.siteData = await res.json();
     } catch (err) {
-      console.error("LidoApp: Không thể tải site_data.json", err);
+      console.warn("LidoApp: Không thể tải site_data.json từ mạng, thử nạp bản lưu...", err);
+      const local = localStorage.getItem("lido_site_data");
+      if (local) this.siteData = JSON.parse(local);
     }
   }
 
@@ -48,17 +47,31 @@ class LidoApp {
     const heroSlogan = document.getElementById("hero-slogan");
     if (heroSlogan) {
       const cleanSlogan = cfg.hero_slogan.replace('Về Miền Tỉnh Thức — ', '');
-      heroSlogan.innerHTML = `Về Miền Tỉnh Thức — <span>${cleanSlogan || 'Trở Về Cội Nguồn Lời Phật Dạy'}</span>`;
+      heroSlogan.innerHTML = `Về Miền Tỉnh Thức — <span>${this.escapeHtml(cleanSlogan) || 'Trở Về Cội Nguồn Lời Phật Dạy'}</span>`;
     }
 
     const heroSub = document.getElementById("hero-sub");
-    if (heroSub) heroSub.innerText = cfg.hero_sub || "";
+    if (heroSub) heroSub.textContent = cfg.hero_sub || "";
 
     const heroQuote = document.getElementById("hero-quote");
-    if (heroQuote) heroQuote.innerText = `"${cfg.quote || ''}"`;
+    if (heroQuote) heroQuote.textContent = `"${cfg.quote || ''}"`;
 
     const heroQuoteSource = document.getElementById("hero-quote-source");
-    if (heroQuoteSource) heroQuoteSource.innerText = `— ${cfg.quote_source || ''}`;
+    if (heroQuoteSource) heroQuoteSource.textContent = `— ${cfg.quote_source || ''}`;
+  }
+
+  renderHealthDisclaimer() {
+    const textEl = document.getElementById("health-disclaimer-text");
+    if (textEl && this.siteData?.site_config?.health_disclaimer) {
+      textEl.textContent = this.siteData.site_config.health_disclaimer;
+    }
+  }
+
+  escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>"']/g, function(m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+    });
   }
 
   renderVideos() {
