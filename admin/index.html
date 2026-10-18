@@ -144,6 +144,17 @@
   <script>
     let siteData = {};
 
+    function isValidSiteData(data) {
+      return (
+        typeof data === "object" &&
+        data !== null &&
+        Array.isArray(data.books) &&
+        Array.isArray(data.featured_videos) &&
+        typeof data.site_config === "object" &&
+        data.site_config !== null
+      );
+    }
+
     async function loadData() {
       try {
         const res = await fetch("../data/site_data.json?v=" + Date.now());
@@ -151,16 +162,24 @@
           throw new Error(`HTTP ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        if (typeof data === "object" && data !== null) {
+        if (isValidSiteData(data)) {
           siteData = data;
+        } else {
+          console.warn("Dữ liệu mạng không đạt chuẩn schema.");
         }
         
-        // Nạp thêm từ localStorage nếu người dùng vừa sửa nháp
+        // Nạp thêm từ localStorage nếu người dùng vừa sửa nháp và hợp lệ schema
         const local = localStorage.getItem("lido_site_data_draft");
         if (local) {
-          const parsed = JSON.parse(local);
-          if (typeof parsed === "object" && parsed !== null) {
-            siteData = parsed;
+          try {
+            const parsed = JSON.parse(local);
+            if (isValidSiteData(parsed)) {
+              siteData = parsed;
+            } else {
+              console.warn("Bản nháp localStorage sai cấu trúc, bỏ qua.");
+            }
+          } catch (jsonErr) {
+            console.error("Lỗi phân tích localStorage nháp:", jsonErr);
           }
         }
       } catch (e) {
@@ -195,8 +214,8 @@
         metaDiv.style.color = "var(--text-muted)";
         metaDiv.style.marginTop = "0.2rem";
 
-        const cleanYtId = (v.youtube_id || "").replace(/[^a-zA-Z0-9_-]/g, "");
-        metaDiv.textContent = `YouTube ID: ${cleanYtId} | Thời lượng: ${v.duration || ""} | Thể loại: ${v.category || ""}`;
+        const ytId = /^[a-zA-Z0-9_-]{11}$/.test(v.youtube_id || "") ? v.youtube_id : "[ID không hợp lệ]";
+        metaDiv.textContent = `YouTube ID: ${ytId} | Thời lượng: ${v.duration || ""} | Thể loại: ${v.category || ""}`;
 
         textCol.appendChild(titleDiv);
         textCol.appendChild(metaDiv);
@@ -277,14 +296,23 @@
     function addVideoPrompt() {
       const title = prompt("Nhập tiêu đề Video:");
       if (!title) return;
-      const ytId = prompt("Nhập mã YouTube ID (ví dụ: 94IPu4HPcUc):", "94IPu4HPcUc");
+      const ytId = prompt("Nhập mã YouTube ID (đúng 11 ký tự, ví dụ: 94IPu4HPcUc):", "94IPu4HPcUc");
       if (!ytId) return;
+
+      // Xác thực nghiêm ngặt định dạng YouTube ID (11 ký tự gồm chữ, số, gạch dưới, gạch ngang)
+      const ytRegex = /^[a-zA-Z0-9_-]{11}$/;
+      if (!ytRegex.test(ytId.trim())) {
+        alert("Lỗi: Mã YouTube ID không hợp lệ! YouTube ID phải gồm đúng 11 ký tự (chữ hoa, chữ thường, số, dấu '-' hoặc '_').");
+        return;
+      }
+      const validYtId = ytId.trim();
+
       const duration = prompt("Thời lượng video:", "3 Giờ");
 
       siteData.featured_videos.push({
         id: "vid-" + Date.now(),
         title,
-        youtube_id: ytId,
+        youtube_id: validYtId,
         views: "Kênh Nhạc Thiền @1995lido",
         duration: duration || "3 Giờ",
         category: "Nhạc Thiền Định Tâm",

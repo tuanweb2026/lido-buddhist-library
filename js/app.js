@@ -98,9 +98,16 @@ class LidoApp {
     if (!vGrid || !this.siteData?.featured_videos) return;
 
     vGrid.innerHTML = "";
+    const ytRegex = /^[a-zA-Z0-9_-]{11}$/;
+
     this.siteData.featured_videos.forEach(v => {
-      // Validate YouTube ID (chỉ cho phép ký tự alphanumeric, gạch dưới, gạch ngang)
-      const cleanYtId = (v.youtube_id || "").replace(/[^a-zA-Z0-9_-]/g, "");
+      // Validate YouTube ID nghiêm ngặt (đúng 11 ký tự chuẩn định dạng YouTube)
+      const rawYtId = (v.youtube_id || "").trim();
+      if (!ytRegex.test(rawYtId)) {
+        console.warn("LidoApp: Bỏ qua video có YouTube ID không hợp lệ:", v);
+        return;
+      }
+      const cleanYtId = rawYtId;
       
       const card = document.createElement("div");
       card.className = "video-card";
@@ -271,7 +278,12 @@ class LidoApp {
   }
 
   playInMiniPlayer(ytId, title) {
-    this.activeVideoId = ytId;
+    const cleanYtId = (ytId || "").trim();
+    if (!/^[a-zA-Z0-9_-]{11}$/.test(cleanYtId)) {
+      console.warn("LidoApp: YouTube ID không hợp lệ cho mini player:", ytId);
+      return;
+    }
+    this.activeVideoId = cleanYtId;
     const mini = document.getElementById("zen-mini-player");
     const pTitle = document.getElementById("mini-player-title");
     const pFrame = document.getElementById("mini-player-iframe");
@@ -280,7 +292,7 @@ class LidoApp {
     if (pTitle) pTitle.innerText = title;
     if (pStatus) pStatus.innerText = "Đang phát tần số 432Hz • Lido 1995";
     if (pFrame) {
-      pFrame.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&enablejsapi=1`;
+      pFrame.src = `https://www.youtube.com/embed/${cleanYtId}?autoplay=1&enablejsapi=1`;
       pFrame.style.display = "block";
     }
     if (mini) mini.style.borderColor = "var(--zen-gold)";
