@@ -30,13 +30,32 @@ class LidoApp {
 
   async loadData() {
     try {
-      // Ưu tiên nạp dữ liệu chính thống mới nhất từ mạng (tránh tình trạng admin sửa nháp làm lệch màn hình khách)
+      // Ưu tiên nạp dữ liệu chính thống mới nhất từ mạng kèm kiểm tra HTTP status
       const res = await fetch("data/site_data.json?v=" + Date.now());
-      this.siteData = await res.json();
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} ${res.statusText}`);
+      }
+      const data = await res.json();
+      
+      // Kiểm tra tính toàn vẹn cấu trúc dữ liệu JSON
+      if (typeof data === "object" && data !== null && Array.isArray(data.books) && Array.isArray(data.featured_videos)) {
+        this.siteData = data;
+      } else {
+        throw new Error("Dữ liệu JSON tải về không đúng cấu trúc quy định.");
+      }
     } catch (err) {
-      console.warn("LidoApp: Không thể tải site_data.json từ mạng, thử nạp bản lưu...", err);
-      const local = localStorage.getItem("lido_site_data");
-      if (local) this.siteData = JSON.parse(local);
+      console.warn("LidoApp: Không thể tải site_data.json hợp lệ từ mạng, thử nạp bản lưu...", err);
+      try {
+        const local = localStorage.getItem("lido_site_data");
+        if (local) {
+          const parsedLocal = JSON.parse(local);
+          if (typeof parsedLocal === "object" && parsedLocal !== null) {
+            this.siteData = parsedLocal;
+          }
+        }
+      } catch (parseErr) {
+        console.error("LidoApp: Lỗi phân tích dữ liệu localStorage:", parseErr);
+      }
     }
   }
 

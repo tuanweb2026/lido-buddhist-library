@@ -146,13 +146,22 @@
 
     async function loadData() {
       try {
-        const res = await fetch("../data/site_data.json");
-        siteData = await res.json();
+        const res = await fetch("../data/site_data.json?v=" + Date.now());
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        }
+        const data = await res.json();
+        if (typeof data === "object" && data !== null) {
+          siteData = data;
+        }
         
         // Nạp thêm từ localStorage nếu người dùng vừa sửa nháp
         const local = localStorage.getItem("lido_site_data_draft");
         if (local) {
-          siteData = JSON.parse(local);
+          const parsed = JSON.parse(local);
+          if (typeof parsed === "object" && parsed !== null) {
+            siteData = parsed;
+          }
         }
       } catch (e) {
         console.error("Không thể đọc data", e);
@@ -167,33 +176,89 @@
       document.getElementById("cfg-acc-number").value = b.account_number || "";
       document.getElementById("cfg-transfer-syntax").value = b.transfer_syntax || "";
 
-      // Videos
+      // Videos (Safe DOM manipulation - anti XSS)
       const vCont = document.getElementById("video-list");
-      vCont.innerHTML = (siteData.featured_videos || []).map((v, i) => `
-        <div class="item-card">
-          <div>
-            <div style="font-weight: 600; font-size: 0.95rem;">${v.title}</div>
-            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
-              YouTube ID: <span style="color: var(--accent); font-weight: 600;">${v.youtube_id}</span> | Thời lượng: ${v.duration} | ${v.category}
-            </div>
-          </div>
-          <button class="btn" style="background: var(--danger); padding: 0.35rem 0.75rem;" onclick="deleteVideo(${i})">Xóa</button>
-        </div>
-      `).join("");
+      vCont.innerHTML = "";
+      (siteData.featured_videos || []).forEach((v, i) => {
+        const itemCard = document.createElement("div");
+        itemCard.className = "item-card";
 
-      // Books
+        const textCol = document.createElement("div");
+
+        const titleDiv = document.createElement("div");
+        titleDiv.style.fontWeight = "600";
+        titleDiv.style.fontSize = "0.95rem";
+        titleDiv.textContent = v.title || "";
+
+        const metaDiv = document.createElement("div");
+        metaDiv.style.fontSize = "0.78rem";
+        metaDiv.style.color = "var(--text-muted)";
+        metaDiv.style.marginTop = "0.2rem";
+
+        const cleanYtId = (v.youtube_id || "").replace(/[^a-zA-Z0-9_-]/g, "");
+        metaDiv.textContent = `YouTube ID: ${cleanYtId} | Thời lượng: ${v.duration || ""} | Thể loại: ${v.category || ""}`;
+
+        textCol.appendChild(titleDiv);
+        textCol.appendChild(metaDiv);
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "btn";
+        delBtn.style.background = "var(--danger)";
+        delBtn.style.padding = "0.35rem 0.75rem";
+        delBtn.textContent = "Xóa";
+        delBtn.addEventListener("click", () => deleteVideo(i));
+
+        itemCard.appendChild(textCol);
+        itemCard.appendChild(delBtn);
+        vCont.appendChild(itemCard);
+      });
+
+      // Books (Safe DOM manipulation - anti XSS)
       const bCont = document.getElementById("book-list");
-      bCont.innerHTML = (siteData.books || []).map((bk, i) => `
-        <div class="item-card">
-          <div>
-            <div style="font-weight: 600; font-size: 0.95rem;">${bk.title}</div>
-            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
-              Tác giả: <b>${bk.author}</b> • Dịch giả: <i>${bk.translator}</i> | <span class="badge">${bk.badge || 'Kinh Điển'}</span>
-            </div>
-          </div>
-          <button class="btn" style="background: var(--danger); padding: 0.35rem 0.75rem;" onclick="deleteBook(${i})">Xóa</button>
-        </div>
-      `).join("");
+      bCont.innerHTML = "";
+      (siteData.books || []).forEach((bk, i) => {
+        const itemCard = document.createElement("div");
+        itemCard.className = "item-card";
+
+        const textCol = document.createElement("div");
+
+        const titleDiv = document.createElement("div");
+        titleDiv.style.fontWeight = "600";
+        titleDiv.style.fontSize = "0.95rem";
+        titleDiv.textContent = bk.title || "";
+
+        const metaDiv = document.createElement("div");
+        metaDiv.style.fontSize = "0.78rem";
+        metaDiv.style.color = "var(--text-muted)";
+        metaDiv.style.marginTop = "0.2rem";
+
+        const authorText = document.createTextNode(`Tác giả: ${bk.author || ""} • Dịch giả: `);
+        const transItalic = document.createElement("i");
+        transItalic.textContent = bk.translator || "";
+        const divider = document.createTextNode(" | ");
+        const badgeSpan = document.createElement("span");
+        badgeSpan.className = "badge";
+        badgeSpan.textContent = bk.badge || "Kinh Điển";
+
+        metaDiv.appendChild(authorText);
+        metaDiv.appendChild(transItalic);
+        metaDiv.appendChild(divider);
+        metaDiv.appendChild(badgeSpan);
+
+        textCol.appendChild(titleDiv);
+        textCol.appendChild(metaDiv);
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "btn";
+        delBtn.style.background = "var(--danger)";
+        delBtn.style.padding = "0.35rem 0.75rem";
+        delBtn.textContent = "Xóa";
+        delBtn.addEventListener("click", () => deleteBook(i));
+
+        itemCard.appendChild(textCol);
+        itemCard.appendChild(delBtn);
+        bCont.appendChild(itemCard);
+      });
     }
 
     function saveBankConfig() {
