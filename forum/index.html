@@ -3,54 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIDO — Đạo Tràng Trực Tuyến &amp; Diễn Đàn Pháp Đàm</title>
+  <title>LIDO — Đạo Tràng &amp; Diễn Đàn Pháp Đàm (Bản Thử Nghiệm)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FAF7F2;
+      --bg: #FBF9F5;
       --card: #FFFFFF;
-      --border: #EAE3D9;
-      --text: #2D2A26;
-      --text-muted: #6B655F;
-      --terracotta: #C05A3E;
+      --border: #E8E1D5;
+      --text: #2D2824;
+      --text-muted: #736B63;
+      --terracotta: #B85032;
+      --gold: #C5892D;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 3rem; }
-    header { background: #fff; border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-    .post-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-    .form-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 3.5rem; line-height: 1.7; }
+    header { background: #fff; border-bottom: 1px solid var(--border); padding: 1.15rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.25rem; }
+    
+    .demo-notice {
+      background: #FFFDF7;
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      padding: 1.15rem 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .demo-notice b { color: #925C15; }
+
+    .post-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; margin-bottom: 2.25rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    .form-group { margin-bottom: 1.15rem; display: flex; flex-direction: column; gap: 0.35rem; }
     label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-    input, textarea { border: 1px solid var(--border); padding: 0.6rem; border-radius: 6px; font-size: 0.9rem; background: #FFFDF9; }
-    .btn { background: var(--terracotta); color: #fff; border: none; padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-    .btn:hover { background: #A8482E; }
-    .topic-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; transition: transform 0.15s; }
-    .topic-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.03); }
-    .topic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-    .topic-author { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.4rem; color: var(--terracotta); }
-    .topic-time { font-size: 0.75rem; color: var(--text-muted); }
-    .topic-title { font-family: 'Merriweather', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; color: #1e1b18; }
-    .topic-content { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
+    input, textarea { border: 1px solid var(--border); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.95rem; background: #FFFDFB; }
+    input:focus, textarea:focus { outline: none; border-color: var(--terracotta); }
+    .btn { background: var(--terracotta); color: #fff; border: none; padding: 0.65rem 1.4rem; border-radius: 9999px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    
+    .topic-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .topic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; }
+    .topic-author { font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.4rem; color: var(--terracotta); }
+    .topic-time { font-size: 0.78rem; color: var(--text-muted); }
+    .topic-title { font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1E1B18; }
+    .topic-content { font-size: 0.92rem; color: var(--text); line-height: 1.7; }
+    .badge-demo { font-size: 0.7rem; background: #E2E8F0; color: #475569; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; margin-left: 0.5rem; }
   </style>
 </head>
 <body>
   <header>
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <span style="font-size: 1.5rem;">🪷</span>
+    <div style="display: flex; align-items: center; gap: 0.65rem;">
+      <span style="font-size: 1.6rem;">🪷</span>
       <div>
-        <div style="font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.2rem;">LIDO — Diễn Đàn Pháp Đàm</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">Chia sẻ kinh nghiệm tu học &amp; thực hành chánh niệm</div>
+        <div style="font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.25rem;">LIDO — Đạo Tràng Pháp Đàm</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Không gian chia sẻ kinh nghiệm tu học &amp; chánh niệm</div>
       </div>
     </div>
-    <a href="../index.html" style="text-decoration: none; font-size: 0.85rem; font-weight: 600; color: var(--terracotta);">← Quay lại Trang Chủ</a>
+    <a href="../index.html" style="text-decoration: none; font-size: 0.88rem; font-weight: 600; color: var(--terracotta);">← Quay lại Trang Chủ</a>
   </header>
 
   <div class="container">
+    <!-- Minh bạch tính năng Diễn Đàn -->
+    <div class="demo-notice">
+      <b>ℹ️ Thông Báo Về Diễn Đàn Trực Tuyến:</b>
+      Hiện tại website đang vận hành dưới dạng trang tĩnh độc lập (0 VND). Tính năng gửi bài thảo luận bên dưới đang hoạt động ở chế độ <b>Thử nghiệm cục bộ (Local Preview)</b> trên trình duyệt của bạn. Để bài viết có thể hiển thị cho cộng đồng toàn cầu, hệ thống sẽ được tích hợp cơ sở dữ liệu đám mây (Cloud Database) trong giai đoạn tiếp theo.
+    </div>
+
     <!-- Gửi bài viết mới -->
     <div class="post-box">
-      <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1rem; font-size: 1.2rem; color: var(--terracotta);">✍️ Đặt Câu Hỏi / Chia Sẻ Chiêm Nghiệm</h3>
+      <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1.15rem; font-size: 1.25rem; color: var(--terracotta);">✍️ Gửi Lời Chia Sẻ Chiêm Nghiệm</h3>
       <div class="form-group">
         <label>Pháp danh / Tên của bạn:</label>
         <input type="text" id="post-author" placeholder="Ví dụ: Đạo hữu Minh Tâm">
@@ -63,39 +85,51 @@
         <label>Nội dung chia sẻ hoặc nghi vấn Phật pháp:</label>
         <textarea id="post-content" rows="4" placeholder="Viết chia sẻ với tâm thái hòa ái, xây dựng..."></textarea>
       </div>
-      <button class="btn" onclick="submitPost()">Gửi Bài Thảo Luận</button>
+      <button class="btn" onclick="submitPost()">Gửi Bài Thảo Luận (Lưu Cục Bộ)</button>
     </div>
 
     <!-- Danh sách chủ đề -->
-    <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1rem; font-size: 1.3rem;">🌿 Các Chủ Đề Đang Đàm Luận</h3>
+    <h3 style="font-family: 'Merriweather', serif; margin-bottom: 1.25rem; font-size: 1.35rem;">🌿 Các Chủ Đề Đàm Luận Tiêu Biểu</h3>
     <div id="topics-list"></div>
   </div>
 
   <script>
-    let siteData = {};
+    let forumTopics = [];
 
     async function loadTopics() {
-      const local = localStorage.getItem("lido_site_data");
-      if (local) {
-        siteData = JSON.parse(local);
-      } else {
+      try {
         const res = await fetch("../data/site_data.json");
-        siteData = await res.json();
+        const data = await res.json();
+        forumTopics = data.forum_topics || [];
+        
+        // Nạp thêm bài viết người dùng tự gửi thử trên máy
+        const localPosts = localStorage.getItem("lido_forum_user_posts");
+        if (localPosts) {
+          const userPosts = JSON.parse(localPosts);
+          forumTopics = [...userPosts, ...forumTopics];
+        }
+      } catch (e) {
+        console.error("Lỗi nạp topics", e);
       }
       renderTopics();
     }
 
     function renderTopics() {
       const cont = document.getElementById("topics-list");
-      const list = siteData.forum_topics || [];
-      if (list.length === 0) {
-        cont.innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem;">Chưa có bài viết nào. Hãy là người đầu tiên gieo duyên!</div>`;
+      if (!cont) return;
+
+      if (forumTopics.length === 0) {
+        cont.innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem;">Chưa có bài viết nào.</div>`;
         return;
       }
-      cont.innerHTML = list.map(t => `
+
+      cont.innerHTML = forumTopics.map(t => `
         <div class="topic-card">
           <div class="topic-header">
-            <div class="topic-author"><span>${t.avatar || '🪷'}</span> ${t.author}</div>
+            <div class="topic-author">
+              <span>${t.avatar || '🪷'}</span> ${t.author}
+              ${t.is_demo ? '<span class="badge-demo">Bài Viết Minh Họa</span>' : ''}
+            </div>
             <div class="topic-time">${t.time}</div>
           </div>
           <div class="topic-title">${t.title}</div>
@@ -110,26 +144,32 @@
       const content = document.getElementById("post-content").value.trim();
 
       if (!author || !title || !content) {
-        return alert("Vui lòng điền đầy đủ Tên, Tiêu đề và Nội dung bài viết.");
+        alert("Vui lòng điền đầy đủ Tên, Tiêu đề và Nội dung bài viết!");
+        return;
       }
 
-      if (!siteData.forum_topics) siteData.forum_topics = [];
-      siteData.forum_topics.unshift({
+      const newPost = {
         id: "post-" + Date.now(),
-        author,
+        author: author,
         avatar: "🪷",
-        title,
-        content,
+        title: title,
+        content: content,
         time: "Vừa xong",
-        replies_count: 0
-      });
+        is_demo: false
+      };
 
-      localStorage.setItem("lido_site_data", JSON.stringify(siteData));
+      const localPosts = JSON.parse(localStorage.getItem("lido_forum_user_posts") || "[]");
+      localPosts.unshift(newPost);
+      localStorage.setItem("lido_forum_user_posts", JSON.stringify(localPosts));
+
+      forumTopics.unshift(newPost);
+      renderTopics();
+
       document.getElementById("post-author").value = "";
       document.getElementById("post-title").value = "";
       document.getElementById("post-content").value = "";
-      alert("Đã đăng bài thảo luận thành công!");
-      renderTopics();
+
+      alert("Bài thảo luận của bạn đã được lưu tạm trên trình duyệt của bạn (Local Preview)!");
     }
 
     loadTopics();

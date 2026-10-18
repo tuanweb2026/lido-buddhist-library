@@ -1,12 +1,13 @@
 {
   "site_config": {
     "site_title": "LIDO — Miền Cực Lạc & Đại Tạng Phật Giáo Gốc",
-    "meta_title": "LIDO — Tủ Sách Phật Giáo Nguyên Thủy & Nhạc Thiền 432Hz | Đạo Phật Gốc",
-    "meta_description": "Trọn bộ 5 Bộ Kinh Tạng Nikāya & Tủ sách Trưởng lão Thích Thông Lạc kết hợp Nhạc thiền 432Hz định tâm, chữa lành trầm cảm, buông xả muộn phiền.",
+    "meta_title": "LIDO — Tủ Sách Phật Giáo Nguyên Thủy & Nhạc Thiền Thư Giãn 432Hz | Đạo Phật Gốc",
+    "meta_description": "Trọn bộ 5 Bộ Kinh Tạng Nikāya & Tủ sách Trưởng lão Thích Thông Lạc kết hợp Nhạc thiền 432Hz hỗ trợ thư giãn, định tâm, buông xả muộn phiền.",
     "hero_slogan": "Về Miền Tỉnh Thức — Trở Về Nguồn Cội Lời Phật Dạy",
-    "hero_sub": "Hành trình trở về Chánh Pháp nguyên bản không mê tín: Khám phá trọn bộ Đại Tạng Kinh Nikāya & Giáo trình đạo đức làm chủ Sinh - Già - Bệnh - Chết, hòa quyện trong làn sóng nhạc thiền định tâm 432Hz phụng sự cộng đồng.",
+    "hero_sub": "Hành trình trở về Chánh Pháp nguyên bản không mê tín: Khám phá trọn bộ Đại Tạng Kinh Nikāya & Giáo trình đạo đức làm chủ thân tâm, hòa quyện trong làn sóng nhạc thiền thư giãn định tâm phụng sự cộng đồng.",
     "quote": "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình.",
     "quote_source": "Kinh Pháp Cú (Dhammapada), Kệ số 2 — HT. Thích Minh Châu dịch",
+    "health_disclaimer": "Lưu ý: Các tác phẩm âm nhạc tần số 432Hz mang tính chất hỗ trợ thư giãn, nuôi dưỡng sự tĩnh lặng và định tâm khi hành thiền; không thay thế cho các chẩn đoán, tư vấn hoặc phác đồ điều trị y khoa chuyên nghiệp.",
     "donate_bank": {
       "bank_name": "BIDV — Ngân Hàng TMCP Đầu Tư & Phát Triển Việt Nam",
       "account_name": "NGUYEN ANH TUAN",
@@ -20,35 +21,35 @@
       "id": "vid-01",
       "title": "Nhạc Thiền Bồ Đề Nguyệt Ảnh — 100 Lời Phật Dạy Về Tham Sân Si (Kinh Nikāya)",
       "youtube_id": "94IPu4HPcUc",
-      "views": "128,500+ lượt nghe",
+      "views": "100k+ lượt nghe",
       "duration": "3 Giờ",
-      "category": "Thiền Định & Chữa Lành",
-      "desc": "Bản hòa tấu chuông xoay Tây Tạng và sáo trúc tĩnh lặng tần số 432Hz, giải tỏa căng thẳng lo âu, soi rọi 100 lời vàng răn dạy về Tham Sân Si trong Kinh Tạng Nikāya."
+      "category": "Thiền Định & Thư Giãn",
+      "desc": "Bản hòa tấu chuông xoay Tây Tạng và sáo trúc tĩnh lặng, giúp giải tỏa căng thẳng lo âu và soi rọi 100 lời vàng răn dạy về Tham Sân Si trong Kinh Tạng Nikāya."
     },
     {
       "id": "vid-02",
       "title": "Nhạc Thiền Hòa Tấu Vô Ưu Tĩnh Lặng — 50 Lời Phật Dạy Về Buông Xả Giúp Tâm Tĩnh An Lạc",
       "youtube_id": "IR25mm93aCo",
-      "views": "85,600+ lượt nghe",
+      "views": "Kênh @1995lido",
       "duration": "2 Giờ 30 Phút",
       "category": "Buông Xả & Tĩnh Lặng",
-      "desc": "Giai điệu thanh thoát đưa tâm thức rời xa bão giông cuộc đời, lắng nghe 50 lời Phật dạy về buông xả chấp niệm để tìm lại an nhiên tự tại."
+      "desc": "Giai điệu thanh thoát hỗ trợ định tâm, lắng nghe 50 lời Phật dạy về buông xả chấp niệm để tìm lại sự an nhiên tự tại trong cuộc sống."
     },
     {
       "id": "vid-03",
       "title": "Nhạc Thiền Tây Tạng 1 Giờ — Tiếng Hát Chữa Lành Thân Tâm, Tẩy Sạch Phiền Não (432Hz)",
       "youtube_id": "TucEOKw7enY",
-      "views": "92,400+ lượt nghe",
+      "views": "Kênh @1995lido",
       "duration": "1 Giờ",
-      "category": "Tần Số Chữa Lành 432Hz",
-      "desc": "Tần số năng lượng cao tẩy rửa năng lượng tiêu cực, xoa dịu thần kinh, hỗ trợ giấc ngủ sâu và tái tạo nguyên khí an lành."
+      "category": "Tần Số Thư Giãn 432Hz",
+      "desc": "Âm thanh thư giãn xoa dịu áp lực tinh thần, hỗ trợ giấc ngủ sâu và tái tạo năng lượng an lành cho thân tâm."
     }
   ],
   "categories": [
     { "id": "all", "name": "Tất Cả Kinh Sách" },
     { "id": "nikaya", "name": "5 Bộ Kinh Nikāya (Pāli)" },
     { "id": "thonglac", "name": "Trưởng Lão Thích Thông Lạc" },
-    { "id": "thien", "name": "Thiền Định & Làm Chủ Bệnh" }
+    { "id": "thien", "name": "Thiền Định & Làm Chủ Thân Tâm" }
   ],
   "books": [
     {
@@ -142,8 +143,8 @@
       "translator": "Tu Viện Chơn Như",
       "category": "thien",
       "category_label": "Thực Hành Giải Thoát",
-      "badge": "Bí Quyết Đẩy Lùi Bệnh",
-      "summary": "Phương pháp Định Niệm Hơi Thở và Thân Hành Niệm tác ý chuyển nghiệp, làm chủ cơn đau nhức, đẩy lui bệnh tật và an nhiên tự tại.",
+      "badge": "Phương Pháp Định Niệm",
+      "summary": "Phương pháp Định Niệm Hơi Thở và Thân Hành Niệm tác ý thanh tịnh, rèn luyện định lực làm chủ thân tâm trước quy luật sinh lão bệnh tử.",
       "read_url": "https://daophatgoc.com/phap-tu-cua-phat-lam-chu-sinh-gia-benh-chet/",
       "source_name": "Đạo Phật Gốc (daophatgoc.com)"
     },
@@ -175,21 +176,21 @@
   "forum_topics": [
     {
       "id": "post-01",
-      "author": "Đạo hữu An Nhiên",
+      "author": "Đạo hữu An Nhiên (Minh Họa)",
       "avatar": "🪷",
       "title": "Làm thế nào để giữ tâm không dao động khi công việc áp lực?",
-      "content": "Kính thưa quý đạo hữu, mỗi ngày nghe bản nhạc thiền 432Hz của Lido kết hợp đọc kinh Pháp Cú con thấy tâm dịu lại rất nhiều. Xin được học hỏi thêm kinh nghiệm quán niệm hơi thở khi ở văn phòng...",
-      "time": "Hôm nay lúc 14:20",
-      "replies_count": 5
+      "content": "Kính thưa quý đạo hữu, mỗi ngày nghe bản nhạc thiền của Lido kết hợp đọc kinh Pháp Cú con thấy tâm dịu lại rất nhiều. Xin được học hỏi thêm kinh nghiệm quán niệm hơi thở khi ở văn phòng...",
+      "time": "Bài mẫu minh họa",
+      "is_demo": true
     },
     {
       "id": "post-02",
-      "author": "Hành giả Tuệ Minh",
+      "author": "Hành giả Tuệ Minh (Minh Họa)",
       "avatar": "🙏",
       "title": "Hộ trì tủ sách LIDO — Cùng lan tỏa Chánh pháp vô giá",
-      "content": "Tri ân ban quản trị LIDO đã dày công xây dựng tủ sách Nguyên thủy liên kết Đại Tạng Nikāya và Trưởng lão Thích Thông Lạc. Mình vừa hoan hỷ gửi một chút tịnh tài hộ trì qua VietQR...",
-      "time": "Hôm qua lúc 21:05",
-      "replies_count": 12
+      "content": "Tri ân ban biên tập đã dày công tổng hợp tủ sách Nguyên thủy liên kết Đại Tạng Nikāya và Trưởng lão Thích Thông Lạc. Chúc dự án ngày càng lan tỏa...",
+      "time": "Bài mẫu minh họa",
+      "is_demo": true
     }
   ]
 }
