@@ -241,6 +241,18 @@ class LidoApp {
       const card = document.createElement("div");
       card.className = "book-card";
 
+      // Bìa sách nghệ thuật 3D minh họa (Visual Artwork)
+      if (bk.cover_image) {
+        const coverBox = document.createElement("div");
+        coverBox.className = "book-cover-banner";
+        const img = document.createElement("img");
+        img.src = bk.cover_image;
+        img.alt = bk.title || "Kinh Sách";
+        img.loading = "lazy";
+        coverBox.appendChild(img);
+        card.appendChild(coverBox);
+      }
+
       const top = document.createElement("div");
       top.className = "book-card-top";
 

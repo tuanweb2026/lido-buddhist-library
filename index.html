@@ -4,81 +4,768 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- High-End Professional SEO Meta Tags -->
   <title>LIDO — Đại Tạng Phật Giáo Nguyên Thủy &amp; Nhạc Thiền Thư Giãn 432Hz | Đạo Phật Gốc</title>
   <meta name="description" content="Trọn bộ 5 Bộ Đại Tạng Kinh Nikāya &amp; Tủ sách Trưởng lão Thích Thông Lạc kết hợp cùng suối nguồn âm nhạc thiền định 432Hz phụng sự cộng đồng phi thương mại 100%.">
-  <meta name="keywords" content="phật giáo nguyên thủy, đạo phật gốc, kinh nikaya, thích minh châu, thích thông lạc, đường về xứ phật, nhạc thiền 432hz, nhạc thiền thư giãn, định tâm, lido 1995, thiền vipassana">
-  <meta name="author" content="LIDO AI Software Factory &amp; Lido 1995">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-  <!-- Open Graph / Social Sharing (Absolute HTTPS URL) -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tuanweb2026.github.io/lido-buddhist-library/">
-  <meta property="og:title" content="LIDO — Đại Tạng Phật Giáo Nguyên Thủy &amp; Nhạc Thiền Thư Giãn 432Hz">
-  <meta property="og:description" content="Trở về cội nguồn lời Phật dạy: 5 Bộ Nikāya, tác phẩm Trưởng Lão Thích Thông Lạc cùng suối nguồn âm nhạc thiền định thư giãn 432Hz.">
-  <meta property="og:image" content="https://tuanweb2026.github.io/lido-buddhist-library/assets/lido_brand_cover.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LIDO — Đại Tạng Phật Giáo Nguyên Thủy &amp; Nhạc Thiền Thư Giãn 432Hz">
-  <meta name="twitter:description" content="Trở về cội nguồn lời Phật dạy: 5 Bộ Nikāya, tác phẩm Trưởng Lão Thích Thông Lạc cùng suối nguồn âm nhạc thiền định thư giãn 432Hz.">
-  <meta name="twitter:image" content="https://tuanweb2026.github.io/lido-buddhist-library/assets/lido_brand_cover.png">
-
-  <!-- Fonts & Icons -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Modular Production CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://tuanweb2026.github.io/lido-buddhist-library/#website",
-        "url": "https://tuanweb2026.github.io/lido-buddhist-library/",
-        "name": "LIDO — Đại Tạng Phật Giáo Nguyên Thủy",
-        "description": "Kho tàng kinh điển Nikāya và Nhạc thiền thư giãn định tâm",
-        "inLanguage": "vi-VN"
-      },
-      {
-        "@type": "Organization",
-        "name": "LIDO Buddhist Library & Zen Meditation",
-        "url": "https://tuanweb2026.github.io/lido-buddhist-library/",
-        "sameAs": [
-          "https://www.youtube.com/@1995lido",
-          "https://daophatgoc.com/"
-        ]
-      }
-    ]
+  <style>
+  :root {
+    --zen-bg: #0C100E;
+    --zen-surface: #141B18;
+    --zen-surface-card: #18221D;
+    --zen-border: rgba(229, 195, 120, 0.2);
+    --zen-border-hover: rgba(229, 195, 120, 0.55);
+    --zen-gold: #E5C378;
+    --zen-gold-glow: #F7E4B8;
+    --zen-terracotta: #C96846;
+    --zen-forest: #2E5A44;
+    --zen-text-main: #F4EFE6;
+    --zen-text-muted: #A3AFA7;
+    --zen-text-faint: #6A7770;
+    --shadow-3d: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 195, 120, 0.08);
+    --shadow-hover: 0 30px 65px rgba(0, 0, 0, 0.9), 0 0 45px rgba(229, 195, 120, 0.25);
   }
-  </script>
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: #0E1511;
+    color: var(--zen-text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Nền ánh sáng thiền định huyền ảo đa tầng (3D Celestial Sacred Aura) */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 50% 0%, rgba(229, 195, 120, 0.12) 0%, transparent 60%),
+      radial-gradient(circle at 10% 25%, rgba(46, 90, 68, 0.18) 0%, transparent 50%),
+      radial-gradient(circle at 90% 45%, rgba(200, 150, 62, 0.12) 0%, transparent 55%),
+      radial-gradient(circle at 20% 75%, rgba(46, 90, 68, 0.16) 0%, transparent 50%),
+      radial-gradient(circle at 80% 90%, rgba(229, 195, 120, 0.1) 0%, transparent 60%),
+      linear-gradient(180deg, #0B100D 0%, #111A15 35%, #0D1410 70%, #080D0A 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Lớp vân sương mù ánh sáng 3D huyền ảo */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(229, 195, 120, 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  .zen-container { width: min(1200px, calc(100% - 48px)); margin: auto; position: relative; z-index: 1; }
+
+  /* Ambient Top Bar */
+  .ambient-bar {
+    background: linear-gradient(90deg, #101713 0%, #17241D 50%, #101713 100%);
+    border-bottom: 1px solid var(--zen-border);
+    color: var(--zen-gold);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    font-weight: 600;
+    flex-wrap: wrap;
+  }
+  .pulse-indicator {
+    width: 8px;
+    height: 8px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10B981;
+    display: inline-block;
+  }
+  .visitor-counter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(229, 195, 120, 0.12);
+    border: 1px solid rgba(229, 195, 120, 0.35);
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #FFFDF9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  .visitor-counter-pill span.num {
+    color: var(--zen-gold);
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  /* Header */
+  .zen-header {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--zen-border);
+    background: rgba(12, 16, 14, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle, #2A3E31 0%, #131E17 100%);
+    border: 1px solid var(--zen-gold);
+    color: var(--zen-gold);
+    font-size: 24px;
+    box-shadow: 0 0 15px rgba(229, 195, 120, 0.25);
+  }
+  .brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    background: linear-gradient(135deg, #FFFDF8 0%, #E5C378 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand-sub {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--zen-text-muted);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #C3CFC7;
+  }
+  .nav-links a:hover { color: var(--zen-gold); }
+  .btn-primary {
+    background: linear-gradient(135deg, #B85B38 0%, #873E23 100%);
+    border: 1px solid rgba(229, 195, 120, 0.3);
+    color: #FFFFFF !important;
+    padding: 10px 22px;
+    border-radius: 99px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    box-shadow: 0 6px 18px rgba(184, 91, 56, 0.3);
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(184, 91, 56, 0.5);
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .badge-terracotta {
+    background: rgba(201, 104, 70, 0.18);
+    border: 1px solid var(--zen-terracotta);
+    color: #F7B59D;
+  }
+  .badge-gold {
+    background: rgba(229, 195, 120, 0.15);
+    border: 1px solid var(--zen-gold);
+    color: var(--zen-gold-glow);
+  }
+  .badge-forest {
+    background: rgba(46, 90, 68, 0.25);
+    border: 1px solid #448062;
+    color: #92D5B3;
+  }
+
+  /* Hero Section (Cinematic 3D Glow) */
+  .hero-section {
+    min-height: 640px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 90px 0 80px;
+    border-bottom: 1px solid var(--zen-border);
+    overflow: hidden;
+  }
+  .hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(180deg, rgba(12,16,14,0.7) 0%, rgba(12,16,14,0.92) 80%, rgba(12,16,14,1) 100%),
+      url('assets/zen_hero.jpg') center top / cover no-repeat;
+    filter: contrast(1.05) saturate(1.1);
+    transform: scale(1.02);
+    transition: transform 10s ease-out;
+  }
+  .hero-section:hover .hero-bg-layer {
+    transform: scale(1.04);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.15;
+    font-weight: 600;
+    margin: 1.5rem 0 1.25rem;
+  }
+  .hero-title span {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(32px, 4.2vw, 50px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5DFAB 50%, #C99D57 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+  .hero-desc {
+    font-size: 16.5px;
+    color: #D6E0D9;
+    max-width: 820px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.85;
+  }
+  .quote-card {
+    background: rgba(24, 34, 29, 0.75);
+    border: 1px solid var(--zen-border);
+    border-left: 5px solid var(--zen-gold);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-3d);
+  }
+  .quote-card p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #F8F3EA;
+    margin: 0;
+  }
+  .quote-author {
+    margin-top: 1rem;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--zen-gold);
+    font-weight: 700;
+  }
+
+  /* Section Headings */
+  .zen-section {
+    padding: 90px 0;
+    position: relative;
+  }
+  .zen-section-alt {
+    background: linear-gradient(180deg, #0C100E 0%, #121A15 50%, #0C100E 100%);
+    border-top: 1px solid var(--zen-border);
+    border-bottom: 1px solid var(--zen-border);
+  }
+  .section-head-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.8vw, 42px);
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+  .section-subheading {
+    color: var(--zen-text-muted);
+    font-size: 14.5px;
+    max-width: 680px;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* Video Grid 3D */
+  .video-grid-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 28px;
+  }
+  .video-card {
+    background: var(--zen-surface-card);
+    border: 1px solid var(--zen-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-3d);
+    transition: all 0.4s;
+    display: flex;
+    flex-direction: column;
+  }
+  .video-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--zen-gold);
+    box-shadow: var(--shadow-hover);
+  }
+  .video-frame {
+    position: relative;
+    padding-bottom: 56.25%;
+    background: #000;
+  }
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .video-info {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .video-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 12px;
+    color: var(--zen-gold);
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .video-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #FFFDF9;
+    line-height: 1.4;
+  }
+  .video-desc {
+    color: var(--zen-text-muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    flex-grow: 1;
+  }
+  .video-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.12);
+    padding-top: 14px;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--zen-border);
+    color: var(--zen-gold);
+    border-radius: 99px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover {
+    background: var(--zen-gold);
+    color: #121A15;
+  }
+  .link-external {
+    color: var(--zen-gold);
+    font-weight: 700;
+    font-size: 12.5px;
+  }
+
+  /* Filters */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--zen-border);
+    color: #B5C1B9;
+    padding: 10px 22px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--zen-forest);
+    border-color: var(--zen-gold);
+    color: #FFFDF8;
+    box-shadow: 0 4px 15px rgba(229, 195, 120, 0.2);
+  }
+
+  /* 3D BOOK CARDS */
+  .books-grid-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 28px;
+  }
+  .book-card {
+    background: var(--zen-surface-card);
+    border: 1px solid var(--zen-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-3d);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .book-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--zen-gold);
+    box-shadow: var(--shadow-hover);
+  }
+  .book-cover-banner {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background: #090D0B;
+  }
+  .book-cover-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book-card:hover .book-cover-banner img {
+    transform: scale(1.08);
+  }
+  .book-cover-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--zen-surface-card) 0%, rgba(20,27,24,0.3) 60%, transparent 100%);
+  }
+  .book-card-top {
+    padding: 20px 24px 10px;
+  }
+  .book-header-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .book-source-tag {
+    font-size: 11px;
+    color: var(--zen-text-faint);
+  }
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #FFFDF9;
+  }
+  .book-author {
+    font-size: 12.5px;
+    color: var(--zen-gold);
+    margin-bottom: 12px;
+  }
+  .book-summary {
+    font-size: 13px;
+    color: var(--zen-text-muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .book-card-bottom {
+    border-top: 1px dashed rgba(212, 175, 55, 0.15);
+    padding: 14px 24px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .book-action-btn {
+    color: var(--zen-gold);
+    font-weight: 700;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .book-action-btn:hover {
+    color: #FFFFFF;
+    text-shadow: 0 0 10px var(--zen-gold);
+    transform: translateX(3px);
+  }
+  .book-status-badge {
+    font-size: 11px;
+    color: var(--zen-text-faint);
+    font-style: italic;
+  }
+
+  /* KHU VỰC DONATE / HỘ TRÌ (3D SCENIC AMBIENT BACKDROP & LUXURY GLASS) */
+  #donate {
+    position: relative;
+    background: 
+      radial-gradient(circle at 50% 30%, rgba(229, 195, 120, 0.12) 0%, transparent 70%),
+      linear-gradient(180deg, #0D1511 0%, #0A0F0D 100%);
+    overflow: hidden;
+  }
+  #donate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('assets/donate_zen_bg.jpg') center center / cover no-repeat;
+    opacity: 0.18;
+    filter: blur(2px) brightness(0.9);
+    transform: scale(1.05);
+    pointer-events: none;
+    z-index: 0;
+  }
+  #donate::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(13, 21, 17, 0.5) 0%, #080D0A 90%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .donate-luxury-box {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(28, 39, 33, 0.82) 0%, rgba(17, 26, 21, 0.88) 100%);
+    border: 1px solid rgba(229, 195, 120, 0.35);
+    border-radius: 24px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 45px;
+    align-items: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 50px rgba(229, 195, 120, 0.12);
+    backdrop-filter: blur(16px);
+  }
+  .donate-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    margin: 0.5rem 0 1.25rem;
+    color: #FFFDF9;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+  }
+  .donate-desc {
+    font-size: 14.5px;
+    color: #E2EAE5;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+  .bank-meta-card {
+    background: rgba(12, 18, 15, 0.75);
+    border: 1px solid rgba(229, 195, 120, 0.3);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+  }
+  .bank-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(229, 195, 120, 0.1);
+    font-size: 13.5px;
+  }
+  .bank-row:last-child { border-bottom: none; }
+  .bank-row-label { color: #A6B4AC; }
+  .bank-row-val { font-weight: 700; color: #FFFDF9; }
+
+  /* VietQR Box */
+  .qr-box-inner {
+    background: linear-gradient(145deg, rgba(16, 24, 20, 0.85) 0%, rgba(10, 16, 13, 0.92) 100%);
+    border: 1px solid rgba(229, 195, 120, 0.35);
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(229, 195, 120, 0.15);
+    backdrop-filter: blur(12px);
+  }
+  .qr-poster-img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 195, 120, 0.2);
+  }
+
+  /* Medical Disclaimer Banner */
+  .zen-disclaimer-wrapper {
+    background: linear-gradient(180deg, #0A0F0D 0%, #070B09 100%);
+    border-top: 1px solid rgba(229, 195, 120, 0.15);
+    padding: 2.2rem 0;
+  }
+
+  /* Footer */
+  .zen-footer {
+    position: relative;
+    background: 
+      radial-gradient(circle at 50% 0%, rgba(229, 195, 120, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #080D0B 0%, #040705 100%);
+    border-top: 1px solid rgba(229, 195, 120, 0.2);
+    padding: 70px 0 40px;
+    color: #9DAAA1;
+    font-size: 13px;
+    overflow: hidden;
+  }
+  .zen-footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('assets/zen_ambient_bg.jpg') center bottom / cover no-repeat;
+    opacity: 0.08;
+    filter: blur(3px) brightness(0.8);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 40px;
+  }
+  .footer-col-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--zen-gold);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.08em;
+  }
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a:hover { color: var(--zen-gold); }
+
+  /* Persistent Mini Audio Player */
+  .zen-mini-player {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    background: rgba(20, 27, 24, 0.95);
+    border: 1px solid var(--zen-gold);
+    border-radius: 99px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 195, 120, 0.25);
+    backdrop-filter: blur(12px);
+  }
+  .player-disc {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #3D5A47 0%, #17241D 100%);
+    border: 1px solid var(--zen-gold);
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    animation: spin 10s linear infinite;
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  .local-badge-art {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 100;
+    background: rgba(20, 27, 24, 0.92);
+    border: 1px solid var(--zen-gold);
+    color: var(--zen-gold);
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  @media(max-width: 900px) {
+    .donate-luxury-box { grid-template-columns: 1fr; padding: 30px; }
+    .footer-columns { grid-template-columns: 1fr; }
+    .nav-links a:not(.btn-primary) { display: none; }
+    .video-grid-system, .books-grid-system { grid-template-columns: 1fr; }
+  }
+  </style>
 </head>
 <body>
 
-  <!-- Zen Top Ambient Notice -->
+  <!-- Zen Ambient Top Notice & Real-time Live Visitor Counter -->
   <div class="ambient-bar">
     <div style="display: flex; align-items: center; gap: 0.6rem;">
       <span class="pulse-indicator"></span>
       <span>Đang phát tần số thiền định thư giãn 432Hz</span>
     </div>
     <span style="opacity: 0.4;">•</span>
-    <a href="#nhacthien" style="color: var(--zen-gold); text-decoration: none; font-weight: 600;">🎧 Tuyển Tập Nhạc Thiền (@1995lido)</a>
+    <div class="visitor-counter-pill" title="Tổng số lượt độc giả hữu duyên ghé thăm (Lưu vĩnh viễn trên Cloud Database, không reset)">
+      <span>👥 Độc giả ghé thăm:</span>
+      <span class="num" id="lido-visitor-count">108</span>
+    </div>
     <span style="opacity: 0.4;">•</span>
-    <a href="#tusach" style="color: var(--zen-gold); text-decoration: none; font-weight: 600;">📖 Đại Tạng Kinh Nikāya</a>
+    <a href="#nhacthien" style="color: var(--zen-gold);">🎧 Nhạc Thiền (@1995lido)</a>
+    <span style="opacity: 0.4;">•</span>
+    <a href="#tusach" style="color: var(--zen-gold);">📖 Tủ Sách Nikāya</a>
+    <span style="opacity: 0.4;">•</span>
+    <a href="report/index.html" style="color: #34D399; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📊 Báo Cáo</a>
   </div>
 
   <!-- Header Navigation -->
   <header class="zen-header">
     <div class="zen-container nav-inner">
       <a href="#" class="brand-group">
-        <span class="logo-icon">🪷</span>
+        <div class="logo-icon">🪷</div>
         <div>
           <div class="brand-name">LIDO</div>
           <div class="brand-sub">Đại Tạng Nikāya &amp; Nhạc Thiền</div>
@@ -86,10 +773,10 @@
       </a>
       <nav>
         <ul class="nav-links">
-          <li><a href="#tusach" class="active">Tủ Sách Nikāya</a></li>
+          <li><a href="#tusach">Tủ Sách Nikāya</a></li>
           <li><a href="#nhacthien">Nhạc Thiền Định Tâm</a></li>
-          <li><a href="forum/index.html">Đạo Tràng Thảo Luận</a></li>
-          <li><a href="#donate" class="btn btn-primary">🙏 Hộ Trì Chánh Pháp</a></li>
+          <li><a href="https://tuanweb2026.github.io/lido-buddhist-library/forum/index.html" target="_blank">Đạo Tràng Thảo Luận</a></li>
+          <li><a href="#donate" class="btn-primary">🙏 Hộ Trì Chánh Pháp</a></li>
         </ul>
       </nav>
     </div>
@@ -97,6 +784,7 @@
 
   <!-- Hero Section -->
   <section class="hero-section">
+    <div class="hero-bg-layer"></div>
     <div class="zen-container">
       <div class="badge badge-terracotta" style="margin-bottom: 1.5rem;">
         <span>🪷</span> Phật Giáo Nguyên Thủy • Đạo Phật Gốc • Theravāda
@@ -130,7 +818,7 @@
             Các tác phẩm hòa tấu chọn lọc từ kênh YouTube @1995lido giúp tâm an tịnh, buông xả muộn phiền và trở về sự tĩnh lặng nội tại.
           </p>
         </div>
-        <a href="https://www.youtube.com/@1995lido?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: #CC0000;">
+        <a href="https://www.youtube.com/@1995lido?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: #CC0000; border-color: #CC0000; display: inline-flex; align-items: center; gap: 8px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           Đăng Ký Kênh Nhạc Thiền @1995lido
         </a>
@@ -169,7 +857,7 @@
     </div>
   </section>
 
-  <!-- KHU VỰC DONATE / HỘ TRÌ (Trọng tâm) -->
+  <!-- KHU VỰC DONATE / HỘ TRÌ (CHÍNH XÁC 100% NGUYÊN BẢN PRODUCTION) -->
   <section id="donate" class="zen-section zen-section-alt">
     <div class="zen-container">
       <div class="donate-luxury-box">
@@ -193,7 +881,7 @@
             </div>
             <div class="bank-row">
               <span class="bank-row-label">Số tài khoản:</span>
-              <span class="bank-row-val" style="color: var(--zen-terracotta); font-size: 1.15rem; letter-spacing: 0.05em;" id="donate-acc-number">1401132757</span>
+              <span class="bank-row-val" style="color: var(--zen-gold); font-size: 1.2rem; letter-spacing: 0.05em;" id="donate-acc-number">1401132757</span>
             </div>
             <div class="bank-row">
               <span class="bank-row-label">Cú pháp chuyển:</span>
@@ -209,7 +897,7 @@
         <!-- VietQR Box Động -->
         <div class="qr-box-inner">
           <img id="vietqr-img" class="qr-poster-img" alt="Mã VietQR BIDV Chuyển Khoản" src="assets/bidv_qr.png">
-          <div style="font-size: 0.95rem; font-weight: 700; color: var(--zen-text-main);">Quét Mã VietQR Chuyển Khoản</div>
+          <div style="font-size: 1rem; font-weight: 700; color: #FFFDF9;">Quét Mã VietQR Chuyển Khoản</div>
           <div style="font-size: 0.82rem; color: var(--zen-text-muted); margin-top: 0.35rem;">
             Đóng góp tùy tâm • Không ấn định số tiền • Kiểm tra kỹ tên người nhận trước khi chuyển
           </div>
@@ -219,9 +907,9 @@
   </section>
 
   <!-- Medical / Health Disclaimer Banner -->
-  <aside class="zen-disclaimer-wrapper" style="background: #F4EFE6; border-top: 1px solid var(--zen-card-border); padding: 1.5rem 0;">
+  <aside class="zen-disclaimer-wrapper">
     <div class="zen-container" style="text-align: center; max-width: 900px;">
-      <p id="health-disclaimer-text" style="font-size: 0.82rem; color: var(--zen-text-muted); line-height: 1.6; font-style: italic;">
+      <p id="health-disclaimer-text" style="font-size: 0.82rem; color: var(--zen-text-muted); line-height: 1.6; font-style: italic; margin: 0;">
         <!-- Render động từ site_data.json -->
       </p>
     </div>
@@ -243,9 +931,10 @@
         <div>
           <div class="footer-col-title">Kênh Lan Tỏa</div>
           <ul class="footer-links">
-            <li><a href="forum/index.html">💬 Đạo Tràng Thảo Luận</a></li>
+            <li><a href="https://tuanweb2026.github.io/lido-buddhist-library/forum/index.html" target="_blank">💬 Đạo Tràng Thảo Luận</a></li>
             <li><a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener noreferrer">🎬 Kênh YouTube Nhạc Thiền @1995lido</a></li>
             <li><a href="#donate">🙏 Hộ Trì Tủ Sách</a></li>
+            <li><a href="report/index.html" style="color: #34D399;">📊 Báo Cáo Thống Kê (Admin)</a></li>
           </ul>
         </div>
         <div>
@@ -255,27 +944,26 @@
           </p>
         </div>
       </div>
-      <div class="footer-copyright">
-        © 2026 LIDO AI Software Factory &amp; Lido 1995. Tất cả vì an lạc và giải thoát của muôn loài.
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 11px;">
+        <div>© 2026 LIDO Buddhist Library &amp; Meditation. Bản quyền thuộc về Chánh Pháp.</div>
+        <div style="color: var(--zen-gold);">Phụng sự phi lợi nhuận 0 đồng vì cộng đồng.</div>
       </div>
     </div>
   </footer>
 
-  <!-- Persistent Docked Mini Audio Player -->
+  <!-- Mini Player -->
   <div class="zen-mini-player" id="zen-mini-player">
-    <div class="player-icon" onclick="lidoApp.playInMiniPlayer('94IPu4HPcUc', 'Nhạc Thiền 432Hz Định Tâm')">
-      ▶
+    <div class="player-disc">🪷</div>
+    <div>
+      <div style="font-size: 12px; font-weight: 700; color: #FFFDF9;" id="mini-player-title">Nhạc Thiền Định Tâm</div>
+      <div style="font-size: 10px; color: var(--zen-gold);" id="mini-player-status">Đang phát tần số 432Hz • Lido 1995</div>
     </div>
-    <div class="player-info">
-      <div class="player-title" id="mini-player-title">Nhạc Thiền Bồ Đề Nguyệt Ảnh</div>
-      <div class="player-status" id="mini-player-status">Tần số thư giãn định tâm 432Hz</div>
-    </div>
-    <div style="display: none;">
-      <iframe id="mini-player-iframe" width="1" height="1" allow="autoplay"></iframe>
-    </div>
+    <div id="mini-player-iframe" style="display: none;"></div>
   </div>
 
-  <!-- Modular Production JS Controller -->
+  <div class="local-badge-art">● LIVE 3D PRODUCTION · Đạo Phật Gốc</div>
+
   <script src="js/app.js"></script>
+  <script src="js/tracker.js"></script>
 </body>
 </html>

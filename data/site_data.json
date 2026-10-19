@@ -46,10 +46,22 @@
     }
   ],
   "categories": [
-    { "id": "all", "name": "Tất Cả Kinh Sách" },
-    { "id": "nikaya", "name": "5 Bộ Kinh Nikāya (Pāli)" },
-    { "id": "thonglac", "name": "Trưởng Lão Thích Thông Lạc" },
-    { "id": "thien", "name": "Thiền Định & Làm Chủ Thân Tâm" }
+    {
+      "id": "all",
+      "name": "Tất Cả Kinh Sách"
+    },
+    {
+      "id": "nikaya",
+      "name": "5 Bộ Kinh Nikāya (Pāli)"
+    },
+    {
+      "id": "thonglac",
+      "name": "Trưởng Lão Thích Thông Lạc"
+    },
+    {
+      "id": "thien",
+      "name": "Thiền Định & Làm Chủ Thân Tâm"
+    }
   ],
   "books": [
     {
@@ -62,7 +74,8 @@
       "badge": "Đại Tạng Gốc",
       "summary": "152 bài kinh cốt tủy, ngọn đuốc sáng rọi cho hành giả thực hành Giới - Định - Tuệ, phá vỡ vô minh và lậu hoặc.",
       "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-trung-bo/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_trungbo.jpg"
     },
     {
       "id": "bk-truongbo",
@@ -74,7 +87,8 @@
       "badge": "Đại Tạng Gốc",
       "summary": "34 bài kinh dài đồ sộ ghi chép tường tận cuộc đời hóa độ, giới luật căn bản và những lời di huấn tối hậu trước khi Đức Phật nhập Niết-bàn.",
       "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-truong-bo/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_truongbo.jpg"
     },
     {
       "id": "bk-tuongung",
@@ -86,7 +100,8 @@
       "badge": "Đại Tạng Gốc",
       "summary": "Tập hợp các bài kinh liên kết theo từng chuyên đề then chốt: Ngũ Uẩn, Thập Nhị Duyên Khởi, Tứ Diệu Đế và Bát Chánh Đạo.",
       "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tuong-ung-bo/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_tuongung.jpg"
     },
     {
       "id": "bk-tangchi",
@@ -98,7 +113,8 @@
       "badge": "Đại Tạng Gốc",
       "summary": "Hàng ngàn pháp thoại thực tế được xếp theo pháp số (từ một pháp đến mười một pháp), cẩm nang sống tỉnh giác của người cư sĩ.",
       "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tang-chi-bo/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_tangchi.jpg"
     },
     {
       "id": "bk-tieubo",
@@ -110,7 +126,8 @@
       "badge": "Đại Tạng Gốc",
       "summary": "Bao gồm Kinh Pháp Cú, Phật Tự Thuyết, Phật Ngôn, Kinh Tập... chứa đựng những vần thơ Phật giáo trác tuyệt rung động tâm can.",
       "read_url": "https://daophatgoc.com/kinh-nikaya/kinh-tieu-bo/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_tieubo.jpg"
     },
     {
       "id": "bk-duongvexuphat",
@@ -122,7 +139,8 @@
       "badge": "Khai Sáng Chánh Kiến",
       "summary": "Tác phẩm lịch sử chấn động, phục hồi con đường tu tập giới luật thanh tịnh của Đức Phật, đập tan mê tín dị đoan và tà giáo.",
       "read_url": "https://daophatgoc.com/duong-ve-xu-phat-tap-1/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_duongvexuphat.jpg"
     },
     {
       "id": "bk-37pham",
@@ -134,7 +152,8 @@
       "badge": "Giáo Trình Tu Chứng",
       "summary": "Kim chỉ nam thực hành từng pháp môn trợ đạo: Tứ Niệm Xứ, Tứ Chánh Cần, Tứ Như Ý Túc... giúp chứng ngộ giải thoát ngay hiện kiếp.",
       "read_url": "https://daophatgoc.com/ba-muoi-bay-pham-tro-dao/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_37pham.jpg"
     },
     {
       "id": "bk-lamchusinhgia",
@@ -146,7 +165,8 @@
       "badge": "Phương Pháp Định Niệm",
       "summary": "Phương pháp Định Niệm Hơi Thở và Thân Hành Niệm tác ý thanh tịnh, rèn luyện định lực làm chủ thân tâm trước quy luật sinh lão bệnh tử.",
       "read_url": "https://daophatgoc.com/phap-tu-cua-phat-lam-chu-sinh-gia-benh-chet/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_lamchu.jpg"
     },
     {
       "id": "bk-daoduclamnguoi",
@@ -158,7 +178,8 @@
       "badge": "Đạo Đức Nhân Bản",
       "summary": "Nền tảng sống không làm khổ mình, không làm khổ người và không làm khổ muôn loài. Cội rễ chuyển hóa gia đình hạnh phúc bền vững.",
       "read_url": "https://daophatgoc.com/dao-duc-lam-nguoi-tap-1/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_daoduc.jpg"
     },
     {
       "id": "bk-nhungloigoc",
@@ -170,7 +191,8 @@
       "badge": "Đối Chiếu Kinh Điển",
       "summary": "So sánh đối chiếu kinh tạng nguyên thủy và kinh điển phát triển, giúp hành giả nhận diện rõ lời dạy chân thực của Đức Từ Phụ.",
       "read_url": "https://daophatgoc.com/nhung-loi-goc-phat-day-tap-1/",
-      "source_name": "Đạo Phật Gốc (daophatgoc.com)"
+      "source_name": "Đạo Phật Gốc (daophatgoc.com)",
+      "cover_image": "assets/zen_nhungloigoc.jpg"
     }
   ],
   "forum_topics": [

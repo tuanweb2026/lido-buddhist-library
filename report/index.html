@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIDO Analytics Report — Trung Tâm Báo Cáo Truy Cập & Hành Vi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C100E;
+      --card-bg: #141B18;
+      --card-border: rgba(229, 195, 120, 0.22);
+      --gold: #E5C378;
+      --gold-dim: #C8963E;
+      --text-main: #FFFDF9;
+      --text-muted: #9DAAA1;
+      --emerald: #10B981;
+      --ruby: #EF4444;
+      --blue: #3B82F6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding: 2.5rem 1.5rem;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 20% 15%, rgba(229, 195, 120, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 60%);
+    }
+    .report-container { max-width: 1140px; margin: 0 auto; }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #FFFDF9 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2A3E31 0%, #15221B 100%);
+      border: 1px solid var(--card-border);
+      color: var(--gold);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(229, 195, 120, 0.2);
+      transform: translateY(-2px);
+    }
+    .btn-live {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--emerald);
+      color: #34D399;
+    }
+
+    /* KPI Summary Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .kpi-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .kpi-value {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: #8C9890;
+      margin-top: 0.4rem;
+    }
+
+    /* Sections */
+    .section-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFFDF9;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.85rem;
+    }
+
+    /* Click Category Breakdown Bar */
+    .cat-bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cat-bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .cat-bar-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+    }
+    .cat-progress-bg {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .cat-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+
+    /* Table */
+    .table-responsive {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th {
+      text-align: left;
+      padding: 12px 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+    }
+    td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #E2EAE5;
+    }
+    tr:hover td {
+      background: rgba(229, 195, 120, 0.03);
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(229, 195, 120, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(229, 195, 120, 0.3);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--emerald);
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-container">
+    <header>
+      <div>
+        <div class="brand-title">
+          <span>🪷</span> LIDO REPORT ADMIN
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.35rem;">
+          Báo cáo thống kê thời gian thực: Lượt xem, Thời gian lưu lại trang &amp; Tương tác hành vi
+        </p>
+      </div>
+
+      <div class="header-actions">
+        <div class="btn btn-live">
+          <span class="pulse-dot"></span>
+          <span>Dữ Liệu Trực Tiếp (Cloud Sync)</span>
+        </div>
+        <button class="btn" onclick="fetchLiveReport()">
+          🔄 Làm Mới
+        </button>
+        <a href="../index.html" class="btn">
+          Trang Chủ ↗
+        </a>
+      </div>
+    </header>
+
+    <!-- KPI Summary Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Lượt Khách Ghé Thăm (Cộng dồn)</span>
+          <span>👥</span>
+        </div>
+        <div class="kpi-value" id="val-visits">--</div>
+        <div class="kpi-sub">Lưu vĩnh viễn trên Cloud DB, không reset</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Tổng Thời Gian Ở Lại</span>
+          <span>⏱️</span>
+        </div>
+        <div class="kpi-value" id="val-duration">--</div>
+        <div class="kpi-sub" id="val-avg-duration">Trung bình: -- giây/khách</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Tổng Lượt Tương Tác Click</span>
+          <span>🎯</span>
+        </div>
+        <div class="kpi-value" id="val-clicks">--</div>
+        <div class="kpi-sub">Kinh sách, Nghe nhạc thiền &amp; Hộ trì</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Tỷ Lệ Tương Tác / Lượt Xem</span>
+          <span>📈</span>
+        </div>
+        <div class="kpi-value" id="val-rate">--</div>
+        <div class="kpi-sub">Chỉ số gắn bó &amp; định tâm của người xem</div>
+      </div>
+    </div>
+
+    <!-- Phân Tích Hành Vi Tương Tác -->
+    <div class="section-box">
+      <div class="section-title">
+        <span>📊 Phân Bổ Hành Vi Bạn Đọc Quan Tâm Nhiều Nhất</span>
+        <span style="font-size: 0.8rem; color: var(--gold); font-weight: normal;">Cập nhật theo click</span>
+      </div>
+
+      <div class="cat-bar-list" id="cat-bars">
+        <div class="cat-bar-item">
+          <div class="cat-bar-header">
+            <span>📖 Đọc Tác Phẩm Kinh Sách (Nikāya / Chơn Như)</span>
+            <span id="txt-books">-- lượt</span>
+          </div>
+          <div class="cat-progress-bg">
+            <div class="cat-progress-fill" id="bar-books"></div>
+          </div>
+        </div>
+
+        <div class="cat-bar-item">
+          <div class="cat-bar-header">
+            <span>🎧 Nghe Nhạc Thiền Thư Giãn 432Hz</span>
+            <span id="txt-audios">-- lượt</span>
+          </div>
+          <div class="cat-progress-bg">
+            <div class="cat-progress-fill" id="bar-audios"></div>
+          </div>
+        </div>
+
+        <div class="cat-bar-item">
+          <div class="cat-bar-header">
+            <span>🙏 Xem VietQR &amp; Copy Cú Pháp Hộ Trì</span>
+            <span id="txt-syntax">-- lượt</span>
+          </div>
+          <div class="cat-progress-bg">
+            <div class="cat-progress-fill" id="bar-syntax"></div>
+          </div>
+        </div>
+
+        <div class="cat-bar-item">
+          <div class="cat-bar-header">
+            <span>💬 Tham Gia Đạo Tràng Thảo Luận</span>
+            <span id="txt-forum">-- lượt</span>
+          </div>
+          <div class="cat-progress-bg">
+            <div class="cat-progress-fill" id="bar-forum"></div>
+          </div>
+        </div>
+
+        <div class="cat-bar-item">
+          <div class="cat-bar-header">
+            <span>🎬 Ghé Thăm Kênh YouTube @1995lido</span>
+            <span id="txt-yt">-- lượt</span>
+          </div>
+          <div class="cat-progress-bg">
+            <div class="cat-progress-fill" id="bar-yt"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chi Tiết Các Phiên Gần Nhất -->
+    <div class="section-box">
+      <div class="section-title">
+        <span>🕒 Nhật Ký Các Phiên Đọc Sách &amp; Nghe Thiền Gần Nhất</span>
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">Lưu ngầm tự động</span>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Thời Gian</th>
+              <th>Ngày</th>
+              <th>Thời Gian Ở Lại</th>
+              <th>Số Lần Click</th>
+              <th>Độ Sâu Cuộn</th>
+              <th>Thiết Bị</th>
+            </tr>
+          </thead>
+          <tbody id="session-table-body">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                Đang tải dữ liệu từ Cloud Database...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const APP_KEY = 'f8inst8c';
+
+    function formatDuration(seconds) {
+      if (!seconds || seconds <= 0) return '0s';
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      if (m > 0) return `${m}p ${s}s`;
+      return `${s}s`;
+    }
+
+    async function fetchLiveReport() {
+      try {
+        // 1. Tải Stats Tổng
+        const resStats = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/GetValue/${APP_KEY}/stats`);
+        if (resStats.ok) {
+          let text = await resStats.text();
+          text = text.replace(/^"|"$/g, '').trim();
+          if (text && text !== 'null') {
+            let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
+            let padded = text.padEnd(pad(text.length), '=');
+            const stats = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
+            renderKPIs(stats);
+          }
+        }
+
+        // 2. Tải Nhật Ký Phiên
+        const resSess = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/GetValue/${APP_KEY}/sessions`);
+        if (resSess.ok) {
+          let text = await resSess.text();
+          text = text.replace(/^"|"$/g, '').trim();
+          if (text && text !== 'null') {
+            let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
+            let padded = text.padEnd(pad(text.length), '=');
+            const sessions = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
+            renderSessions(sessions);
+          }
+        }
+      } catch (err) {
+        console.error('Lỗi nạp báo cáo:', err);
+      }
+    }
+
+    function renderKPIs(stats) {
+      const visits = stats.visits || 0;
+      const duration = stats.duration || 0;
+      const clicks = stats.clicks || 0;
+
+      document.getElementById('val-visits').textContent = Number(visits).toLocaleString('vi-VN');
+      document.getElementById('val-duration').textContent = formatDuration(duration);
+      document.getElementById('val-clicks').textContent = Number(clicks).toLocaleString('vi-VN');
+
+      const avg = visits > 0 ? Math.round(duration / visits) : 0;
+      document.getElementById('val-avg-duration').textContent = `Trung bình: ${formatDuration(avg)} / khách`;
+
+      const rate = visits > 0 ? ((clicks / visits) * 100).toFixed(1) : '0';
+      document.getElementById('val-rate').textContent = `${rate}%`;
+
+      // Cập nhật biểu đồ thanh click
+      const maxC = Math.max(stats.books || 0, stats.audios || 0, stats.syntax || 0, stats.forum || 0, stats.yt || 0, 1);
+      
+      const updateBar = (id, count) => {
+        document.getElementById(`txt-${id}`).textContent = `${count || 0} lượt`;
+        const pct = Math.round(((count || 0) / maxC) * 100);
+        document.getElementById(`bar-${id}`).style.width = `${pct}%`;
+      };
+
+      updateBar('books', stats.books);
+      updateBar('audios', stats.audios);
+      updateBar('syntax', stats.syntax);
+      updateBar('forum', stats.forum);
+      updateBar('yt', stats.yt);
+    }
+
+    function renderSessions(sessions) {
+      const tbody = document.getElementById('session-table-body');
+      if (!Array.isArray(sessions) || sessions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Chưa có nhật ký phiên.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = sessions.map(s => `
+        <tr>
+          <td><span class="badge-tag">${s.time || '--:--'}</span></td>
+          <td>${s.date || '--'}</td>
+          <td style="color: var(--gold); font-weight: 600;">${formatDuration(s.duration)}</td>
+          <td>${s.clicks || 0} clicks</td>
+          <td>${s.maxScroll ? s.maxScroll + '%' : '100%'}</td>
+          <td><span style="color: #9DAAA1;">${s.device || 'Desktop'}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    // Tự động tải lần đầu
+    fetchLiveReport();
+    // Tự động làm mới mỗi 15 giây
+    setInterval(fetchLiveReport, 15000);
+  </script>
+</body>
+</html>
