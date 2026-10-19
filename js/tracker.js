@@ -49,11 +49,17 @@ class LidoTracker {
 
   // Cập nhật giao diện badge đếm trên thanh Header / Top Bar
   updateCounterUI(count) {
+    const formatted = Number(count).toLocaleString('vi-VN');
     const el = document.getElementById('lido-visitor-count');
     if (el) {
-      el.textContent = Number(count).toLocaleString('vi-VN');
+      el.textContent = formatted;
       el.style.opacity = '1';
     }
+    // Cập nhật tất cả các badge hiển thị khác trên trang
+    document.querySelectorAll('.lido-visitor-count-val').forEach(item => {
+      item.textContent = formatted;
+      item.style.opacity = '1';
+    });
   }
 
   // Lấy dữ liệu thống kê từ Cloud DB (hoặc local fallback nếu offline)

@@ -16,11 +16,14 @@ class LidoApp {
     this.activeVideoId = '94IPu4HPcUc';
     this.isPlaying = false;
     this.ytPlayer = null;
+    this.currentQuoteIndex = 0;
+    this.quoteAutoTimer = null;
   }
 
   async init() {
     await this.loadData();
     this.renderHeaderAndHero();
+    this.initQuoteCarousel();
     this.renderVideos();
     this.renderBooks();
     this.renderDonateSection();
@@ -115,12 +118,116 @@ class LidoApp {
 
     const heroSub = document.getElementById("hero-sub");
     if (heroSub) heroSub.textContent = typeof cfg.hero_sub === "string" ? cfg.hero_sub : "";
+  }
 
-    const heroQuote = document.getElementById("hero-quote");
-    if (heroQuote) heroQuote.textContent = typeof cfg.quote === "string" ? `"${cfg.quote}"` : "";
+  getQuotesList() {
+    const quotes = this.siteData?.site_config?.zen_quotes;
+    if (Array.isArray(quotes) && quotes.length > 0) {
+      return quotes;
+    }
+    const cfg = this.siteData?.site_config || {};
+    return [
+      {
+        id: "default",
+        quote: cfg.quote || "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác.",
+        source: cfg.quote_source || "Kinh Pháp Cú",
+        author: "Đức Phật Thích Ca Mâu Ni",
+        tag: "Lời Phật Dạy",
+        icon: "🪷"
+      }
+    ];
+  }
 
-    const heroQuoteSource = document.getElementById("hero-quote-source");
-    if (heroQuoteSource) heroQuoteSource.textContent = typeof cfg.quote_source === "string" ? `— ${cfg.quote_source}` : "";
+  initQuoteCarousel() {
+    const quotes = this.getQuotesList();
+    const dotsContainer = document.getElementById("carousel-dots");
+    if (dotsContainer) {
+      dotsContainer.innerHTML = "";
+      quotes.forEach((_, idx) => {
+        const dot = document.createElement("span");
+        dot.className = `zen-dot ${idx === 0 ? "active" : ""}`;
+        dot.setAttribute("role", "button");
+        dot.setAttribute("aria-label", `Xem trích dẫn số ${idx + 1}`);
+        dot.onclick = () => this.goToQuote(idx);
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    this.updateQuoteDisplay();
+
+    // Auto rotate every 8 seconds
+    if (this.quoteAutoTimer) clearInterval(this.quoteAutoTimer);
+    this.quoteAutoTimer = setInterval(() => {
+      this.nextQuote(true);
+    }, 8000);
+  }
+
+  updateQuoteDisplay() {
+    const quotes = this.getQuotesList();
+    if (!quotes.length) return;
+
+    if (this.currentQuoteIndex >= quotes.length) this.currentQuoteIndex = 0;
+    if (this.currentQuoteIndex < 0) this.currentQuoteIndex = quotes.length - 1;
+
+    const current = quotes[this.currentQuoteIndex];
+
+    const quoteEl = document.getElementById("hero-quote");
+    const sourceEl = document.getElementById("hero-quote-source");
+    const authorEl = document.getElementById("hero-quote-author");
+    const tagTextEl = document.getElementById("carousel-tag-text");
+    const iconEl = document.getElementById("carousel-icon");
+    const counterEl = document.getElementById("carousel-counter");
+
+    if (quoteEl) {
+      quoteEl.style.opacity = "0.3";
+      quoteEl.style.transform = "translateY(4px)";
+      setTimeout(() => {
+        quoteEl.textContent = `"${current.quote}"`;
+        quoteEl.style.opacity = "1";
+        quoteEl.style.transform = "translateY(0)";
+      }, 150);
+    }
+
+    if (sourceEl) sourceEl.textContent = current.source || "";
+    if (authorEl) authorEl.textContent = current.author ? `— ${current.author}` : "";
+    if (tagTextEl) tagTextEl.textContent = current.tag || "Cốt Tủy Chánh Pháp";
+    if (iconEl) iconEl.textContent = current.icon || "🪷";
+    if (counterEl) counterEl.textContent = `${this.currentQuoteIndex + 1} / ${quotes.length}`;
+
+    // Update dots
+    const dots = document.querySelectorAll("#carousel-dots .zen-dot");
+    dots.forEach((dot, idx) => {
+      dot.className = `zen-dot ${idx === this.currentQuoteIndex ? "active" : ""}`;
+    });
+  }
+
+  nextQuote(isAuto = false) {
+    const quotes = this.getQuotesList();
+    this.currentQuoteIndex = (this.currentQuoteIndex + 1) % quotes.length;
+    this.updateQuoteDisplay();
+    if (!isAuto && this.quoteAutoTimer) {
+      clearInterval(this.quoteAutoTimer);
+      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
+    }
+  }
+
+  prevQuote() {
+    const quotes = this.getQuotesList();
+    this.currentQuoteIndex = (this.currentQuoteIndex - 1 + quotes.length) % quotes.length;
+    this.updateQuoteDisplay();
+    if (this.quoteAutoTimer) {
+      clearInterval(this.quoteAutoTimer);
+      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
+    }
+  }
+
+  goToQuote(index) {
+    this.currentQuoteIndex = index;
+    this.updateQuoteDisplay();
+    if (this.quoteAutoTimer) {
+      clearInterval(this.quoteAutoTimer);
+      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
+    }
   }
 
   renderHealthDisclaimer() {
@@ -362,15 +469,44 @@ class LidoApp {
     const mini = document.getElementById("zen-mini-player");
     const pTitle = document.getElementById("mini-player-title");
     const pFrame = document.getElementById("mini-player-iframe");
+    const pContainer = document.getElementById("mini-player-iframe-container");
     const pStatus = document.getElementById("mini-player-status");
+    const toggleBtn = document.getElementById("mini-toggle-view-btn");
 
     if (pTitle) pTitle.innerText = title;
-    if (pStatus) pStatus.innerText = "Đang phát tần số 432Hz • Lido 1995";
-    if (pFrame) {
-      pFrame.src = `https://www.youtube.com/embed/${cleanYtId}?autoplay=1&enablejsapi=1`;
-      pFrame.style.display = "block";
+    if (pStatus) {
+      pStatus.innerHTML = '<span class="pulse-indicator" style="width: 6px; height: 6px; background: #10B981;"></span><span style="color: #10B981; font-weight: 700;">Đang phát âm thanh 432Hz</span>';
     }
-    if (mini) mini.style.borderColor = "var(--zen-gold)";
+    
+    // Nạp iframe với quyền âm thanh autoplay (không mute)
+    if (pFrame) {
+      pFrame.src = `https://www.youtube.com/embed/${cleanYtId}?autoplay=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+    }
+
+    if (pContainer) {
+      pContainer.style.display = "block";
+    }
+
+    if (toggleBtn) {
+      toggleBtn.style.display = "inline-flex";
+    }
+
+    if (mini) {
+      mini.style.borderColor = "var(--zen-gold)";
+      mini.style.boxShadow = "0 12px 35px rgba(0, 0, 0, 0.9), 0 0 30px rgba(229, 195, 120, 0.4)";
+    }
+
+    // Ghi nhận telemetry click
+    if (window.lidoTracker) {
+      window.lidoTracker.trackClick('audio', title);
+    }
+  }
+
+  toggleMiniVideoView() {
+    const pContainer = document.getElementById("mini-player-iframe-container");
+    if (pContainer) {
+      pContainer.style.display = pContainer.style.display === "none" ? "block" : "none";
+    }
   }
 }
 

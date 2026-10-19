@@ -14,7 +14,49 @@
       "account_number": "1401132757",
       "transfer_syntax": "Ho Tri Tu Sach LIDO",
       "qr_image": "assets/bidv_qr.png"
-    }
+    },
+    "zen_quotes": [
+      {
+        "id": "q1",
+        "quote": "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình.",
+        "source": "Kinh Pháp Cú (Dhammapada), Kệ số 2",
+        "author": "Đức Phật Thích Ca Mâu Ni (HT. Thích Minh Châu dịch)",
+        "tag": "Ý Nghiệp Thanh Tịnh",
+        "icon": "🪷"
+      },
+      {
+        "id": "q2",
+        "quote": "Không làm mọi điều ác, Thành tựu các hạnh lành, Giữ tâm ý trong sạch, Chính lời chư Phật dạy.",
+        "source": "Kinh Pháp Cú, Kệ số 183",
+        "author": "Đức Phật Thích Ca Mâu Ni",
+        "tag": "Cốt Tủy Chánh Pháp",
+        "icon": "☸️"
+      },
+      {
+        "id": "q3",
+        "quote": "Sống không làm khổ mình, không làm khổ người và không làm khổ muôn loài chúng sinh — đó chính là cội gốc của đạo đức giải thoát.",
+        "source": "Đạo Đức Làm Người (Tập 1)",
+        "author": "Trưởng lão Thích Thông Lạc — Tu Viện Chơn Như",
+        "tag": "Đạo Đức Nhân Bản",
+        "icon": "🌱"
+      },
+      {
+        "id": "q4",
+        "quote": "Hận thù diệt hận thù, Đời này không thể có. Từ bi diệt hận thù, Là định luật ngàn thu.",
+        "source": "Kinh Pháp Cú, Kệ số 5",
+        "author": "Đức Phật Thích Ca Mâu Ni",
+        "tag": "Từ Bi & Hóa Giải",
+        "icon": "🕊️"
+      },
+      {
+        "id": "q5",
+        "quote": "Quá khứ không truy tìm, Tương lai không ước vọng. Quá khứ đã đoạn tận, Tương lai lại chưa đến. Chỉ có pháp hiện tại, Tuệ quán chính ở đây.",
+        "source": "Kinh Nhất Dạ Hiền Giả (Bhaddekaratta Sutta) — Trung Bộ Kinh",
+        "author": "Đức Phật Thích Ca Mâu Ni",
+        "tag": "Hiện Tại Lạc Trú",
+        "icon": "✨"
+      }
+    ]
   },
   "featured_videos": [
     {

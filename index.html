@@ -271,32 +271,148 @@
     margin: 0 auto 2.5rem;
     line-height: 1.85;
   }
-  .quote-card {
-    background: rgba(24, 34, 29, 0.75);
-    border: 1px solid var(--zen-border);
-    border-left: 5px solid var(--zen-gold);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    max-width: 860px;
+  /* Clawvisual-Inspired Zen Quotes Carousel Card Deck (Luxury Dark Zen Mode) */
+  .zen-carousel-wrapper {
+    max-width: 880px;
     margin: 0 auto;
-    backdrop-filter: blur(10px);
+    background: rgba(24, 34, 29, 0.85);
+    border: 1px solid var(--zen-border);
+    border-radius: 20px;
+    padding: 2.2rem 2.6rem;
     box-shadow: var(--shadow-3d);
+    backdrop-filter: blur(14px);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
-  .quote-card p {
+  .zen-carousel-wrapper:hover {
+    border-color: var(--zen-border-hover);
+    box-shadow: var(--shadow-hover);
+  }
+  .zen-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(229, 195, 120, 0.25);
+    padding-bottom: 1rem;
+  }
+  .zen-carousel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(229, 195, 120, 0.12);
+    border: 1px solid rgba(229, 195, 120, 0.4);
+    color: var(--zen-gold-glow);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 99px;
+    letter-spacing: 0.05em;
+  }
+  .zen-carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .zen-carousel-counter {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--zen-text-muted);
+    letter-spacing: 0.08em;
+    min-width: 45px;
+    text-align: center;
+  }
+  .zen-carousel-btn {
+    background: rgba(12, 16, 14, 0.7);
+    border: 1px solid rgba(229, 195, 120, 0.3);
+    color: var(--zen-gold);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.25s ease;
+  }
+  .zen-carousel-btn:hover {
+    background: var(--zen-gold);
+    color: #0C100E;
+    border-color: var(--zen-gold);
+    transform: scale(1.08);
+  }
+  .zen-carousel-card {
+    position: relative;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .zen-quote-marks {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--zen-gold);
+    opacity: 0.2;
+    position: absolute;
+    top: -1.2rem;
+    left: -0.6rem;
+    pointer-events: none;
+  }
+  .zen-quote-text {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 18px;
-    line-height: 1.8;
-    color: #F8F3EA;
+    font-size: 19px;
+    line-height: 1.85;
+    color: #FBF7EE;
+    position: relative;
+    z-index: 1;
     margin: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  .quote-author {
-    margin-top: 1rem;
+  .zen-quote-meta {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    justify-content: center;
+  }
+  .quote-source-badge {
     font-size: 12px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--zen-gold);
     font-weight: 700;
+    background: rgba(229, 195, 120, 0.1);
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+  .quote-author-name {
+    font-size: 13px;
+    color: #A3AFA7;
+    font-weight: 500;
+  }
+  .zen-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1.4rem;
+  }
+  .zen-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(229, 195, 120, 0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .zen-dot.active {
+    background: var(--zen-gold);
+    width: 26px;
+    border-radius: 99px;
+    box-shadow: 0 0 10px rgba(229, 195, 120, 0.5);
   }
 
   /* Section Headings */
@@ -771,7 +887,11 @@
           <div class="brand-sub">Đại Tạng Nikāya &amp; Nhạc Thiền</div>
         </div>
       </a>
-      <nav>
+      <nav style="display: flex; align-items: center; gap: 20px;">
+        <div class="visitor-counter-pill header-counter" title="Tổng số lượt độc giả hữu duyên ghé thăm (Lưu vĩnh viễn trên Cloud Database)">
+          <span>👥 Lượt xem:</span>
+          <span class="num lido-visitor-count-val">108</span>
+        </div>
         <ul class="nav-links">
           <li><a href="#tusach">Tủ Sách Nikāya</a></li>
           <li><a href="#nhacthien">Nhạc Thiền Định Tâm</a></li>
@@ -796,12 +916,37 @@
         Không gian thanh tịnh quy tụ trọn vẹn 5 Bộ Kinh Tạng Nikāya &amp; Giáo trình đạo đức làm chủ thân tâm của Trưởng lão Thích Thông Lạc, hòa quyện cùng làn sóng nhạc thiền định 432Hz nuôi dưỡng sự an lạc.
       </p>
 
-      <div class="quote-card">
-        <p id="hero-quote">
-          "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình."
-        </p>
-        <div class="quote-author" id="hero-quote-source">
-          — Kinh Pháp Cú (Dhammapada), Kệ số 2 • HT. Thích Minh Châu dịch
+      <!-- Zen Quotes Carousel (Clawvisual-inspired Visual Card Deck) -->
+      <div class="zen-carousel-wrapper" id="zen-carousel-container">
+        <div class="zen-carousel-header">
+          <div class="zen-carousel-tag" id="carousel-tag">
+            <span id="carousel-icon">🪷</span>
+            <span id="carousel-tag-text">Ý Nghiệp Thanh Tịnh</span>
+          </div>
+          <div class="zen-carousel-controls">
+            <button class="zen-carousel-btn" id="carousel-prev" title="Lời dạy trước" onclick="lidoApp.prevQuote()" aria-label="Previous quote">
+              &#10094;
+            </button>
+            <span class="zen-carousel-counter" id="carousel-counter">1 / 5</span>
+            <button class="zen-carousel-btn" id="carousel-next" title="Lời dạy kế tiếp" onclick="lidoApp.nextQuote()" aria-label="Next quote">
+              &#10095;
+            </button>
+          </div>
+        </div>
+
+        <div class="zen-carousel-card">
+          <div class="zen-quote-marks">“</div>
+          <p class="zen-quote-text" id="hero-quote">
+            "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình."
+          </p>
+          <div class="zen-quote-meta">
+            <div class="quote-source-badge" id="hero-quote-source">Kinh Pháp Cú (Dhammapada), Kệ số 2</div>
+            <div class="quote-author-name" id="hero-quote-author">— Đức Phật Thích Ca Mâu Ni (HT. Thích Minh Châu dịch)</div>
+          </div>
+        </div>
+
+        <div class="zen-carousel-dots" id="carousel-dots">
+          <!-- Rendered dynamically -->
         </div>
       </div>
     </div>
@@ -951,14 +1096,23 @@
     </div>
   </footer>
 
-  <!-- Mini Player -->
+  <!-- Persistent Floating Mini Player with Sound Controls -->
   <div class="zen-mini-player" id="zen-mini-player">
-    <div class="player-disc">🪷</div>
-    <div>
-      <div style="font-size: 12px; font-weight: 700; color: #FFFDF9;" id="mini-player-title">Nhạc Thiền Định Tâm</div>
-      <div style="font-size: 10px; color: var(--zen-gold);" id="mini-player-status">Đang phát tần số 432Hz • Lido 1995</div>
+    <div class="player-disc" id="player-disc-icon" title="Đang phát nhạc thiền 432Hz">🪷</div>
+    <div style="flex-grow: 1; min-width: 140px; max-width: 260px;">
+      <div style="font-size: 12.5px; font-weight: 700; color: #FFFDF9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="mini-player-title">Nhạc Thiền Định Tâm</div>
+      <div style="font-size: 10px; color: var(--zen-gold); display: flex; align-items: center; gap: 6px;" id="mini-player-status">
+        <span class="pulse-indicator" style="width: 6px; height: 6px;"></span>
+        <span>Phát tần số 432Hz • Lido 1995</span>
+      </div>
     </div>
-    <div id="mini-player-iframe" style="display: none;"></div>
+    <!-- Floating mini video frame for audible playback -->
+    <div id="mini-player-iframe-container" style="width: 200px; height: 112px; border-radius: 8px; overflow: hidden; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-left: 10px;">
+      <iframe id="mini-player-iframe" width="200" height="112" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <button id="mini-toggle-view-btn" onclick="lidoApp.toggleMiniVideoView()" class="btn btn-outline" style="padding: 4px 8px; font-size: 11px; margin-left: 6px; display: none;" title="Mở rộng/Thu nhỏ khung hình">
+      📺
+    </button>
   </div>
 
   <div class="local-badge-art">● LIVE 3D PRODUCTION · Đạo Phật Gốc</div>
