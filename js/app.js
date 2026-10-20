@@ -121,9 +121,13 @@ class LidoApp {
   }
 
   getQuotesList() {
-    const quotes = this.siteData?.site_config?.zen_quotes;
-    if (Array.isArray(quotes) && quotes.length > 0) {
-      return quotes;
+    const allQuotes = this.siteData?.site_config?.zen_quotes;
+    if (Array.isArray(allQuotes) && allQuotes.length > 0) {
+      if (this.quoteFilterCategory && this.quoteFilterCategory !== 'all') {
+        const filtered = allQuotes.filter(q => q.tag === this.quoteFilterCategory);
+        return filtered.length > 0 ? filtered : allQuotes;
+      }
+      return allQuotes;
     }
     const cfg = this.siteData?.site_config || {};
     return [
@@ -138,21 +142,38 @@ class LidoApp {
     ];
   }
 
-  initQuoteCarousel() {
-    const quotes = this.getQuotesList();
-    const dotsContainer = document.getElementById("carousel-dots");
-    if (dotsContainer) {
-      dotsContainer.innerHTML = "";
-      quotes.forEach((_, idx) => {
-        const dot = document.createElement("span");
-        dot.className = `zen-dot ${idx === 0 ? "active" : ""}`;
-        dot.setAttribute("role", "button");
-        dot.setAttribute("aria-label", `Xem trích dẫn số ${idx + 1}`);
-        dot.onclick = () => this.goToQuote(idx);
-        dotsContainer.appendChild(dot);
-      });
+  filterQuoteCategory(category, btnElement) {
+    this.quoteFilterCategory = category;
+    this.currentQuoteIndex = 0;
+
+    if (btnElement) {
+      document.querySelectorAll("#carousel-cat-tabs .zen-tab-btn").forEach(b => b.classList.remove("active"));
+      btnElement.classList.add("active");
     }
 
+    this.updateQuoteDisplay();
+    if (this.quoteAutoTimer) {
+      clearInterval(this.quoteAutoTimer);
+      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
+    }
+  }
+
+  randomQuote() {
+    const quotes = this.getQuotesList();
+    if (quotes.length <= 1) return;
+    let nextIdx = Math.floor(Math.random() * quotes.length);
+    if (nextIdx === this.currentQuoteIndex) {
+      nextIdx = (nextIdx + 1) % quotes.length;
+    }
+    this.currentQuoteIndex = nextIdx;
+    this.updateQuoteDisplay();
+    if (this.quoteAutoTimer) {
+      clearInterval(this.quoteAutoTimer);
+      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
+    }
+  }
+
+  initQuoteCarousel() {
     this.updateQuoteDisplay();
 
     // Auto rotate every 8 seconds
@@ -177,10 +198,11 @@ class LidoApp {
     const tagTextEl = document.getElementById("carousel-tag-text");
     const iconEl = document.getElementById("carousel-icon");
     const counterEl = document.getElementById("carousel-counter");
+    const progressBar = document.getElementById("carousel-progress-bar");
 
     if (quoteEl) {
-      quoteEl.style.opacity = "0.3";
-      quoteEl.style.transform = "translateY(4px)";
+      quoteEl.style.opacity = "0.2";
+      quoteEl.style.transform = "translateY(5px)";
       setTimeout(() => {
         quoteEl.textContent = `"${current.quote}"`;
         quoteEl.style.opacity = "1";
@@ -194,11 +216,10 @@ class LidoApp {
     if (iconEl) iconEl.textContent = current.icon || "🪷";
     if (counterEl) counterEl.textContent = `${this.currentQuoteIndex + 1} / ${quotes.length}`;
 
-    // Update dots
-    const dots = document.querySelectorAll("#carousel-dots .zen-dot");
-    dots.forEach((dot, idx) => {
-      dot.className = `zen-dot ${idx === this.currentQuoteIndex ? "active" : ""}`;
-    });
+    if (progressBar) {
+      const pct = Math.max(1, Math.round(((this.currentQuoteIndex + 1) / quotes.length) * 100));
+      progressBar.style.width = `${pct}%`;
+    }
   }
 
   nextQuote(isAuto = false) {

@@ -12,6 +12,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Three.js Module Importmap (AETumi R3F Production Pattern) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
   <style>
   :root {
     --zen-bg: #0C100E;
@@ -394,25 +404,58 @@
     color: #A3AFA7;
     font-weight: 500;
   }
-  .zen-carousel-dots {
+  .zen-carousel-cat-tabs {
     display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 1.4rem;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(229, 195, 120, 0.15);
   }
-  .zen-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(229, 195, 120, 0.25);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .zen-dot.active {
-    background: var(--zen-gold);
-    width: 26px;
+  .zen-tab-btn {
+    background: rgba(12, 16, 14, 0.6);
+    border: 1px solid rgba(229, 195, 120, 0.25);
+    color: #A3AFA7;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 12px;
     border-radius: 99px;
-    box-shadow: 0 0 10px rgba(229, 195, 120, 0.5);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .zen-tab-btn:hover {
+    color: var(--zen-gold);
+    border-color: var(--zen-gold);
+  }
+  .zen-tab-btn.active {
+    background: var(--zen-gold);
+    color: #0C100E;
+    border-color: var(--zen-gold);
+    font-weight: 700;
+    box-shadow: 0 0 12px rgba(229, 195, 120, 0.35);
+  }
+  .zen-btn-random {
+    font-size: 14px;
+    background: rgba(229, 195, 120, 0.15);
+    border-color: rgba(229, 195, 120, 0.4);
+  }
+  .zen-btn-random:hover {
+    background: #E5C378;
+    color: #0C100E;
+  }
+  .zen-carousel-progress-box {
+    margin-top: 1.5rem;
+    height: 3px;
+    width: 100%;
+    background: rgba(229, 195, 120, 0.15);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .zen-carousel-progress-bar {
+    height: 100%;
+    width: 1%;
+    background: linear-gradient(90deg, #C96846, #E5C378);
+    transition: width 0.3s ease;
   }
 
   /* Section Headings */
@@ -848,11 +891,169 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
   }
 
+  /* Zen 3D Interactive Space */
+  .zen-3d-section {
+    position: relative;
+    padding: 80px 0;
+    background: radial-gradient(circle at 50% 50%, rgba(24, 34, 29, 0.95) 0%, rgba(12, 16, 14, 0.98) 100%);
+    border-top: 1px solid var(--zen-border);
+    border-bottom: 1px solid var(--zen-border);
+    overflow: hidden;
+  }
+  .zen-3d-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .zen-3d-stage {
+    position: relative;
+    width: 100%;
+    height: 540px;
+    background: radial-gradient(circle at 50% 40%, rgba(229, 195, 120, 0.12) 0%, rgba(18, 25, 21, 0.85) 60%, rgba(8, 12, 10, 0.98) 100%);
+    border: 1px solid var(--zen-border);
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 50px rgba(229, 195, 120, 0.15);
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+  }
+  #zen-3d-canvas-container {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    cursor: grab;
+  }
+  #zen-3d-canvas-container:active {
+    cursor: grabbing;
+  }
+  .zen-3d-hint {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(14, 21, 17, 0.8);
+    border: 1px solid rgba(229, 195, 120, 0.25);
+    color: var(--zen-text-muted);
+    font-size: 11.5px;
+    padding: 4px 14px;
+    border-radius: 99px;
+    pointer-events: none;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .zen-3d-controls-bar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+  .zen-3d-btn {
+    background: rgba(20, 27, 24, 0.85);
+    border: 1px solid var(--zen-border);
+    color: var(--zen-text-main);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+  }
+  .zen-3d-btn:hover {
+    border-color: var(--zen-gold);
+    color: var(--zen-gold);
+    background: rgba(30, 42, 36, 0.95);
+  }
+  .zen-3d-btn.active {
+    border-color: var(--zen-gold);
+    color: var(--zen-gold);
+    background: rgba(229, 195, 120, 0.15);
+  }
+  /* Dharma Grid for Tứ Diệu Đế & Bát Chánh Đạo */
+  .zen-dharma-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .zen-dharma-card {
+    background: var(--zen-surface-card);
+    border: 1px solid var(--zen-border);
+    padding: 18px 22px;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+  }
+  .zen-dharma-card:hover {
+    border-color: var(--zen-border-hover);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  .zen-dharma-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--zen-gold);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.04em;
+  }
+  .zen-dharma-desc {
+    font-size: 12.5px;
+    color: var(--zen-text-muted);
+    margin: 0 0 8px 0;
+  }
+  .zen-dharma-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .zen-dharma-list li {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #d8deda;
+    padding-left: 12px;
+    border-left: 2px solid rgba(229, 195, 120, 0.35);
+  }
+  .zen-dharma-list li strong {
+    color: var(--zen-gold);
+  }
+  .zen-eightfold-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .zen-path-pill {
+    background: rgba(229, 195, 120, 0.1);
+    border: 1px solid rgba(229, 195, 120, 0.3);
+    color: #f7e4b8;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .zen-path-pill:hover {
+    background: rgba(229, 195, 120, 0.25);
+    border-color: var(--zen-gold);
+    transform: translateY(-1px);
+  }
+
   @media(max-width: 900px) {
     .donate-luxury-box { grid-template-columns: 1fr; padding: 30px; }
     .footer-columns { grid-template-columns: 1fr; }
     .nav-links a:not(.btn-primary) { display: none; }
     .video-grid-system, .books-grid-system { grid-template-columns: 1fr; }
+    .zen-3d-layout { grid-template-columns: 1fr; }
+    .zen-3d-stage { height: 380px; }
   }
   </style>
 </head>
@@ -869,6 +1070,8 @@
       <span>👥 Độc giả ghé thăm:</span>
       <span class="num" id="lido-visitor-count">108</span>
     </div>
+    <span style="opacity: 0.4;">•</span>
+    <a href="#zen-3d-space" style="color: var(--zen-gold); font-weight: 700;">✨ Không Gian 3D</a>
     <span style="opacity: 0.4;">•</span>
     <a href="#nhacthien" style="color: var(--zen-gold);">🎧 Nhạc Thiền (@1995lido)</a>
     <span style="opacity: 0.4;">•</span>
@@ -893,6 +1096,7 @@
           <span class="num lido-visitor-count-val">108</span>
         </div>
         <ul class="nav-links">
+          <li><a href="#zen-3d-space" style="color: var(--zen-gold);">✨ Không Gian 3D</a></li>
           <li><a href="#tusach">Tủ Sách Nikāya</a></li>
           <li><a href="#nhacthien">Nhạc Thiền Định Tâm</a></li>
           <li><a href="https://tuanweb2026.github.io/lido-buddhist-library/forum/index.html" target="_blank">Đạo Tràng Thảo Luận</a></li>
@@ -918,18 +1122,32 @@
 
       <!-- Zen Quotes Carousel (Clawvisual-inspired Visual Card Deck) -->
       <div class="zen-carousel-wrapper" id="zen-carousel-container">
+        <!-- Sub-filter categories bar -->
+        <div class="zen-carousel-cat-tabs" id="carousel-cat-tabs">
+          <button class="zen-tab-btn active" onclick="lidoApp.filterQuoteCategory('all', this)">Tất Cả (112)</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Bản Chất Của Tâm & Giải Phóng Bản Ngã', this)">Tâm & Bản Ngã</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Thức Thực, Nghiệp Lực & Luân Hồi', this)">Thức Thực</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Thực Hành Đời Thường & An Lạc Nội Tại', this)">Đời Thường</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Vô Thường', this)">🌸 Vô Thường (35)</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Vô Ngã', this)">🌿 Vô Ngã (35)</button>
+          <button class="zen-tab-btn" onclick="lidoApp.filterQuoteCategory('Tánh Không', this)">✨ Tánh Không (30)</button>
+        </div>
+
         <div class="zen-carousel-header">
           <div class="zen-carousel-tag" id="carousel-tag">
             <span id="carousel-icon">🪷</span>
-            <span id="carousel-tag-text">Ý Nghiệp Thanh Tịnh</span>
+            <span id="carousel-tag-text">Bản Chất Của Tâm & Giải Phóng Bản Ngã</span>
           </div>
           <div class="zen-carousel-controls">
             <button class="zen-carousel-btn" id="carousel-prev" title="Lời dạy trước" onclick="lidoApp.prevQuote()" aria-label="Previous quote">
               &#10094;
             </button>
-            <span class="zen-carousel-counter" id="carousel-counter">1 / 5</span>
+            <span class="zen-carousel-counter" id="carousel-counter">1 / 112</span>
             <button class="zen-carousel-btn" id="carousel-next" title="Lời dạy kế tiếp" onclick="lidoApp.nextQuote()" aria-label="Next quote">
               &#10095;
+            </button>
+            <button class="zen-carousel-btn zen-btn-random" title="Rút thẻ lời dạy ngẫu nhiên" onclick="lidoApp.randomQuote()" aria-label="Random quote">
+              🎲
             </button>
           </div>
         </div>
@@ -937,16 +1155,97 @@
         <div class="zen-carousel-card">
           <div class="zen-quote-marks">“</div>
           <p class="zen-quote-text" id="hero-quote">
-            "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình."
+            "Bạn không phải là người sở hữu dòng suy nghĩ; bạn chỉ là người chứng kiến dòng sông ấy cuộn trôi qua tâm trí mình."
           </p>
           <div class="zen-quote-meta">
-            <div class="quote-source-badge" id="hero-quote-source">Kinh Pháp Cú (Dhammapada), Kệ số 2</div>
-            <div class="quote-author-name" id="hero-quote-author">— Đức Phật Thích Ca Mâu Ni (HT. Thích Minh Châu dịch)</div>
+            <div class="quote-source-badge" id="hero-quote-source">Triết Lý Tỉnh Thức & Giải Thoát</div>
+            <div class="quote-author-name" id="hero-quote-author">— LIDO Zen Meditation</div>
           </div>
         </div>
 
-        <div class="zen-carousel-dots" id="carousel-dots">
-          <!-- Rendered dynamically -->
+        <!-- Progress bar for 112 quotes -->
+        <div class="zen-carousel-progress-box">
+          <div class="zen-carousel-progress-bar" id="carousel-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zen 3D Interactive Space (Lido Zen Art 3D Experience) -->
+  <section id="zen-3d-space" class="zen-3d-section">
+    <div class="zen-container">
+      <div class="zen-3d-layout">
+        <!-- 3D Canvas Stage -->
+        <div class="zen-3d-stage">
+          <div class="zen-3d-controls-bar">
+            <button id="zen-3d-toggle-halo" class="zen-3d-btn active" title="Bật/Tắt hào quang Bát Chánh Đạo">✨ Hào Quang</button>
+            <button id="zen-3d-toggle-rotate" class="zen-3d-btn" title="Bật/Tắt tự động xoay">▶ Tự xoay</button>
+            <button id="zen-3d-reset-btn" class="zen-3d-btn" title="Đặt lại góc nhìn chính diện">↺ Góc diện</button>
+          </div>
+          <div id="zen-3d-canvas-container"></div>
+          <div class="zen-3d-hint">
+            <span>🪷</span> Kéo chuột / Chạm để xoay 360° • Cuộn để phóng to chi tiết
+          </div>
+        </div>
+
+        <!-- Description & Spiritual Meaning: Bát Chánh Đạo & Tứ Diệu Đế -->
+        <div class="zen-3d-info">
+          <div class="badge badge-gold" style="margin-bottom: 0.75rem;">Không Gian Chiêm Ngưỡng 3D</div>
+          <h2 class="section-heading" style="margin-bottom: 0.8rem;">
+            Kim Thân Đức Thế Tôn &amp; Cốt Tủy Chánh Pháp
+          </h2>
+          <p class="section-subheading" style="margin-bottom: 1.25rem;">
+            Chiêm ngưỡng Tôn Tượng Đức Phật Thích Ca Mâu Ni nhập định trên Tòa Sen Hoàng Kim, phổ chiếu hào quang <strong>Bát Chánh Đạo</strong> và soi rọi chân lý <strong>Tứ Diệu Đế</strong> dẫn lối giải thoát khổ đau.
+          </p>
+
+          <!-- Tứ Diệu Đế & Bát Chánh Đạo Cards -->
+          <div class="zen-dharma-grid">
+            <!-- Box 1: Tứ Diệu Đế -->
+            <div class="zen-dharma-card">
+              <div class="zen-dharma-title">
+                <span>☸️</span> TỨ DIỆU ĐẾ (Cattāri Ariyasaccāni)
+              </div>
+              <p class="zen-dharma-desc">
+                Bốn Chân Lý Tối Thượng Đức Phật tuyên thuyết tại Vườn Lộc Uyển:
+              </p>
+              <ul class="zen-dharma-list">
+                <li><strong>1. Khổ Đế (Dukkha):</strong> Bản chất thế gian là bất toàn, vô thường, sinh-lão-bệnh-tử.</li>
+                <li><strong>2. Tập Đế (Samudaya):</strong> Nguồn gốc khổ đau xuất phát từ Lòng Tham ái &amp; Chấp thủ.</li>
+                <li><strong>3. Diệt Đế (Nirodha):</strong> Trạng thái Niết Bàn tịch tịnh khi dứt sạch mọi tham, sân, si.</li>
+                <li><strong>4. Đạo Đế (Magga):</strong> Con đường độc nhất diệt trừ đau khổ — Bát Chánh Đạo.</li>
+              </ul>
+            </div>
+
+            <!-- Box 2: Bát Chánh Đạo -->
+            <div class="zen-dharma-card">
+              <div class="zen-dharma-title">
+                <span>🪷</span> BÁT CHÁNH ĐẠO (Ariya Aṭṭhaṅgika Magga)
+              </div>
+              <p class="zen-dharma-desc">
+                8 Nhánh Đường Vàng phân bổ hài hòa qua Giới - Định - Tuệ:
+              </p>
+              <div class="zen-eightfold-tags">
+                <span class="zen-path-pill" title="Tuệ học">👁️ Chánh Kiến</span>
+                <span class="zen-path-pill" title="Tuệ học">💭 Chánh Tư Duy</span>
+                <span class="zen-path-pill" title="Giới học">🗣️ Chánh Ngữ</span>
+                <span class="zen-path-pill" title="Giới học">🤲 Chánh Nghiệp</span>
+                <span class="zen-path-pill" title="Giới học">🌾 Chánh Mạng</span>
+                <span class="zen-path-pill" title="Định học">⚡ Chánh Tinh Tấn</span>
+                <span class="zen-path-pill" title="Định học">🧘 Chánh Niệm</span>
+                <span class="zen-path-pill" title="Định học">🕯️ Chánh Định</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <a href="#tusach" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+              <span>📖</span> Đọc Kinh Nikāya &amp; Đạo Đức Nhân Bản
+            </a>
+            <span style="font-size: 12px; color: var(--zen-text-faint); display: inline-flex; align-items: center; gap: 5px;">
+              <span class="pulse-indicator" style="width: 6px; height: 6px;"></span>
+              Tự dừng Render khi cuộn ngoài tầm nhìn (Zero GPU)
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -1117,7 +1416,8 @@
 
   <div class="local-badge-art">● LIVE 3D PRODUCTION · Đạo Phật Gốc</div>
 
-  <script src="js/app.js?v=1792420266"></script>
-  <script src="js/tracker.js?v=1792420266"></script>
+  <script src="js/app.js?v=1792423915"></script>
+  <script src="js/tracker.js?v=1792423915"></script>
+  <script src="js/zen-space-3d.js?v=1792423915"></script>
 </body>
 </html>

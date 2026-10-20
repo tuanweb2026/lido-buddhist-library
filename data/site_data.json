@@ -17,43 +17,899 @@
     },
     "zen_quotes": [
       {
-        "id": "q1",
-        "quote": "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, Nói năng hay hành động, An lạc sẽ theo sau, Như bóng không rời hình.",
-        "source": "Kinh Pháp Cú (Dhammapada), Kệ số 2",
-        "author": "Đức Phật Thích Ca Mâu Ni (HT. Thích Minh Châu dịch)",
-        "tag": "Ý Nghiệp Thanh Tịnh",
+        "id": "zen-001",
+        "quote": "Bạn không phải là người sở hữu dòng suy nghĩ; bạn chỉ là người chứng kiến dòng sông ấy cuộn trôi qua tâm trí mình.",
+        "source": "Triết Lý Tỉnh Thức & Giải Thoát",
+        "author": "LIDO Zen Meditation",
+        "tag": "Bản Chất Của Tâm & Giải Phóng Bản Ngã",
         "icon": "🪷"
       },
       {
-        "id": "q2",
-        "quote": "Không làm mọi điều ác, Thành tựu các hạnh lành, Giữ tâm ý trong sạch, Chính lời chư Phật dạy.",
-        "source": "Kinh Pháp Cú, Kệ số 183",
-        "author": "Đức Phật Thích Ca Mâu Ni",
-        "tag": "Cốt Tủy Chánh Pháp",
-        "icon": "☸️"
+        "id": "zen-002",
+        "quote": "Đừng hỏi \"Ai\" đang khổ, \"Ai\" đang giận. Hãy tỉnh thức nhìn xem: Cơn giận này do duyên gì sinh ra, và khi duyên hết, nó sẽ tự tan biến về đâu.",
+        "source": "Triết Lý Tỉnh Thức & Giải Thoát",
+        "author": "LIDO Zen Meditation",
+        "tag": "Bản Chất Của Tâm & Giải Phóng Bản Ngã",
+        "icon": "🪷"
       },
       {
-        "id": "q3",
-        "quote": "Sống không làm khổ mình, không làm khổ người và không làm khổ muôn loài chúng sinh — đó chính là cội gốc của đạo đức giải thoát.",
-        "source": "Đạo Đức Làm Người (Tập 1)",
-        "author": "Trưởng lão Thích Thông Lạc — Tu Viện Chơn Như",
-        "tag": "Đạo Đức Nhân Bản",
-        "icon": "🌱"
+        "id": "zen-003",
+        "quote": "Cái tôi không phải là một pho tượng đá bất biến ngự trị bên trong bạn; nó chỉ là ảo ảnh quang học sinh ra từ những ý niệm đang nối tiếp nhau trong từng sát-na.",
+        "source": "Triết Lý Tỉnh Thức & Giải Thoát",
+        "author": "LIDO Zen Meditation",
+        "tag": "Bản Chất Của Tâm & Giải Phóng Bản Ngã",
+        "icon": "🪷"
       },
       {
-        "id": "q4",
-        "quote": "Hận thù diệt hận thù, Đời này không thể có. Từ bi diệt hận thù, Là định luật ngàn thu.",
-        "source": "Kinh Pháp Cú, Kệ số 5",
-        "author": "Đức Phật Thích Ca Mâu Ni",
-        "tag": "Từ Bi & Hóa Giải",
+        "id": "zen-004",
+        "quote": "Ngôi nhà tâm trí sẽ mãi giam cầm bạn chừng nào bạn còn nhầm tưởng những vị khách vãng lai mang tên \"buồn, vui, giận, hờn\" chính là người chủ nhà.",
+        "source": "Triết Lý Tỉnh Thức & Giải Thoát",
+        "author": "LIDO Zen Meditation",
+        "tag": "Bản Chất Của Tâm & Giải Phóng Bản Ngã",
+        "icon": "🪷"
+      },
+      {
+        "id": "zen-005",
+        "quote": "Cơm áo nuôi lớn thể xác một đời, nhưng Thức Thực lại nuôi dưỡng dòng chảy sinh mệnh đi qua muôn vạn kiếp luân hồi.",
+        "source": "Duyên Khởi & Thức Thực",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thức Thực, Nghiệp Lực & Luân Hồi",
+        "icon": "🌊"
+      },
+      {
+        "id": "zen-006",
+        "quote": "Tâm thức và Thân xác như hai bó sậy dựng giữa đồng không: tựa vào nhau mà đứng vững, thiếu một bó thì bó kia cũng đổ rạp tan rã.",
+        "source": "Duyên Khởi & Thức Thực",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thức Thực, Nghiệp Lực & Luân Hồi",
+        "icon": "🌊"
+      },
+      {
+        "id": "zen-007",
+        "quote": "Mỗi ý niệm hôm nay là một hạt giống nuôi dưỡng Thức thực ngày mai; gieo tỉnh thức gặt tự do, gieo bám víu gặt trói buộc.",
+        "source": "Duyên Khởi & Thức Thực",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thức Thực, Nghiệp Lực & Luân Hồi",
+        "icon": "🌊"
+      },
+      {
+        "id": "zen-008",
+        "quote": "Thức thực không phải là linh hồn bất tử đi tìm nơi trú ngụ; nó là ngọn lửa chuyền từ cây nến này sang cây nến khác – không phải ngọn lửa cũ, nhưng cũng chẳng tách rời ngọn lửa xưa.",
+        "source": "Duyên Khởi & Thức Thực",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thức Thực, Nghiệp Lực & Luân Hồi",
+        "icon": "🌊"
+      },
+      {
+        "id": "zen-009",
+        "quote": "Bình yên chân thật không đến từ việc bạn cố gắng kiểm soát mọi suy nghĩ, mà đến từ lúc bạn mỉm cười buông tay và không bám víu vào chúng nữa.",
+        "source": "Hiện Tại Lạc Trú & Buông Thư",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thực Hành Đời Thường & An Lạc Nội Tại",
         "icon": "🕊️"
       },
       {
-        "id": "q5",
-        "quote": "Quá khứ không truy tìm, Tương lai không ước vọng. Quá khứ đã đoạn tận, Tương lai lại chưa đến. Chỉ có pháp hiện tại, Tuệ quán chính ở đây.",
-        "source": "Kinh Nhất Dạ Hiền Giả (Bhaddekaratta Sutta) — Trung Bộ Kinh",
-        "author": "Đức Phật Thích Ca Mâu Ni",
-        "tag": "Hiện Tại Lạc Trú",
+        "id": "zen-010",
+        "quote": "Khi giông bão cuộc đời ập đến nơi giác quan, chỉ cần giữ tâm tỉnh giác nơi ngưỡng cửa \"Xúc và Thọ\", ngọn lửa của Tham Ái và Khổ Đau sẽ tự động tắt ngấm.",
+        "source": "Hiện Tại Lạc Trú & Buông Thư",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thực Hành Đời Thường & An Lạc Nội Tại",
+        "icon": "🕊️"
+      },
+      {
+        "id": "zen-011",
+        "quote": "Thay vì nói: \"Tôi đang đau khổ\", hãy nhìn sâu và mỉm cười: \"Một cảm thọ đau khổ đang sinh khởi, và theo lẽ vô thường, nó cũng sẽ rời đi\".",
+        "source": "Hiện Tại Lạc Trú & Buông Thư",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thực Hành Đời Thường & An Lạc Nội Tại",
+        "icon": "🕊️"
+      },
+      {
+        "id": "zen-012",
+        "quote": "Trí tuệ giải thoát bắt đầu từ khoảnh khắc bạn không còn tìm kiếm một \"Cái Tôi\" để bảo vệ, mà thấu hiểu mọi thứ trên đời chỉ là một sự vận hành mầu nhiệm của Duyên Khởi.",
+        "source": "Hiện Tại Lạc Trú & Buông Thư",
+        "author": "LIDO Zen Meditation",
+        "tag": "Thực Hành Đời Thường & An Lạc Nội Tại",
+        "icon": "🕊️"
+      },
+      {
+        "id": "zen-013",
+        "quote": "Tất cả pháp hữu vi đều là vô thường, có sinh tất có diệt. Tâm an nhiên khi chấp nhận sự đổi thay.",
+        "source": "Vô Thường (Impermanence) • Câu 1/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-014",
+        "quote": "Hoa nở rồi tàn, trăng tròn lại khuyết. Vô thường không phải u buồn, mà là bản chất của sự sống.",
+        "source": "Vô Thường (Impermanence) • Câu 2/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-015",
+        "quote": "Ngày hôm nay trôi qua sẽ không bao giờ trở lại. Hãy trân trọng từng phút giây trong tĩnh lặng.",
+        "source": "Vô Thường (Impermanence) • Câu 3/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-016",
+        "quote": "Đừng bám chấp vào quá khứ, đừng mong cầu ở tương lai. Hiện tại chính là nơi bình an nhất.",
+        "source": "Vô Thường (Impermanence) • Câu 4/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-017",
+        "quote": "Mọi dòng sông đều chảy ra biển lớn, mọi đám mây rồi sẽ tan biến trên tầng không.",
+        "source": "Vô Thường (Impermanence) • Câu 5/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-018",
+        "quote": "Thân thể này, cảm xúc này, ý nghĩ này... tất cả đều đang đổi thay từng khoảnh khắc.",
+        "source": "Vô Thường (Impermanence) • Câu 6/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-019",
+        "quote": "Khi thấu hiểu vô thường, ta ngừng oán trách những dở dang và biết mỉm cười với hiện tại.",
+        "source": "Vô Thường (Impermanence) • Câu 7/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-020",
+        "quote": "Cuộc đời như giọt sương trên đầu cỏ, tan biến khi ánh mặt trời vừa hửng sáng.",
+        "source": "Vô Thường (Impermanence) • Câu 8/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-021",
+        "quote": "Buông tay không phải là mất mát, mà là nhường chỗ cho sự thanh thản bước vào.",
+        "source": "Vô Thường (Impermanence) • Câu 9/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-022",
+        "quote": "Không có gì là vĩnh cửu dưới ánh mặt trời. Hãy sống chân thành và an an lặng lặng.",
+        "source": "Vô Thường (Impermanence) • Câu 10/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-023",
+        "quote": "Niềm vui đến rồi đi, nỗi buồn cũng sinh rồi diệt. Đừng để lòng mình chao đảo theo ngoại cảnh.",
+        "source": "Vô Thường (Impermanence) • Câu 11/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-024",
+        "quote": "Thảnh thơi bước đi trong vô thường, như làn gió mát lướt nhẹ qua rừng trúc.",
+        "source": "Vô Thường (Impermanence) • Câu 12/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-025",
+        "quote": "Khi biết trước tương phùng sẽ có ngày chia ly, ta càng nâng niu từng khoảnh khắc hiện hữu.",
+        "source": "Vô Thường (Impermanence) • Câu 13/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-026",
+        "quote": "Thế gian vạn vật như giấc mộng giữa ban ngày, thức tỉnh rồi chỉ còn lại lòng thanh thản.",
+        "source": "Vô Thường (Impermanence) • Câu 14/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-027",
+        "quote": "Vô thường nhắc nhở ta rằng không có khó khăn nào kéo dài mãi mãi.",
+        "source": "Vô Thường (Impermanence) • Câu 15/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-028",
+        "quote": "Hãy thả trôi những muộn phiền như chiếc lá khô trôi theo dòng suối mát.",
+        "source": "Vô Thường (Impermanence) • Câu 16/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-029",
+        "quote": "Đêm tối trôi qua, bình minh lại đến. Vô thường chính là niềm hy vọng của sự khởi đầu.",
+        "source": "Vô Thường (Impermanence) • Câu 17/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-030",
+        "quote": "Đừng giữ chặt những gì không thuộc về mình, vì vạn vật vốn là của đất trời.",
+        "source": "Vô Thường (Impermanence) • Câu 18/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-031",
+        "quote": "Nhẹ nhàng đi qua những biến động của cuộc đời với trái tim bao dung và thanh tịnh.",
+        "source": "Vô Thường (Impermanence) • Câu 19/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-032",
+        "quote": "Tâm tĩnh lặng nhìn đời đổi thay, như rặng núi đứng yên giữa ngàn mây trôi.",
+        "source": "Vô Thường (Impermanence) • Câu 20/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-033",
+        "quote": "Mọi vinh hoa phú quý rồi cũng như mây khói, chỉ có sự bình an nội tại là đáng quý.",
+        "source": "Vô Thường (Impermanence) • Câu 21/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-034",
+        "quote": "Cảm xúc như những làn sóng trên mặt biển, rồi sẽ dịu êm trả lại sự phẳng lặng.",
+        "source": "Vô Thường (Impermanence) • Câu 22/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-035",
+        "quote": "Học cách buông bỏ mỗi ngày là học cách trở về với sự tự do trọn vẹn.",
+        "source": "Vô Thường (Impermanence) • Câu 23/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-036",
+        "quote": "Khi ta không cưỡng lại sự đổi thay, mọi đau khổ liền tự động tan biến.",
+        "source": "Vô Thường (Impermanence) • Câu 24/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-037",
+        "quote": "Sức mạnh lớn nhất của tâm hồn là sự kiên định tĩnh lặng giữa muôn vàn vô thường.",
+        "source": "Vô Thường (Impermanence) • Câu 25/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-038",
+        "quote": "Mỗi hơi thở ra là một sự giải thoát, mỗi hơi thở vào là một sự tái sinh.",
+        "source": "Vô Thường (Impermanence) • Câu 26/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-039",
+        "quote": "Hãy sống trọn vẹn từng phút giây như thể đó là khoảnh khắc duy nhất trên đời.",
+        "source": "Vô Thường (Impermanence) • Câu 27/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-040",
+        "quote": "Cuộc đời là chuỗi những cuộc gặp gỡ và chia xa, hãy để tất cả diễn ra tự nhiên.",
+        "source": "Vô Thường (Impermanence) • Câu 28/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-041",
+        "quote": "Bình an không nằm ở hoàn cảnh bên ngoài, mà nằm ở thái độ đón nhận của tâm ta.",
+        "source": "Vô Thường (Impermanence) • Câu 29/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-042",
+        "quote": "Mây tan mây hợp trên tầng không, lòng không bận bận thế gian thong dong.",
+        "source": "Vô Thường (Impermanence) • Câu 30/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-043",
+        "quote": "Sự đổi thay là quy luật duy nhất không bao giờ đổi thay.",
+        "source": "Vô Thường (Impermanence) • Câu 31/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-044",
+        "quote": "Đừng xây nhà trên cát, đừng gửi gắm hạnh phúc vào những điều mong manh.",
+        "source": "Vô Thường (Impermanence) • Câu 32/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-045",
+        "quote": "Biết đủ là hạnh phúc lớn nhất, biết buông là tự do cao nhất.",
+        "source": "Vô Thường (Impermanence) • Câu 33/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-046",
+        "quote": "Nhẹ bước thong dong giữa cõi đời, tâm không vướng bận lòng an vui.",
+        "source": "Vô Thường (Impermanence) • Câu 34/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-047",
+        "quote": "Trôi theo dòng chảy của đất trời với trái tim ngập tràn yêu thương.",
+        "source": "Vô Thường (Impermanence) • Câu 35/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Thường",
+        "icon": "🌸"
+      },
+      {
+        "id": "zen-048",
+        "quote": "Cái \"tôi\" chỉ là một ảo tưởng của tâm trí. Khi tan hòa vào vũ trụ, vạn vật là một.",
+        "source": "Vô Ngã (Non-Self) • Câu 1/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-049",
+        "quote": "Sóng nước không thể tách rời khỏi đại dương. Ta và vạn vật vốn hòa quyện làm một.",
+        "source": "Vô Ngã (Non-Self) • Câu 2/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-050",
+        "quote": "Đừng tìm kiếm cái \"tôi\" trong những suy nghĩ, vì suy nghĩ chỉ là làn gió thoảng qua.",
+        "source": "Vô Ngã (Non-Self) • Câu 3/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-051",
+        "quote": "Khi không còn cái \"tôi\" để bảo vệ, nỗi sợ hãi và giận dữ tự nhiên biến mất.",
+        "source": "Vô Ngã (Non-Self) • Câu 4/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-052",
+        "quote": "Như ngọn lửa chuyền từ cây nến này sang cây nến khác, sự sống là dòng chảy liên tục.",
+        "source": "Vô Ngã (Non-Self) • Câu 5/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-053",
+        "quote": "Ta không sở hữu bất kỳ điều gì, kể cả thân xác này. Tất cả chỉ là duyên hợp.",
+        "source": "Vô Ngã (Non-Self) • Câu 6/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-054",
+        "quote": "Khi lòng bớt ngạo mạn và bám chấp, sự yêu thương và thấu hiểu tự nhiên đong đầy.",
+        "source": "Vô Ngã (Non-Self) • Câu 7/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-055",
+        "quote": "Hãy khiêm nhường như hạt bụi nhỏ, để thấy mình hòa hợp cùng cả không gian.",
+        "source": "Vô Ngã (Non-Self) • Câu 8/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-056",
+        "quote": "Nỗi đau nảy sinh khi ta nghĩ \"đây là của tôi\". Buông xả sở hữu, tâm liền an tịnh.",
+        "source": "Vô Ngã (Non-Self) • Câu 9/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-057",
+        "quote": "Thân này là sự kết hợp của đất, nước, gió, lửa. Khi hết duyên lại trở về cùng thiên nhiên.",
+        "source": "Vô Ngã (Non-Self) • Câu 10/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-058",
+        "quote": "Hãy lắng nghe tiếng sáo vang mà không cần tìm kiếm người thổi sáo.",
+        "source": "Vô Ngã (Non-Self) • Câu 11/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-059",
+        "quote": "Khi cái \"tôi\" lắng xuống, sự chân thật và lòng từ bi tự nhiên tỏa sáng.",
+        "source": "Vô Ngã (Non-Self) • Câu 12/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-060",
+        "quote": "Đừng để lòng mình bị giam cầm trong cái gông cúng của định kiến cá nhân.",
+        "source": "Vô Ngã (Non-Self) • Câu 13/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-061",
+        "quote": "Hạnh phúc chân thật bừng nở khi ta quên đi bản thân để nâng đỡ người khác.",
+        "source": "Vô Ngã (Non-Self) • Câu 14/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-062",
+        "quote": "Ta là cây trúc nghiêng mình trước gió, không kháng cự nên không bao giờ gãy.",
+        "source": "Vô Ngã (Non-Self) • Câu 15/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-063",
+        "quote": "Cảnh vật tĩnh lặng hay xôn xao đều do tâm ta phân biệt mà ra.",
+        "source": "Vô Ngã (Non-Self) • Câu 16/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-064",
+        "quote": "Nhìn cây thấy lá, nhìn lá thấy rừng. Mọi sự vật đều chứa đựng lẫn nhau.",
+        "source": "Vô Ngã (Non-Self) • Câu 17/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-065",
+        "quote": "Khi buông bỏ ảo tưởng về một cái \"tôi\" cố định, ta tìm thấy sự tự do đích thực.",
+        "source": "Vô Ngã (Non-Self) • Câu 18/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-066",
+        "quote": "Giọt nước hòa vào biển cả sẽ không bao giờ cạn khô.",
+        "source": "Vô Ngã (Non-Self) • Câu 19/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-067",
+        "quote": "Đừng so sánh mình với bất kỳ ai, vì vạn vật đều có vẻ đẹp riêng của nó.",
+        "source": "Vô Ngã (Non-Self) • Câu 20/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-068",
+        "quote": "Tâm rộng lớn như lòng đại dương, chứa đựng mọi dòng sông mà không hề tràn dâng.",
+        "source": "Vô Ngã (Non-Self) • Câu 21/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-069",
+        "quote": "Sự tĩnh lặng chân thật là khi cái \"tôi\" không còn tranh giành đúng sai.",
+        "source": "Vô Ngã (Non-Self) • Câu 22/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-070",
+        "quote": "Hãy như dòng suối trong vắt, chảy qua mọi ghềnh đá mà không hề vướng bận.",
+        "source": "Vô Ngã (Non-Self) • Câu 23/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-071",
+        "quote": "Không bám chấp vào thành hay bại, khen hay chê. Lòng an nhiên như mây trời.",
+        "source": "Vô Ngã (Non-Self) • Câu 24/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-072",
+        "quote": "Trái tim rộng mở là trái tim không dựng lên rào cản phân biệt.",
+        "source": "Vô Ngã (Non-Self) • Câu 25/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-073",
+        "quote": "Khi ta không còn tự khẳng định mình, vạn vật tự nhiên tôn trọng ta.",
+        "source": "Vô Ngã (Non-Self) • Câu 26/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-074",
+        "quote": "Nhẹ nhàng đi qua nhân thế, không để lại vết chân oán hận hay giận hường.",
+        "source": "Vô Ngã (Non-Self) • Câu 27/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-075",
+        "quote": "Sống bình dị giữa đời thường, như hoa sen nở giữa hồ nước trong.",
+        "source": "Vô Ngã (Non-Self) • Câu 28/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-076",
+        "quote": "Sự tha thứ lớn nhất là tha thứ cho những lầm lỗi của chính bản thân mình.",
+        "source": "Vô Ngã (Non-Self) • Câu 29/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-077",
+        "quote": "Khi ta thương yêu người khác mà không đòi hỏi đền đáp, đó là tình thương vô ngã.",
+        "source": "Vô Ngã (Non-Self) • Câu 30/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-078",
+        "quote": "Hãy nhìn cuộc đời bằng đôi mắt của sự bao dung và thấu hiểu.",
+        "source": "Vô Ngã (Non-Self) • Câu 31/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-079",
+        "quote": "Cây không đòi hỏi đất trả ơn, sông không đòi hỏi biển ghi nhận.",
+        "source": "Vô Ngã (Non-Self) • Câu 32/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-080",
+        "quote": "Tâm vô ngã là tâm không bị chao đảo trước phong ba bão táp của cuộc đời.",
+        "source": "Vô Ngã (Non-Self) • Câu 33/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-081",
+        "quote": "Hãy chìm vào tĩnh lặng để nghe tiếng nói nhiệm màu của trái tim.",
+        "source": "Vô Ngã (Non-Self) • Câu 34/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-082",
+        "quote": "Trở về với chính mình là trở về với sự an bình sẵn có.",
+        "source": "Vô Ngã (Non-Self) • Câu 35/35",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Vô Ngã",
+        "icon": "🌿"
+      },
+      {
+        "id": "zen-083",
+        "quote": "Tánh Không không phải là hư vô bế tắc, mà là khả năng vô tận của sự khởi sinh.",
+        "source": "Tánh Không & Chúc Phúc • Câu 1/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-084",
+        "quote": "Ly rỗng mới chứa được nước. Tâm rỗng rang mới đón nhận được sự an lành.",
+        "source": "Tánh Không & Chúc Phúc • Câu 2/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-085",
+        "quote": "Như bầu trời trong xanh chứa đựng muôn vàn đám mây mà không bị mây làm ô nhiễm.",
+        "source": "Tánh Không & Chúc Phúc • Câu 3/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-086",
+        "quote": "Bản chất của mọi sự vật là Không, nên vạn vật mới có thể biến đổi và phát triển.",
+        "source": "Tánh Không & Chúc Phúc • Câu 4/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-087",
+        "quote": "Khi tâm không vướng bận một hạt bụi, khắp nơi đều là chốn bồng lai.",
+        "source": "Tánh Không & Chúc Phúc • Câu 5/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-088",
+        "quote": "Lắng nghe tiếng chuông ngân vào hư không, lòng nhẹ nhõm như chưa từng lo âu.",
+        "source": "Tánh Không & Chúc Phúc • Câu 6/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-089",
+        "quote": "Trái tim rỗng rang là trái tim đong đầy tình yêu thương chân thật.",
+        "source": "Tánh Không & Chúc Phúc • Câu 7/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-090",
+        "quote": "Mọi hình tướng rồi sẽ tan hòa vào cái Không rộng lớn của vũ trụ.",
+        "source": "Tánh Không & Chúc Phúc • Câu 8/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-091",
+        "quote": "Khi không còn bám chấp vào có hay không, ta bước vào cảnh giới tự tại.",
+        "source": "Tánh Không & Chúc Phúc • Câu 9/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-092",
+        "quote": "Tĩnh lặng là ngôn ngữ nguyên sơ của vũ trụ. Hãy lắng nghe trong yên lặng.",
+        "source": "Tánh Không & Chúc Phúc • Câu 10/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-093",
+        "quote": "Như ánh trăng soi bóng xuống đáy hồ, hiện rõ mà không để lại vết sẹo trên mặt nước.",
+        "source": "Tánh Không & Chúc Phúc • Câu 11/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-094",
+        "quote": "Sự rỗng rang trong tâm hồn chính là chiếc cầu nối ta với vạn vật.",
+        "source": "Tánh Không & Chúc Phúc • Câu 12/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-095",
+        "quote": "Đừng tìm kiếm sự tĩnh lặng ở nơi nào xa xôi, nó đang có mặt ngay trong hơi thở này.",
+        "source": "Tánh Không & Chúc Phúc • Câu 13/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-096",
+        "quote": "Nhìn thấu Tánh Không để sống nhiệt thành mà không bám chấp.",
+        "source": "Tánh Không & Chúc Phúc • Câu 14/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-097",
+        "quote": "Bình an là khi tâm ta tĩnh lặng như mặt hồ không một gờn sóng.",
+        "source": "Tánh Không & Chúc Phúc • Câu 15/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-098",
+        "quote": "Hãy như khoảng trống trong chiếc bình, tạo nên giá trị cho chiếc bình.",
+        "source": "Tánh Không & Chúc Phúc • Câu 16/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-099",
+        "quote": "Khi mọi ý niệm phân biệt tan biến, thực tại hiện ra trong vẻ đẹp nguyên sơ.",
+        "source": "Tánh Không & Chúc Phúc • Câu 17/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-100",
+        "quote": "Tâm không phân biệt là tâm chan hòa cùng vạn vật.",
+        "source": "Tánh Không & Chúc Phúc • Câu 18/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-101",
+        "quote": "Đi qua muôn vàn bão bùng mà lòng vẫn giữ được sự bình yên trong trẻo.",
+        "source": "Tánh Không & Chúc Phúc • Câu 19/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-102",
+        "quote": "Hãy mỉm cười với mọi trải nghiệm, vì tất cả rồi cũng sẽ trôi qua.",
+        "source": "Tánh Không & Chúc Phúc • Câu 20/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-103",
+        "quote": "Tánh Không là nguồn gốc của mọi sự chữa lành và bình an.",
+        "source": "Tánh Không & Chúc Phúc • Câu 21/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-104",
+        "quote": "Đừng sợ hãi sự trống rỗng, đó chính là khoảng không cho ước mơ bay xa.",
+        "source": "Tánh Không & Chúc Phúc • Câu 22/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-105",
+        "quote": "Khi ta tĩnh lặng hoàn toàn, cả vũ trụ lắng nghe cùng ta.",
+        "source": "Tánh Không & Chúc Phúc • Câu 23/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-106",
+        "quote": "Sự trong trẻo của tâm hồn là tài sản quý giá nhất của con người.",
+        "source": "Tánh Không & Chúc Phúc • Câu 24/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-107",
+        "quote": "Hãy để những lo âu lắng xuống như phù sa đọng lại đáy sông trong.",
+        "source": "Tánh Không & Chúc Phúc • Câu 25/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-108",
+        "quote": "Trở về với Tánh Không là trở về với ngôi nhà bình yên nhất của tâm hồn.",
+        "source": "Tánh Không & Chúc Phúc • Câu 26/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-109",
+        "quote": "Sống nhẹ nhàng, thở dịu êm, yêu thương vô điều kiện.",
+        "source": "Tánh Không & Chúc Phúc • Câu 27/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-110",
+        "quote": "Mọi âm thanh đều phát xuất từ sự tĩnh lặng và rồi quay trở về với tĩnh lặng.",
+        "source": "Tánh Không & Chúc Phúc • Câu 28/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-111",
+        "quote": "Hãy là khoảng không bao la cho mọi bông hoa rực rỡ ngát hương.",
+        "source": "Tánh Không & Chúc Phúc • Câu 29/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
+        "icon": "✨"
+      },
+      {
+        "id": "zen-112",
+        "quote": "Nam Mô Bổn Sư Thích Ca Mâu Ni Phật — LIDO Meditation nguyện chúc bạn luôn an yên và tự tại trong từng phút giây.",
+        "source": "Tánh Không & Chúc Phúc • Câu 30/30",
+        "author": "Triết Lý Phật Đà & Lời Vàng Trưởng Lão",
+        "tag": "Tánh Không",
         "icon": "✨"
       }
     ]
