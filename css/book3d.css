@@ -1,0 +1,392 @@
+/* ==========================================================================
+   LIDO 3D REALISTIC ZEN FLIP BOOK (CSS 3D PERSPECTIVE ENGINE)
+   Hiển thị sắc nét 100% typography, lật trang 3D như sách thật ngoài đời
+   ========================================================================== */
+
+.zen-book-stage {
+  perspective: 1800px;
+  -webkit-perspective: 1800px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 10px 20px;
+  min-height: 480px;
+}
+
+.zen-3d-book {
+  position: relative;
+  width: min(860px, 94vw);
+  height: 440px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform: rotateX(12deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Gáy sách & bóng đổ nổi 3D */
+.zen-book-shadow {
+  position: absolute;
+  inset: -15px 5%;
+  background: radial-gradient(ellipse at center, rgba(15, 12, 9, 0.55) 0%, rgba(15, 12, 9, 0) 75%);
+  filter: blur(14px);
+  transform: translateZ(-20px);
+  pointer-events: none;
+}
+
+/* Trang sách cơ bản (Mỗi tờ gồm 2 trang Left / Right) */
+.zen-book-leaf {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.4, 0.08, 0.2, 1), box-shadow 0.9s ease;
+  will-change: transform;
+}
+
+/* Mặt trước (Lật về sau) & Mặt sau */
+.leaf-face {
+  position: absolute;
+  inset: 0;
+  background-color: #fdfaf3;
+  background-image: 
+    linear-gradient(90deg, rgba(210, 195, 170, 0.35) 0%, rgba(253, 250, 243, 0) 12%, rgba(253, 250, 243, 0) 88%, rgba(210, 195, 170, 0.25) 100%),
+    radial-gradient(circle at 50% 50%, rgba(245, 237, 220, 0.5) 0%, rgba(235, 222, 198, 0.3) 100%);
+  border: 1px solid #d9cdb8;
+  border-radius: 2px 8px 8px 2px;
+  padding: 32px 36px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: inset 0 0 40px rgba(180, 150, 110, 0.12), 4px 6px 18px rgba(25, 20, 15, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Mặt sau (Khi lật qua bên trái) */
+.leaf-back {
+  transform: rotateY(180deg);
+  border-radius: 8px 2px 2px 8px;
+  background-image: 
+    linear-gradient(270deg, rgba(210, 195, 170, 0.35) 0%, rgba(253, 250, 243, 0) 12%, rgba(253, 250, 243, 0) 88%, rgba(210, 195, 170, 0.25) 100%),
+    radial-gradient(circle at 50% 50%, rgba(245, 237, 220, 0.5) 0%, rgba(235, 222, 198, 0.3) 100%);
+}
+
+/* Nền cố định bên trái (Static Left Base) */
+.leaf-static-left {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 8px 2px 2px 8px;
+  border: 1px solid #d9cdb8;
+  border-right: 2px solid #b5a489;
+  background-color: #fdfaf3;
+  background-image: 
+    linear-gradient(270deg, rgba(210, 195, 170, 0.45) 0%, rgba(253, 250, 243, 0) 15%),
+    radial-gradient(circle at 50% 50%, rgba(245, 237, 220, 0.5) 0%, rgba(235, 222, 198, 0.3) 100%);
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 40px rgba(180, 150, 110, 0.12), -4px 6px 18px rgba(25, 20, 15, 0.18);
+}
+
+/* Khung viền chỉ vàng nghệ thuật Phật Giáo */
+.page-gold-border {
+  border: 1px solid #c5892d;
+  outline: 2px solid rgba(197, 137, 45, 0.25);
+  outline-offset: 4px;
+  padding: 16px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4px;
+}
+
+/* Typography trong từng trang sách */
+.page-chapter-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #963e24;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid rgba(197, 137, 45, 0.3);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 17px;
+  color: #1e1b18;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.page-body-text {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #332d26;
+  text-align: justify;
+  flex: 1;
+  overflow: hidden;
+}
+
+.page-verse {
+  font-family: 'Merriweather', Georgia, serif;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.85;
+  color: #2b241c;
+  background: rgba(197, 137, 45, 0.06);
+  border-left: 3px solid #c5892d;
+  padding: 8px 12px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.page-footer-num {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: #8c7f72;
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(197, 137, 45, 0.3);
+}
+
+/* Nút lật trang sang trọng */
+.book-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.btn-book-turn {
+  background: linear-gradient(135deg, #2d261e 0%, #17130f 100%);
+  border: 1px solid #c5892d;
+  color: #f7f1e5;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(25, 20, 15, 0.35);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-book-turn:hover {
+  background: #c5892d;
+  color: #17130f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 137, 45, 0.45);
+}
+
+.book-page-status {
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #963e24;
+  min-width: 130px;
+  text-align: center;
+}
+
+/* Trạng thái lật của Leaf */
+.zen-book-leaf.flipped {
+  transform: rotateY(-180deg);
+  box-shadow: -4px 6px 18px rgba(25, 20, 15, 0.18);
+  pointer-events: none; /* Left page displays content, prevents invisible overlay blocking right page */
+}
+
+.zen-book-leaf.flipped .leaf-back {
+  pointer-events: auto; /* Allow interaction with content on flipped page */
+}
+
+/* Ensure right-hand side pages and buttons always remain clickable */
+#leaf-last {
+  pointer-events: auto !important;
+}
+
+#leaf-last .leaf-face {
+  pointer-events: auto !important;
+}
+
+#leaf-last button, #leaf-last a {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 50;
+}
+
+/* ==========================================================================
+   MODAL ĐỌC KINH 3D TOÀN MÀN HÌNH (ZEN 3D SCRIPTURE MODAL)
+   ========================================================================== */
+.zen-reader-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(12, 10, 8, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 30px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.zen-reader-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.reader-header {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(197, 137, 45, 0.3);
+  padding-bottom: 12px;
+}
+
+.reader-book-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reader-badge {
+  background: rgba(184, 80, 50, 0.2);
+  border: 1px solid #b85032;
+  color: #f7ede2;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.08em;
+}
+
+.reader-title {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.btn-close-reader {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 137, 45, 0.4);
+  color: #f7f1e5;
+  font-size: 14px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-close-reader:hover {
+  background: #b85032;
+  border-color: #b85032;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.reader-footer {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(197, 137, 45, 0.2);
+  padding-top: 14px;
+  font-size: 12px;
+  color: #9e9182;
+}
+
+.reader-footer a {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.reader-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   SHOWCASE SECTION & CARD BUTTON STYLES
+   ========================================================================== */
+.zen-book-showcase-section {
+  padding: 50px 0 70px 0;
+  background: linear-gradient(180deg, #040906 0%, #0c140f 50%, #040906 100%);
+  position: relative;
+  z-index: 5;
+}
+
+.zen-showcase-card {
+  max-width: 960px;
+  margin: 0 auto;
+  background: rgba(18, 28, 22, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 20px;
+  padding: 2.2rem 2.6rem;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+}
+
+.zen-showcase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(197, 137, 45, 0.25);
+  padding-bottom: 14px;
+  margin-bottom: 15px;
+}
+
+/* Gilded Terracotta 3D Reader Button on Book Cards */
+.btn-read-modal-3d {
+  background: linear-gradient(135deg, #B85B38 0%, #873E23 100%);
+  border: 1px solid rgba(229, 195, 120, 0.45);
+  color: #FFFFFF !important;
+  padding: 7px 16px;
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(184, 91, 56, 0.4);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-read-modal-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(184, 91, 56, 0.6);
+  filter: brightness(1.12);
+  border-color: #E5C378;
+}

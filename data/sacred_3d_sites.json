@@ -1,0 +1,82 @@
+[
+  {
+    "id": "holy-01",
+    "site": "Lâm Tỳ Ni (Lumbini)",
+    "title": "Đền Thờ Hoàng Hậu Maya Devi (Lumbini)",
+    "desc": "Toàn cảnh đền thờ Thánh Mẫu Ma-Da và di chỉ khảo cổ ngàn năm nơi Thái tử Tất-Đạt-Đa đản sanh cứu độ nhân loại.",
+    "image": "assets/gallery_holy_10/holy_01.jpg",
+    "period": "Nơi Đức Phật Đản Sanh"
+  },
+  {
+    "id": "holy-02",
+    "site": "Lâm Tỳ Ni (Lumbini)",
+    "title": "Trụ Đá Vua A-Dục Linh Thiêng (Ashoka Pillar)",
+    "desc": "Trụ đá cổ do Đại đế Asoka dựng năm 249 TCN ghi dấu thánh địa đản sanh của Bậc Toàn Giác.",
+    "image": "assets/gallery_holy_10/holy_02.jpg",
+    "period": "Nơi Đức Phật Đản Sanh"
+  },
+  {
+    "id": "holy-03",
+    "site": "Bồ Đề Đạo Tràng (Bodh Gaya)",
+    "title": "Đại Tháp Đại Giác Ngộ (Mahabodhi Temple - Bodh Gaya)",
+    "desc": "Tòa đại tháp nguy nga cao vút ghi dấu đêm rằm tháng Tư Đức Thế Tôn chứng đắc Vô Thượng Chánh Đẳng Chánh Giác.",
+    "image": "assets/gallery_holy_10/holy_03.jpg",
+    "period": "Nơi Đức Phật Thành Đạo"
+  },
+  {
+    "id": "holy-04",
+    "site": "Bồ Đề Đạo Tràng (Bodh Gaya)",
+    "title": "Cội Bồ Đề Linh Thiêng Đêm Nguyệt Dạ (Bodhi Tree)",
+    "desc": "Tán bồ đề thiêng che chở Đức Thế Tôn suốt 49 ngày thiền định chiến thắng toàn bộ ma quân tham ái và sợ hãi.",
+    "image": "assets/gallery_holy_10/holy_04.jpg",
+    "period": "Nơi Đức Phật Thành Đạo"
+  },
+  {
+    "id": "holy-05",
+    "site": "Vườn Lộc Uyển (Sarnath)",
+    "title": "Bảo Tháp Dhamekh Khổng Lồ (Dhamekh Stupa - Sarnath)",
+    "desc": "Bảo tháp khổng lồ đánh dấu nơi Đức Phật thuyết giảng bài kinh đầu tiên: Chuyển Pháp Luân và khai sinh Tam Bảo.",
+    "image": "assets/gallery_holy_10/holy_05.jpg",
+    "period": "Nơi Chuyển Pháp Luân"
+  },
+  {
+    "id": "holy-06",
+    "site": "Vườn Lộc Uyển (Sarnath)",
+    "title": "Bảo Tháp Chaukhandi Trên Đồi Cao (Sarnath)",
+    "desc": "Di tích lịch sử nơi Đức Thế Tôn lần đầu tiên gặp lại năm anh em Kiều Trần Như sau ngày chứng đắc Phật quả.",
+    "image": "assets/gallery_holy_10/holy_06.jpg",
+    "period": "Nơi Chuyển Pháp Luân"
+  },
+  {
+    "id": "holy-07",
+    "site": "Núi Linh Thứu (Rajgir)",
+    "title": "Đỉnh Núi Linh Thứu — Hương Thất Của Phật (Gijjhakuta)",
+    "desc": "Đỉnh núi hình chim linh thứu huyền bí trong sương mây — nơi Đức Phật tĩnh tọa và thuyết giảng các đại kinh điển.",
+    "image": "assets/gallery_holy_10/holy_07.jpg",
+    "period": "Thánh Địa Thuyết Kinh"
+  },
+  {
+    "id": "holy-08",
+    "site": "Núi Linh Thứu (Rajgir)",
+    "title": "Bảo Tháp Hòa Bình Thế Giới (Vishwa Shanti Stupa, Rajgir)",
+    "desc": "Ngọn bảo tháp trắng thanh khiết vươn cao trên đỉnh Ratnagiri, biểu tượng hòa bình và từ bi rọi sáng mười phương.",
+    "image": "assets/gallery_holy_10/holy_08.jpg",
+    "period": "Thánh Địa Thuyết Kinh"
+  },
+  {
+    "id": "holy-09",
+    "site": "Câu Thi Na (Kushinagar)",
+    "title": "Chùa & Tháp Bát Niết Bàn (Parinirvana Stupa & Temple)",
+    "desc": "Thánh địa thiêng liêng nơi Đức Phật trút hơi thở cuối cùng dưới bóng cây Sa La, để lại di huấn: Tự mình thắp đuốc lên mà đi.",
+    "image": "assets/gallery_holy_10/holy_09.jpg",
+    "period": "Nơi Nhập Đại Bát Niết Bàn"
+  },
+  {
+    "id": "holy-10",
+    "site": "Câu Thi Na (Kushinagar)",
+    "title": "Tôn Tượng Phật Nhập Niết Bàn Hoàng Kim (Reclining Buddha)",
+    "desc": "Pho tượng Phật bằng đá sa thạch mạ vàng dài hơn 6 mét, thể hiện tư thế kiết tường thanh thản buông xả mọi duyên trần.",
+    "image": "assets/gallery_holy_10/holy_10.jpg",
+    "period": "Nơi Nhập Đại Bát Niết Bàn"
+  }
+]

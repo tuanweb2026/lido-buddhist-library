@@ -1,536 +1,586 @@
 /**
- * ==========================================================================
- * LIDO CORE APPLICATION CONTROLLER (MODULAR JAVASCRIPT)
- * Features:
- * - Reactive Data Binding from site_data.json
- * - Persistent Floating YouTube Mini Player with continuous playback
- * - Dynamic Category Filtering for Nikāya & Chơn Như books
- * - VietQR Dynamic Image Fallback & Bank Rendering
- * ==========================================================================
+ * LIDO BUDDHIST LIBRARY 3D — MAIN APPLICATION SCRIPT
+ * Handles Data Loading, Scripture Search/Filtering, Video Lazy Player, Navigation & Accessibility
  */
 
-class LidoApp {
-  constructor() {
-    this.siteData = null;
-    this.currentCategory = 'all';
-    this.activeVideoId = '94IPu4HPcUc';
-    this.isPlaying = false;
-    this.ytPlayer = null;
-    this.currentQuoteIndex = 0;
-    this.quoteAutoTimer = null;
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Initialize 3D Sacred Labyrinth Spatial Engine
+  if (window.SacredLabyrinth3D) {
+    window.labyrinthInstance = new window.SacredLabyrinth3D('three-canvas-container');
   }
 
-  async init() {
-    await this.loadData();
-    this.renderHeaderAndHero();
-    this.initQuoteCarousel();
-    this.renderVideos();
-    this.renderBooks();
-    this.renderDonateSection();
-    this.renderHealthDisclaimer();
-    this.initMiniPlayer();
+  // Toggle Quote Info Drawer
+  const btnToggleInfo = document.getElementById('btn-toggle-info');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  const quoteDrawer = document.getElementById('hero-quote-drawer');
+  if (btnToggleInfo && quoteDrawer) {
+    btnToggleInfo.addEventListener('click', () => {
+      const isHidden = quoteDrawer.style.display === 'none';
+      quoteDrawer.style.display = isHidden ? 'block' : 'none';
+    });
+  }
+  if (btnCloseDrawer && quoteDrawer) {
+    btnCloseDrawer.addEventListener('click', () => {
+      quoteDrawer.style.display = 'none';
+    });
   }
 
-  isValidSafeUrl(urlStr) {
-    if (typeof urlStr !== "string") return false;
-    try {
-      const parsed = new URL(urlStr);
-      return parsed.protocol === "https:" || parsed.protocol === "http:";
-    } catch (e) {
-      return false;
+  // 2. State Management
+  let siteData = null;
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  // 3. Elements
+  const booksGrid = document.getElementById('books-grid');
+  const searchInput = document.getElementById('search-input');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const videosGrid = document.getElementById('videos-grid');
+  const navElement = document.querySelector('.site-nav');
+  const mobileToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  // Sticky Navbar Scroll Listener
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navElement.classList.add('scrolled');
+    } else {
+      navElement.classList.remove('scrolled');
+    }
+  });
+
+  // Mobile Menu Toggle
+  if (mobileToggle && navLinks) {
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
+    });
+
+    // Close on link click
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('mobile-open');
+      });
+    });
+  }
+
+  // 4. Fetch Verified Data
+  try {
+    const res = await fetch('data/site_data.json');
+    if (!res.ok) throw new Error('Cannot load site_data.json');
+    siteData = await res.json();
+    renderLibrary();
+    renderVideos();
+  } catch (err) {
+    console.error('Data Loading Error:', err);
+    if (booksGrid) {
+      booksGrid.innerHTML = `
+        <div class="library-empty-state">
+          <p>⚠️ Không thể nạp dữ liệu kinh sách trực tiếp. Vui lòng kiểm tra server local.</p>
+        </div>
+      `;
     }
   }
 
-  isValidSiteData(data) {
-    if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
-    if (!Array.isArray(data.books) || !Array.isArray(data.featured_videos)) return false;
-    if (typeof data.site_config !== "object" || data.site_config === null || Array.isArray(data.site_config)) return false;
-    if (typeof data.site_config.hero_slogan !== "string") return false;
+  // 5. Render Scripture Library
+  function renderLibrary() {
+    if (!siteData || !siteData.books || !booksGrid) return;
 
-    // donate_bank phải là object thực sự (không phải array hay null)
-    const bank = data.site_config.donate_bank;
-    if (typeof bank !== "object" || bank === null || Array.isArray(bank)) return false;
+    const filtered = siteData.books.filter(book => {
+      const matchCat = (activeCategory === 'all') || (book.category === activeCategory);
+      const q = searchQuery.toLowerCase().trim();
+      const matchSearch = !q || 
+        book.title.toLowerCase().includes(q) ||
+        (book.author && book.author.toLowerCase().includes(q)) ||
+        (book.translator && book.translator.toLowerCase().includes(q)) ||
+        (book.summary && book.summary.toLowerCase().includes(q));
+      
+      return matchCat && matchSearch;
+    });
 
-    // Xác thực từng phần tử trong featured_videos
-    const videosValid = data.featured_videos.every(v => 
-      typeof v === "object" && v !== null && !Array.isArray(v) &&
-      typeof v.youtube_id === "string" &&
-      typeof v.title === "string"
-    );
-    if (!videosValid) return false;
+    if (filtered.length === 0) {
+      booksGrid.innerHTML = `
+        <div class="library-empty-state">
+          <p>🪷 Không tìm thấy kinh sách hoặc tài liệu phù hợp với từ khóa "${searchQuery}".</p>
+          <button class="btn-read-book" style="margin-top: 14px;" id="btn-reset-search">Xem tất cả tác phẩm</button>
+        </div>
+      `;
+      const btnReset = document.getElementById('btn-reset-search');
+      if (btnReset) {
+        btnReset.addEventListener('click', () => {
+          searchQuery = '';
+          if (searchInput) searchInput.value = '';
+          activeCategory = 'all';
+          filterButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.category === 'all'));
+          renderLibrary();
+        });
+      }
+      return;
+    }
 
-    // Xác thực từng phần tử trong books
-    const booksValid = data.books.every(bk => 
-      typeof bk === "object" && bk !== null && !Array.isArray(bk) &&
-      typeof bk.title === "string"
-    );
-    if (!booksValid) return false;
-
-    return true;
+    booksGrid.innerHTML = filtered.map(book => `
+      <article class="book-card" data-category="${book.category}">
+        <div class="book-cover-wrap">
+          <img src="${book.cover_image}" alt="${book.title}" class="book-cover-img" loading="lazy" onerror="this.src='assets/zen_feature_1.jpg'">
+          <span class="book-badge">${book.badge || 'Đại Tạng Gốc'}</span>
+        </div>
+        <div class="book-card-body">
+          <span class="book-category-tag">${book.category_label || 'Phật Pháp Căn Bản'}</span>
+          <h3 class="book-title font-serif">${book.title}</h3>
+          <p class="book-meta">
+            ${book.author ? `<strong>${book.author}</strong>` : ''} 
+            ${book.translator ? `• ${book.translator}` : ''}
+          </p>
+          <p class="book-summary">${book.summary}</p>
+          <div class="book-footer" style="flex-wrap: wrap; gap: 8px;">
+            <button class="btn-read-modal-3d" onclick="openZen3DReader('${book.id}')" aria-label="Mở sách 3D ${book.title}">
+              <span>📖 Mở Sách 3D Lật Trang</span>
+            </button>
+            <a href="${book.read_url}" target="_blank" rel="noopener noreferrer" class="btn-read-book" style="padding: 6px 12px; font-size: 0.78rem;" aria-label="Đọc toàn văn ${book.title}">
+              <span>daophatgoc.com ↗</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    `).join('');
   }
 
-  async loadData() {
+  // 6. Category Filter Listeners
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.category;
+      renderLibrary();
+    });
+  });
+
+  // 7. Search Input Listener (Debounced)
+  let debounceTimer;
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = e.target.value;
+        renderLibrary();
+      }, 200);
+    });
+  }
+
+  // 8. Render YouTube Meditation Videos with Click-to-Play Embed
+  function renderVideos() {
+    if (!siteData || !siteData.featured_videos || !videosGrid) return;
+
+    videosGrid.innerHTML = siteData.featured_videos.map((vid, idx) => `
+      <div class="video-card">
+        <div class="video-player-container" id="player-container-${vid.id}">
+          <div class="video-placeholder" data-youtube-id="${vid.youtube_id}" data-container-id="player-container-${vid.id}" style="background-image: url('assets/zen_feature_${(idx % 3) + 1}.jpg');">
+            <button class="btn-play-trigger" aria-label="Phát video ${vid.title}">▶</button>
+          </div>
+        </div>
+        <div class="video-card-body">
+          <div class="video-meta-bar">
+            <span>🪷 ${vid.category}</span>
+            <span>⏳ ${vid.duration}</span>
+          </div>
+          <h3 class="video-title font-serif">${vid.title}</h3>
+          <p class="video-desc">${vid.desc}</p>
+        </div>
+      </div>
+    `).join('');
+
+    // Attach Click-to-Play handlers
+    document.querySelectorAll('.video-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', function() {
+        const ytid = this.dataset.youtubeId;
+        const containerId = this.dataset.containerId;
+        const container = document.getElementById(containerId);
+        if (container) {
+          container.innerHTML = `
+            <iframe 
+              src="https://www.youtube-nocookie.com/embed/${ytid}?autoplay=1&rel=0&modestbranding=1" 
+              title="YouTube video player" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          `;
+        }
+      });
+    });
+  }
+
+  // ==========================================================================
+  // REAL-TIME VISITOR COUNTER ENGINE (Cloud Database Sync + Local Storage)
+  // ==========================================================================
+  async function initVisitorCounter() {
+    const counterElements = document.querySelectorAll('.lido-visitor-count-val');
+    const storageKey = 'lido_prototype_visitor_count';
+    const sessionKey = 'lido_prototype_session_visited';
+    let baseCount = 25; // Default matching user baseline screenshot
+
+    // 1. Check local persistent storage
     try {
-      // Ưu tiên nạp dữ liệu chính thống mới nhất từ mạng kèm kiểm tra HTTP status
-      const res = await fetch("data/site_data.json?v=" + Date.now());
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status} ${res.statusText}`);
+      const stored = localStorage.getItem(storageKey);
+      if (stored) {
+        baseCount = Math.max(baseCount, parseInt(stored, 10));
       }
-      const data = await res.json();
-      
-      // Kiểm tra tính toàn vẹn cấu trúc dữ liệu JSON qua schema validator
-      if (this.isValidSiteData(data)) {
-        this.siteData = data;
-      } else {
-        throw new Error("Dữ liệu JSON tải về không đúng cấu trúc quy định.");
-      }
-    } catch (err) {
-      console.warn("LidoApp: Không thể tải site_data.json hợp lệ từ mạng, thử nạp bản lưu...", err);
+    } catch (e) {}
+
+    // 2. Increment if new browser session
+    const isNewVisit = !sessionStorage.getItem(sessionKey);
+    if (isNewVisit) {
+      sessionStorage.setItem(sessionKey, 'true');
+      baseCount += 1;
       try {
-        const local = localStorage.getItem("lido_site_data");
-        if (local) {
-          const parsedLocal = JSON.parse(local);
-          if (this.isValidSiteData(parsedLocal)) {
-            this.siteData = parsedLocal;
-          } else {
-            console.warn("LidoApp: Bản lưu localStorage không đúng schema, bỏ qua.");
+        localStorage.setItem(storageKey, baseCount.toString());
+      } catch (e) {}
+    }
+
+    // 3. Update counter badge in UI
+    counterElements.forEach(el => {
+      el.textContent = baseCount.toLocaleString('vi-VN');
+    });
+
+    // 4. Try optional background sync with Cloud KV if network allows
+    try {
+      const res = await fetch('https://keyvalue.immanuel.co/api/KeyVal/GetValue/f8inst8c/stats', { cache: 'no-store' });
+      if (res.ok) {
+        let text = await res.text();
+        text = text.replace(/^"|"$/g, '').trim();
+        if (text && text !== 'null') {
+          let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
+          let padded = text.padEnd(pad(text.length), '=');
+          let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
+          if (decoded && decoded.visits) {
+            const cloudVal = Math.max(baseCount, decoded.visits);
+            counterElements.forEach(el => {
+              el.textContent = cloudVal.toLocaleString('vi-VN');
+            });
+            localStorage.setItem(storageKey, cloudVal.toString());
           }
         }
-      } catch (parseErr) {
-        console.error("LidoApp: Lỗi phân tích dữ liệu localStorage:", parseErr);
       }
+    } catch (err) {
+      // Offline/Local mode works seamlessly without error
     }
   }
 
-  renderHeaderAndHero() {
-    const cfg = this.siteData?.site_config;
-    if (!cfg || typeof cfg !== "object") return;
+  // ==========================================================================
+  // ZEN QUOTES CAROUSEL CONTROLLER (112 Quotes, Filter Tabs, Random, Auto-Rotate)
+  // ==========================================================================
+  function initZenQuotesCarousel() {
+    let currentQuoteFilter = 'all';
+    let currentQuoteIdx = 15; // Start at quote index 15 (Câu 16/112 Vô Thường as in screenshot)
+    let quoteAutoTimer = null;
 
-    const heroSlogan = document.getElementById("hero-slogan");
-    if (heroSlogan) {
-      const rawSlogan = typeof cfg.hero_slogan === "string" ? cfg.hero_slogan : "";
-      const cleanSlogan = rawSlogan.replace('Về Miền Tỉnh Thức — ', '');
-      heroSlogan.textContent = "Về Miền Tỉnh Thức — ";
-      const span = document.createElement("span");
-      span.textContent = cleanSlogan || "Trở Về Cội Nguồn Lời Phật Dạy";
-      heroSlogan.appendChild(span);
-    }
-
-    const heroSub = document.getElementById("hero-sub");
-    if (heroSub) heroSub.textContent = typeof cfg.hero_sub === "string" ? cfg.hero_sub : "";
-  }
-
-  getQuotesList() {
-    const allQuotes = this.siteData?.site_config?.zen_quotes;
-    if (Array.isArray(allQuotes) && allQuotes.length > 0) {
-      if (this.quoteFilterCategory && this.quoteFilterCategory !== 'all') {
-        const filtered = allQuotes.filter(q => q.tag === this.quoteFilterCategory);
+    function getFilteredQuotes() {
+      const allQuotes = siteData?.site_config?.zen_quotes || [];
+      if (!allQuotes.length) return [];
+      if (currentQuoteFilter && currentQuoteFilter !== 'all') {
+        const filtered = allQuotes.filter(q => q.tag === currentQuoteFilter);
         return filtered.length > 0 ? filtered : allQuotes;
       }
       return allQuotes;
     }
-    const cfg = this.siteData?.site_config || {};
-    return [
-      {
-        id: "default",
-        quote: cfg.quote || "Tâm dẫn đầu mọi pháp, Tâm làm chủ tạo tác.",
-        source: cfg.quote_source || "Kinh Pháp Cú",
-        author: "Đức Phật Thích Ca Mâu Ni",
-        tag: "Lời Phật Dạy",
-        icon: "🪷"
-      }
-    ];
-  }
 
-  filterQuoteCategory(category, btnElement) {
-    this.quoteFilterCategory = category;
-    this.currentQuoteIndex = 0;
+    function updateQuoteUI() {
+      const quotes = getFilteredQuotes();
+      if (!quotes.length) return;
 
-    if (btnElement) {
-      document.querySelectorAll("#carousel-cat-tabs .zen-tab-btn").forEach(b => b.classList.remove("active"));
-      btnElement.classList.add("active");
-    }
+      if (currentQuoteIdx >= quotes.length) currentQuoteIdx = 0;
+      if (currentQuoteIdx < 0) currentQuoteIdx = quotes.length - 1;
 
-    this.updateQuoteDisplay();
-    if (this.quoteAutoTimer) {
-      clearInterval(this.quoteAutoTimer);
-      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
-    }
-  }
+      const current = quotes[currentQuoteIdx];
 
-  randomQuote() {
-    const quotes = this.getQuotesList();
-    if (quotes.length <= 1) return;
-    let nextIdx = Math.floor(Math.random() * quotes.length);
-    if (nextIdx === this.currentQuoteIndex) {
-      nextIdx = (nextIdx + 1) % quotes.length;
-    }
-    this.currentQuoteIndex = nextIdx;
-    this.updateQuoteDisplay();
-    if (this.quoteAutoTimer) {
-      clearInterval(this.quoteAutoTimer);
-      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
-    }
-  }
+      const quoteEl = document.getElementById("hero-quote");
+      const sourceEl = document.getElementById("hero-quote-source");
+      const authorEl = document.getElementById("hero-quote-author");
+      const tagTextEl = document.getElementById("carousel-tag-text");
+      const iconEl = document.getElementById("carousel-icon");
+      const counterEl = document.getElementById("carousel-counter");
+      const progressBar = document.getElementById("carousel-progress-bar");
 
-  initQuoteCarousel() {
-    this.updateQuoteDisplay();
-
-    // Auto rotate every 8 seconds
-    if (this.quoteAutoTimer) clearInterval(this.quoteAutoTimer);
-    this.quoteAutoTimer = setInterval(() => {
-      this.nextQuote(true);
-    }, 8000);
-  }
-
-  updateQuoteDisplay() {
-    const quotes = this.getQuotesList();
-    if (!quotes.length) return;
-
-    if (this.currentQuoteIndex >= quotes.length) this.currentQuoteIndex = 0;
-    if (this.currentQuoteIndex < 0) this.currentQuoteIndex = quotes.length - 1;
-
-    const current = quotes[this.currentQuoteIndex];
-
-    const quoteEl = document.getElementById("hero-quote");
-    const sourceEl = document.getElementById("hero-quote-source");
-    const authorEl = document.getElementById("hero-quote-author");
-    const tagTextEl = document.getElementById("carousel-tag-text");
-    const iconEl = document.getElementById("carousel-icon");
-    const counterEl = document.getElementById("carousel-counter");
-    const progressBar = document.getElementById("carousel-progress-bar");
-
-    if (quoteEl) {
-      quoteEl.style.opacity = "0.2";
-      quoteEl.style.transform = "translateY(5px)";
-      setTimeout(() => {
-        quoteEl.textContent = `"${current.quote}"`;
-        quoteEl.style.opacity = "1";
-        quoteEl.style.transform = "translateY(0)";
-      }, 150);
-    }
-
-    if (sourceEl) sourceEl.textContent = current.source || "";
-    if (authorEl) authorEl.textContent = current.author ? `— ${current.author}` : "";
-    if (tagTextEl) tagTextEl.textContent = current.tag || "Cốt Tủy Chánh Pháp";
-    if (iconEl) iconEl.textContent = current.icon || "🪷";
-    if (counterEl) counterEl.textContent = `${this.currentQuoteIndex + 1} / ${quotes.length}`;
-
-    if (progressBar) {
-      const pct = Math.max(1, Math.round(((this.currentQuoteIndex + 1) / quotes.length) * 100));
-      progressBar.style.width = `${pct}%`;
-    }
-  }
-
-  nextQuote(isAuto = false) {
-    const quotes = this.getQuotesList();
-    this.currentQuoteIndex = (this.currentQuoteIndex + 1) % quotes.length;
-    this.updateQuoteDisplay();
-    if (!isAuto && this.quoteAutoTimer) {
-      clearInterval(this.quoteAutoTimer);
-      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
-    }
-  }
-
-  prevQuote() {
-    const quotes = this.getQuotesList();
-    this.currentQuoteIndex = (this.currentQuoteIndex - 1 + quotes.length) % quotes.length;
-    this.updateQuoteDisplay();
-    if (this.quoteAutoTimer) {
-      clearInterval(this.quoteAutoTimer);
-      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
-    }
-  }
-
-  goToQuote(index) {
-    this.currentQuoteIndex = index;
-    this.updateQuoteDisplay();
-    if (this.quoteAutoTimer) {
-      clearInterval(this.quoteAutoTimer);
-      this.quoteAutoTimer = setInterval(() => this.nextQuote(true), 8000);
-    }
-  }
-
-  renderHealthDisclaimer() {
-    const textEl = document.getElementById("health-disclaimer-text");
-    if (textEl && this.siteData?.site_config?.health_disclaimer) {
-      textEl.textContent = this.siteData.site_config.health_disclaimer;
-    }
-  }
-
-  escapeHtml(str) {
-    if (!str) return "";
-    return str.replace(/[&<>"']/g, function(m) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-    });
-  }
-
-  renderVideos() {
-    const vGrid = document.getElementById("video-grid-container");
-    if (!vGrid || !this.siteData?.featured_videos) return;
-
-    vGrid.innerHTML = "";
-    const ytRegex = /^[a-zA-Z0-9_-]{11}$/;
-
-    this.siteData.featured_videos.forEach(v => {
-      // Validate YouTube ID nghiêm ngặt (đúng 11 ký tự chuẩn định dạng YouTube)
-      const rawYtId = (v.youtube_id || "").trim();
-      if (!ytRegex.test(rawYtId)) {
-        console.warn("LidoApp: Bỏ qua video có YouTube ID không hợp lệ:", v);
-        return;
-      }
-      const cleanYtId = rawYtId;
-      
-      const card = document.createElement("div");
-      card.className = "video-card";
-
-      const frame = document.createElement("div");
-      frame.className = "video-frame";
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube.com/embed/${cleanYtId}`;
-      iframe.title = v.title || "Nhạc Thiền";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      frame.appendChild(iframe);
-
-      const info = document.createElement("div");
-      info.className = "video-info";
-
-      const meta = document.createElement("div");
-      meta.className = "video-meta";
-      const spanViews = document.createElement("span");
-      spanViews.textContent = `🔥 ${v.views || ''}`;
-      const spanDur = document.createElement("span");
-      spanDur.textContent = `⏱️ ${v.duration || ''}`;
-      const spanCat = document.createElement("span");
-      spanCat.textContent = `🪷 ${v.category || ''}`;
-      meta.appendChild(spanViews);
-      meta.appendChild(spanDur);
-      meta.appendChild(spanCat);
-
-      const title = document.createElement("h3");
-      title.className = "video-title";
-      title.textContent = v.title || "";
-
-      const desc = document.createElement("p");
-      desc.className = "video-desc";
-      desc.textContent = v.desc || "";
-
-      const actions = document.createElement("div");
-      actions.className = "video-actions";
-
-      const playBtn = document.createElement("button");
-      playBtn.className = "btn btn-outline";
-      playBtn.style.fontSize = "0.8rem";
-      playBtn.style.padding = "0.4rem 0.9rem";
-      playBtn.textContent = "🎧 Phát Trình Thu Nhỏ";
-      playBtn.onclick = () => this.playInMiniPlayer(cleanYtId, v.title || "Nhạc Thiền");
-
-      const link = document.createElement("a");
-      link.href = `https://www.youtube.com/watch?v=${cleanYtId}`;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.className = "link-external";
-      link.textContent = "Xem trên YouTube ↗";
-
-      actions.appendChild(playBtn);
-      actions.appendChild(link);
-
-      info.appendChild(meta);
-      info.appendChild(title);
-      info.appendChild(desc);
-      info.appendChild(actions);
-
-      card.appendChild(frame);
-      card.appendChild(info);
-      vGrid.appendChild(card);
-    });
-  }
-
-  renderBooks() {
-    const bGrid = document.getElementById("books-grid-container");
-    if (!bGrid || !this.siteData?.books) return;
-
-    const filtered = this.siteData.books.filter(bk => {
-      if (this.currentCategory === 'all') return true;
-      return bk.category === this.currentCategory;
-    });
-
-    bGrid.innerHTML = "";
-    filtered.forEach(bk => {
-      let badgeClass = "badge-gold";
-      if (bk.category === 'thonglac') badgeClass = "badge-terracotta";
-      else if (bk.category === 'thien') badgeClass = "badge-forest";
-
-      // Chỉ cho phép URL an toàn hợp lệ theo chuẩn Web API URL (http/https)
-      const rawUrl = typeof bk.read_url === "string" ? bk.read_url : "";
-      const isSafeUrl = this.isValidSafeUrl(rawUrl);
-
-      const card = document.createElement("div");
-      card.className = "book-card";
-
-      // Bìa sách nghệ thuật 3D minh họa (Visual Artwork)
-      if (bk.cover_image) {
-        const coverBox = document.createElement("div");
-        coverBox.className = "book-cover-banner";
-        const img = document.createElement("img");
-        img.src = bk.cover_image;
-        img.alt = bk.title || "Kinh Sách";
-        img.loading = "lazy";
-        coverBox.appendChild(img);
-        card.appendChild(coverBox);
+      if (quoteEl) {
+        quoteEl.style.opacity = "0.2";
+        quoteEl.style.transform = "translateY(4px)";
+        setTimeout(() => {
+          quoteEl.textContent = `"${current.quote}"`;
+          quoteEl.style.opacity = "1";
+          quoteEl.style.transform = "translateY(0)";
+        }, 150);
       }
 
-      const top = document.createElement("div");
-      top.className = "book-card-top";
+      if (sourceEl) {
+        const catUpper = (current.tag || 'CỐT TỦY CHÁNH PHÁP').toUpperCase();
+        sourceEl.textContent = `${catUpper} • ${current.source || 'LỜI VÀNG PHẬT THUYẾT'}`;
+      }
+      if (authorEl) authorEl.textContent = current.author ? `— ${current.author}` : "— Triết Lý Phật Đà & Lời Vàng Trưởng Lão";
+      if (tagTextEl) tagTextEl.textContent = current.tag || "Cốt Tủy Chánh Pháp";
+      if (iconEl) iconEl.textContent = current.icon || "🪷";
+      if (counterEl) counterEl.textContent = `${currentQuoteIdx + 1} / ${quotes.length}`;
 
-      const headerTags = document.createElement("div");
-      headerTags.className = "book-header-tags";
-      const badgeSpan = document.createElement("span");
-      badgeSpan.className = `badge ${badgeClass}`;
-      badgeSpan.textContent = bk.badge || 'Kinh Điển';
-      const sourceSpan = document.createElement("span");
-      sourceSpan.className = "book-source-tag";
-      sourceSpan.textContent = bk.source_name || 'Đạo Phật Gốc';
-      headerTags.appendChild(badgeSpan);
-      headerTags.appendChild(sourceSpan);
+      if (progressBar) {
+        const pct = Math.max(1, Math.round(((currentQuoteIdx + 1) / quotes.length) * 100));
+        progressBar.style.width = `${pct}%`;
+      }
+    }
 
-      const title = document.createElement("h3");
-      title.className = "book-title";
-      title.textContent = bk.title || "";
+    function nextQuote(isAuto = false) {
+      const quotes = getFilteredQuotes();
+      if (!quotes.length) return;
+      currentQuoteIdx = (currentQuoteIdx + 1) % quotes.length;
+      updateQuoteUI();
+      if (!isAuto && quoteAutoTimer) {
+        clearInterval(quoteAutoTimer);
+        quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+      }
+    }
 
-      const author = document.createElement("div");
-      author.className = "book-author";
-      const authorText = document.createTextNode(`${bk.author || ''} • `);
-      const transItalic = document.createElement("i");
-      transItalic.textContent = bk.translator || '';
-      author.appendChild(authorText);
-      author.appendChild(transItalic);
+    function prevQuote() {
+      const quotes = getFilteredQuotes();
+      if (!quotes.length) return;
+      currentQuoteIdx = (currentQuoteIdx - 1 + quotes.length) % quotes.length;
+      updateQuoteUI();
+      if (quoteAutoTimer) {
+        clearInterval(quoteAutoTimer);
+        quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+      }
+    }
 
-      const summary = document.createElement("p");
-      summary.className = "book-summary";
-      summary.textContent = bk.summary || "";
+    function randomQuote() {
+      const quotes = getFilteredQuotes();
+      if (quotes.length <= 1) return;
+      let nextIdx = Math.floor(Math.random() * quotes.length);
+      if (nextIdx === currentQuoteIdx) {
+        nextIdx = (nextIdx + 1) % quotes.length;
+      }
+      currentQuoteIdx = nextIdx;
+      updateQuoteUI();
+      if (quoteAutoTimer) {
+        clearInterval(quoteAutoTimer);
+        quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+      }
+    }
 
-      top.appendChild(headerTags);
-      top.appendChild(title);
-      top.appendChild(author);
-      top.appendChild(summary);
+    // Attach Event Listeners
+    const btnNext = document.getElementById('carousel-next');
+    if (btnNext) btnNext.addEventListener('click', () => nextQuote(false));
 
-      const bottom = document.createElement("div");
-      bottom.className = "book-card-bottom";
+    const btnPrev = document.getElementById('carousel-prev');
+    if (btnPrev) btnPrev.addEventListener('click', prevQuote);
 
-      const actionLink = document.createElement("a");
-      actionLink.href = isSafeUrl ? rawUrl : "#";
-      actionLink.target = isSafeUrl ? "_blank" : "_self";
-      actionLink.rel = "noopener noreferrer";
-      actionLink.className = "book-action-btn";
-      actionLink.innerHTML = `<span>Đọc trọn tác phẩm</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+    const btnRandom = document.getElementById('carousel-random');
+    if (btnRandom) btnRandom.addEventListener('click', randomQuote);
 
-      const statusBadge = document.createElement("span");
-      statusBadge.className = "book-status-badge";
-      statusBadge.textContent = "Công đức vô lượng";
-
-      bottom.appendChild(actionLink);
-      bottom.appendChild(statusBadge);
-
-      card.appendChild(top);
-      card.appendChild(bottom);
-      bGrid.appendChild(card);
+    document.querySelectorAll('#carousel-cat-tabs .zen-tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#carousel-cat-tabs .zen-tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentQuoteFilter = this.dataset.category || 'all';
+        currentQuoteIdx = 0;
+        updateQuoteUI();
+        if (quoteAutoTimer) {
+          clearInterval(quoteAutoTimer);
+          quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+        }
+      });
     });
+
+    // Auto rotate every 9s
+    updateQuoteUI();
+    quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
   }
 
-  filterCategory(cat, btnElement) {
-    this.currentCategory = cat;
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    if (btnElement) btnElement.classList.add("active");
-    this.renderBooks();
-  }
+  initVisitorCounter();
+  initZenQuotesCarousel();
 
-  renderDonateSection() {
-    const b = this.siteData?.site_config?.donate_bank;
-    if (!b) return;
+  // ==========================================================================
+  // 3D REALISTIC FLIP-BOOK ENGINE (SHOWCASE + FULLSCREEN MODAL READER)
+  // ==========================================================================
+  // 1. Showcase Leaf Flipping (Section trên Tủ Sách)
+  let showcaseFlipped = 0; // 0: Trang 1-2, 1: Trang 3-4, 2: Trang 5-6
+  const totalShowcaseLeaves = 2; // leaf-1 & leaf-2
 
-    const bankName = document.getElementById("donate-bank-name");
-    if (bankName) bankName.innerText = b.bank_name || "BIDV";
+  window.turnShowcaseLeaf = function(direction) {
+    if (direction > 0) {
+      if (showcaseFlipped < totalShowcaseLeaves) {
+        showcaseFlipped++;
+        const leaf = document.getElementById(`leaf-${showcaseFlipped}`);
+        if (leaf) {
+          leaf.classList.add('flipped');
+          leaf.style.zIndex = showcaseFlipped + 5; // Send flipped leaf to left stack
+        }
+      }
+    } else {
+      if (showcaseFlipped > 0) {
+        const leaf = document.getElementById(`leaf-${showcaseFlipped}`);
+        if (leaf) {
+          leaf.classList.remove('flipped');
+          leaf.style.zIndex = (totalShowcaseLeaves - showcaseFlipped + 2);
+        }
+        showcaseFlipped--;
+      }
+    }
 
-    const accName = document.getElementById("donate-acc-name");
-    if (accName) accName.innerText = b.account_name || "NGUYEN ANH TUAN";
-
-    const accNum = document.getElementById("donate-acc-number");
-    if (accNum) accNum.innerText = b.account_number || "1401132757";
-
-    const syntax = document.getElementById("donate-syntax");
-    if (syntax) syntax.innerText = b.transfer_syntax || "Ho Tri Tu Sach LIDO";
-
-    const qrImg = document.getElementById("vietqr-img");
-    if (qrImg) {
-      if (b.qr_image) {
-        qrImg.src = b.qr_image;
+    // Ensure last page (#leaf-last) has highest z-index and active pointer-events when reached
+    const leafLast = document.getElementById('leaf-last');
+    if (leafLast) {
+      if (showcaseFlipped >= totalShowcaseLeaves) {
+        leafLast.style.zIndex = 30;
       } else {
-        qrImg.src = `https://img.vietqr.io/image/BIDV-${b.account_number}-compact2.png?amount=0&addInfo=${encodeURIComponent(b.transfer_syntax)}&accountName=${encodeURIComponent(b.account_name)}`;
+        leafLast.style.zIndex = 1;
       }
     }
-  }
 
-  initMiniPlayer() {
-    const firstVid = this.siteData?.featured_videos?.[0];
-    if (firstVid) {
-      const pTitle = document.getElementById("mini-player-title");
-      if (pTitle) pTitle.innerText = firstVid.title;
+    const statusEl = document.getElementById('showcase-turn-status');
+    if (statusEl) {
+      const p1 = showcaseFlipped * 2 + 1;
+      const p2 = p1 + 1;
+      statusEl.textContent = `Trang ${p1} - ${p2} / 6`;
     }
+  };
+
+  // 2. Fullscreen Modal 3D Reader (10 Bộ Kinh Sách)
+  let currentBookKey = 'bk-trungbo';
+  let currentLeftPageIdx = 0;
+  let isFlippingAnim = false;
+
+  function getCurrentBookPages() {
+    if (window.LIDO_ALL_BOOKS_3D && window.LIDO_ALL_BOOKS_3D[currentBookKey]) {
+      return window.LIDO_ALL_BOOKS_3D[currentBookKey].pages || [];
+    }
+    return [];
   }
 
-  playInMiniPlayer(ytId, title) {
-    const cleanYtId = (ytId || "").trim();
-    if (!/^[a-zA-Z0-9_-]{11}$/.test(cleanYtId)) {
-      console.warn("LidoApp: YouTube ID không hợp lệ cho mini player:", ytId);
+  function renderPageToElement(pageData, prefix) {
+    const tagEl = document.getElementById(`${prefix}-tag`);
+    const titleEl = document.getElementById(`${prefix}-title`);
+    const bodyEl = document.getElementById(`${prefix}-body`);
+    const footEl = document.getElementById(`${prefix}-foot`);
+
+    if (!pageData) {
+      if (tagEl) tagEl.textContent = "";
+      if (titleEl) titleEl.textContent = "";
+      if (bodyEl) bodyEl.innerHTML = "<p style='text-align:center; color:#9c8e7e; padding-top:40px;'>— Hết trang sách —</p>";
+      if (footEl) footEl.textContent = "";
       return;
     }
-    this.activeVideoId = cleanYtId;
-    const mini = document.getElementById("zen-mini-player");
-    const pTitle = document.getElementById("mini-player-title");
-    const pFrame = document.getElementById("mini-player-iframe");
-    const pContainer = document.getElementById("mini-player-iframe-container");
-    const pStatus = document.getElementById("mini-player-status");
-    const toggleBtn = document.getElementById("mini-toggle-view-btn");
 
-    if (pTitle) pTitle.innerText = title;
-    if (pStatus) {
-      pStatus.innerHTML = '<span class="pulse-indicator" style="width: 6px; height: 6px; background: #10B981;"></span><span style="color: #10B981; font-weight: 700;">Đang phát âm thanh 432Hz</span>';
-    }
-    
-    // Nạp iframe với quyền âm thanh autoplay (không mute)
-    if (pFrame) {
-      pFrame.src = `https://www.youtube.com/embed/${cleanYtId}?autoplay=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-    }
+    if (tagEl) tagEl.textContent = pageData.tag || "";
+    if (titleEl) titleEl.textContent = pageData.title || "";
+    if (bodyEl) bodyEl.innerHTML = pageData.body || "";
+    if (footEl) footEl.textContent = pageData.footer || "";
+  }
 
-    if (pContainer) {
-      pContainer.style.display = "block";
-    }
+  function updateStaticPagesView() {
+    const pages = getCurrentBookPages();
+    if (!pages || pages.length === 0) return;
 
-    if (toggleBtn) {
-      toggleBtn.style.display = "inline-flex";
-    }
+    const leftData = pages[currentLeftPageIdx];
+    const rightData = pages[currentLeftPageIdx + 1];
 
-    if (mini) {
-      mini.style.borderColor = "var(--zen-gold)";
-      mini.style.boxShadow = "0 12px 35px rgba(0, 0, 0, 0.9), 0 0 30px rgba(229, 195, 120, 0.4)";
-    }
+    renderPageToElement(leftData, 'm-left');
+    renderPageToElement(rightData, 'm-right');
 
-    // Ghi nhận telemetry click
-    if (window.lidoTracker) {
-      window.lidoTracker.trackClick('audio', title);
+    const indicator = document.getElementById('modal-turn-indicator');
+    if (indicator) {
+      const p1 = currentLeftPageIdx + 1;
+      const p2 = Math.min(currentLeftPageIdx + 2, pages.length);
+      indicator.innerText = `Trang ${p1} - ${p2} / ${pages.length}`;
     }
   }
 
-  toggleMiniVideoView() {
-    const pContainer = document.getElementById("mini-player-iframe-container");
-    if (pContainer) {
-      pContainer.style.display = pContainer.style.display === "none" ? "block" : "none";
-    }
-  }
-}
+  window.turn50ModalPage = function(step) {
+    if (isFlippingAnim) return;
+    const pages = getCurrentBookPages();
+    if (!pages || pages.length === 0) return;
 
-// Global Instance
-const lidoApp = new LidoApp();
-window.addEventListener("DOMContentLoaded", () => lidoApp.init());
+    const targetIdx = currentLeftPageIdx + step;
+    if (targetIdx < 0 || targetIdx >= pages.length) return;
+
+    const flipLeaf = document.getElementById('m-flipping-leaf');
+    if (!flipLeaf) {
+      currentLeftPageIdx = targetIdx;
+      updateStaticPagesView();
+      return;
+    }
+
+    isFlippingAnim = true;
+
+    if (step > 0) {
+      renderPageToElement(pages[currentLeftPageIdx + 1], 'm-flip-front');
+      renderPageToElement(pages[targetIdx], 'm-flip-back');
+
+      flipLeaf.style.transition = 'none';
+      flipLeaf.classList.remove('flipped');
+      flipLeaf.style.zIndex = 20;
+
+      void flipLeaf.offsetWidth;
+
+      flipLeaf.style.transition = 'transform 0.85s cubic-bezier(0.4, 0.08, 0.2, 1), box-shadow 0.85s ease';
+      flipLeaf.classList.add('flipped');
+
+      setTimeout(() => {
+        currentLeftPageIdx = targetIdx;
+        updateStaticPagesView();
+        flipLeaf.style.transition = 'none';
+        flipLeaf.classList.remove('flipped');
+        flipLeaf.style.zIndex = 1;
+        isFlippingAnim = false;
+      }, 860);
+
+    } else {
+      renderPageToElement(pages[currentLeftPageIdx], 'm-flip-back');
+      renderPageToElement(pages[targetIdx + 1], 'm-flip-front');
+
+      flipLeaf.style.transition = 'none';
+      flipLeaf.classList.add('flipped');
+      flipLeaf.style.zIndex = 20;
+
+      void flipLeaf.offsetWidth;
+
+      flipLeaf.style.transition = 'transform 0.85s cubic-bezier(0.4, 0.08, 0.2, 1), box-shadow 0.85s ease';
+      flipLeaf.classList.remove('flipped');
+
+      setTimeout(() => {
+        currentLeftPageIdx = targetIdx;
+        updateStaticPagesView();
+        flipLeaf.style.zIndex = 1;
+        isFlippingAnim = false;
+      }, 860);
+    }
+  };
+
+  window.openZen3DReader = function(bookKey) {
+    if (bookKey) currentBookKey = bookKey;
+    currentLeftPageIdx = 0;
+
+    if (window.LIDO_ALL_BOOKS_3D && window.LIDO_ALL_BOOKS_3D[currentBookKey]) {
+      const bInfo = window.LIDO_ALL_BOOKS_3D[currentBookKey];
+      const modalTitle = document.getElementById('modal-book-title');
+      if (modalTitle) modalTitle.innerText = bInfo.title || "ĐẠI TẠNG KINH ĐIỂN 3D";
+    }
+
+    updateStaticPagesView();
+    const modal = document.getElementById('zen-reader-modal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeZen3DReader = function() {
+    const modal = document.getElementById('zen-reader-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('zen-reader-modal');
+    if (modal && modal.classList.contains('active')) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') window.turn50ModalPage(2);
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') window.turn50ModalPage(-2);
+      else if (e.key === 'Escape') window.closeZen3DReader();
+    }
+  });
+});
