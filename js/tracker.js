@@ -33,6 +33,7 @@ class LidoTracker {
 
   // 1. Ghi nhận lượt truy cập & tăng bộ đếm lên Database Cloud
   async recordVisit() {
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
     const isNewSession = !sessionStorage.getItem(this.sessionKey);
     let currentStats = await this.getStats();
 
@@ -44,7 +45,7 @@ class LidoTracker {
     }
 
     // Hiển thị số lượt truy cập lên UI
-    this.updateCounterUI(currentStats.visits || 1);
+    this.updateCounterUI(currentStats.visits || (isLocal ? 25 : 1));
   }
 
   // Cập nhật giao diện badge đếm trên thanh Header / Top Bar
@@ -62,39 +63,45 @@ class LidoTracker {
     });
   }
 
-  // Lấy dữ liệu thống kê từ Cloud DB (hoặc local fallback nếu offline)
+  // Lấy dữ liệu thống kê từ Cloud DB (hoặc local fallback nếu offline/local)
   async getStats() {
-    try {
-      const url = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${this.appKey}/stats`;
-      const res = await fetch(url);
-      if (res.ok) {
-        let text = await res.text();
-        text = text.replace(/^"|"$/g, '').trim();
-        if (text && text !== 'null') {
-          let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
-          let padded = text.padEnd(pad(text.length), '=');
-          let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
-          localStorage.setItem(this.storageKey, JSON.stringify(decoded));
-          return decoded;
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+    if (!isLocal) {
+      try {
+        const url = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${this.appKey}/stats`;
+        const res = await fetch(url);
+        if (res.ok) {
+          let text = await res.text();
+          text = text.replace(/^"|"$/g, '').trim();
+          if (text && text !== 'null') {
+            let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
+            let padded = text.padEnd(pad(text.length), '=');
+            let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
+            localStorage.setItem(this.storageKey, JSON.stringify(decoded));
+            return decoded;
+          }
         }
+      } catch (e) {
+        console.warn('LidoTracker: Fetch cloud error, using local fallback', e);
       }
-    } catch (e) {
-      console.warn('LidoTracker: Fetch cloud error, using local fallback', e);
     }
 
-    // Local fallback
+    // Local sandbox fallback
     try {
       const local = localStorage.getItem(this.storageKey);
       if (local) return JSON.parse(local);
     } catch (e) {}
 
-    return { visits: 1, duration: 0, clicks: 0, books: 0, audios: 0, syntax: 0, forum: 0, yt: 0 };
+    return { visits: 25, duration: 0, clicks: 0, books: 0, audios: 0, syntax: 0, forum: 0, yt: 0 };
   }
 
-  // Lưu thống kê lên Cloud DB
+  // Lưu thống kê lên Cloud DB (hoặc local storage nếu local)
   async saveStats(stats) {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(stats));
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+      if (isLocal) return; // Do not alter production metrics
+
       const jsonStr = JSON.stringify(stats);
       let b64 = btoa(jsonStr).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       const url = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${this.appKey}/stats/${b64}`;

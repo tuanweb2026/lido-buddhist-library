@@ -407,11 +407,24 @@ class SacredLabyrinth3D {
       const nextStart = nextBtn ? parseInt(nextBtn.dataset.start) : Infinity;
       const isActive = this.currentIndex >= curStart && this.currentIndex < nextStart;
       btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
   }
 
   startTimer() {
     this.stopTimer();
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      this.autoPlay = false;
+      const btnAuto = document.getElementById('btn-labyrinth-autoplay');
+      if (btnAuto) {
+        btnAuto.classList.remove('active');
+        btnAuto.setAttribute('aria-label', 'Bật tự động chuyển cảnh (10 giây)');
+        btnAuto.innerHTML = '<span id="autoplay-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -1px; margin-right: 3px;"><polygon points="5 3 19 12 5 21 5 3"/></svg></span> Phát';
+      }
+      return;
+    }
+
     this.progressInterval = setInterval(() => {
       if (!this.autoPlay) return;
       this.timerProgress += 50;
@@ -486,7 +499,11 @@ class SacredLabyrinth3D {
       btnAuto.addEventListener('click', () => {
         this.autoPlay = !this.autoPlay;
         btnAuto.classList.toggle('active', this.autoPlay);
-        btnAuto.textContent = this.autoPlay ? '⏸ Dừng Tự Động' : '▶ Tự Động (10s)';
+        btnAuto.setAttribute('aria-label', this.autoPlay ? 'Tạm dừng tự động chuyển cảnh (10 giây)' : 'Bật tự động chuyển cảnh (10 giây)');
+        const iconSvg = this.autoPlay
+          ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -1px; margin-right: 3px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+          : '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -1px; margin-right: 3px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        btnAuto.innerHTML = `<span id="autoplay-icon">${iconSvg}</span> ${this.autoPlay ? '10s' : 'Phát'}`;
       });
     }
 

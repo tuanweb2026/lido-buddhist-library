@@ -17,11 +17,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnToggleInfo.addEventListener('click', () => {
       const isHidden = quoteDrawer.style.display === 'none';
       quoteDrawer.style.display = isHidden ? 'block' : 'none';
+      btnToggleInfo.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      if (isHidden && btnCloseDrawer) {
+        btnCloseDrawer.focus();
+      }
     });
   }
   if (btnCloseDrawer && quoteDrawer) {
     btnCloseDrawer.addEventListener('click', () => {
       quoteDrawer.style.display = 'none';
+      if (btnToggleInfo) {
+        btnToggleInfo.setAttribute('aria-expanded', 'false');
+        btnToggleInfo.focus();
+      }
     });
   }
 
@@ -51,13 +59,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Mobile Menu Toggle
   if (mobileToggle && navLinks) {
     mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('mobile-open');
+      const isOpen = navLinks.classList.toggle('mobile-open');
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
     // Close on link click
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('mobile-open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
@@ -132,7 +142,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           <p class="book-summary">${book.summary}</p>
           <div class="book-footer" style="flex-wrap: wrap; gap: 8px;">
             <button class="btn-read-modal-3d" onclick="openZen3DReader('${book.id}')" aria-label="Mở sách 3D ${book.title}">
-              <span>📖 Mở Sách 3D Lật Trang</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span>Mở Sách 3D Lật Trang</span>
             </button>
             <a href="${book.read_url}" target="_blank" rel="noopener noreferrer" class="btn-read-book" style="padding: 6px 12px; font-size: 0.78rem;" aria-label="Đọc toàn văn ${book.title}">
               <span>daophatgoc.com ↗</span>
@@ -146,8 +160,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 6. Category Filter Listeners
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
+      filterButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       activeCategory = btn.dataset.category;
       renderLibrary();
     });
@@ -239,27 +257,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       el.textContent = baseCount.toLocaleString('vi-VN');
     });
 
-    // 4. Try optional background sync with Cloud KV if network allows
-    try {
-      const res = await fetch('https://keyvalue.immanuel.co/api/KeyVal/GetValue/f8inst8c/stats', { cache: 'no-store' });
-      if (res.ok) {
-        let text = await res.text();
-        text = text.replace(/^"|"$/g, '').trim();
-        if (text && text !== 'null') {
-          let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
-          let padded = text.padEnd(pad(text.length), '=');
-          let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
-          if (decoded && decoded.visits) {
-            const cloudVal = Math.max(baseCount, decoded.visits);
-            counterElements.forEach(el => {
-              el.textContent = cloudVal.toLocaleString('vi-VN');
-            });
-            localStorage.setItem(storageKey, cloudVal.toString());
+    // 4. Try optional background sync with Cloud KV if network allows (production only)
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+    if (!isLocal) {
+      try {
+        const res = await fetch('https://keyvalue.immanuel.co/api/KeyVal/GetValue/f8inst8c/stats', { cache: 'no-store' });
+        if (res.ok) {
+          let text = await res.text();
+          text = text.replace(/^"|"$/g, '').trim();
+          if (text && text !== 'null') {
+            let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
+            let padded = text.padEnd(pad(text.length), '=');
+            let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
+            if (decoded && decoded.visits) {
+              const cloudVal = Math.max(baseCount, decoded.visits);
+              counterElements.forEach(el => {
+                el.textContent = cloudVal.toLocaleString('vi-VN');
+              });
+              localStorage.setItem(storageKey, cloudVal.toString());
+            }
           }
         }
+      } catch (err) {
+        // Offline/Local mode works seamlessly without error
       }
-    } catch (err) {
-      // Offline/Local mode works seamlessly without error
     }
   }
 
@@ -372,21 +393,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.querySelectorAll('#carousel-cat-tabs .zen-tab-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        document.querySelectorAll('#carousel-cat-tabs .zen-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#carousel-cat-tabs .zen-tab-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
         currentQuoteFilter = this.dataset.category || 'all';
         currentQuoteIdx = 0;
         updateQuoteUI();
         if (quoteAutoTimer) {
           clearInterval(quoteAutoTimer);
-          quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+          const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!prefersReducedMotion) {
+            quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+          }
         }
       });
     });
 
-    // Auto rotate every 9s
+    // Auto rotate every 9s if motion is not reduced
     updateQuoteUI();
-    quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      quoteAutoTimer = setInterval(() => nextQuote(true), 9000);
+    }
   }
 
   initVisitorCounter();
@@ -425,8 +456,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (leafLast) {
       if (showcaseFlipped >= totalShowcaseLeaves) {
         leafLast.style.zIndex = 30;
+        leafLast.style.pointerEvents = 'auto';
       } else {
         leafLast.style.zIndex = 1;
+        leafLast.style.pointerEvents = 'none';
       }
     }
 
@@ -549,7 +582,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  let lastModalTrigger = null;
+
   window.openZen3DReader = function(bookKey) {
+    lastModalTrigger = document.activeElement;
     if (bookKey) currentBookKey = bookKey;
     currentLeftPageIdx = 0;
 
@@ -564,6 +600,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (modal) {
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
+      const closeBtn = document.getElementById('btn-close-reader');
+      if (closeBtn) closeBtn.focus();
     }
   };
 
@@ -572,15 +610,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (modal) {
       modal.classList.remove('active');
       document.body.style.overflow = '';
+      if (lastModalTrigger && typeof lastModalTrigger.focus === 'function') {
+        lastModalTrigger.focus();
+      }
     }
   };
 
   window.addEventListener('keydown', (e) => {
     const modal = document.getElementById('zen-reader-modal');
     if (modal && modal.classList.contains('active')) {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') window.turn50ModalPage(2);
-      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') window.turn50ModalPage(-2);
-      else if (e.key === 'Escape') window.closeZen3DReader();
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        window.turn50ModalPage(2);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        window.turn50ModalPage(-2);
+      } else if (e.key === 'Escape') {
+        window.closeZen3DReader();
+      } else if (e.key === 'Tab') {
+        const focusable = modal.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     }
   });
 });
