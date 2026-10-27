@@ -14,6 +14,7 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/book3d.css">
+  <link rel="stylesheet" href="css/scrollcraft.css">
 </head>
 <body>
   <!-- Accessible Skip Navigation Link -->
@@ -80,12 +81,12 @@
     <!-- ==========================================================================
          KHU VỰC 1: CỔNG VÀO KHÔNG GIAN PHẬT GIÁO 3D — MÊ CUNG THÁNH ĐỊA THÀNH ĐẠO
          ========================================================================== -->
-    <section id="hero" class="hero-section" aria-label="Mê Cung Không Gian 3D Thánh Địa Phật Giáo">
+    <section id="hero" class="hero-section" aria-label="Mê Cung Không Gian 3D Thánh Địa Phật Giáo" data-sc-act="flow">
       <!-- Dynamic Ambient Blurred Spatial Layer -->
       <div id="hero-spatial-bg" class="hero-spatial-bg" aria-hidden="true"></div>
 
       <!-- Three.js 3D Curved Panoramic Canvas -->
-      <div id="three-canvas-container" class="webgl-container" aria-hidden="true"></div>
+      <div id="three-canvas-container" class="webgl-container" aria-hidden="true" data-sc-parallax="0.15"></div>
       
       <!-- Fallback Image if WebGL fails -->
       <div class="webgl-fallback" aria-hidden="true"></div>
@@ -192,14 +193,14 @@
     <!-- ==========================================================================
          KHU VỰC TRÍ TUỆ: LỜI VÀNG PHẬT DẠY & TRIẾT LÝ TỈNH THỨC (ZEN QUOTES CAROUSEL)
          ========================================================================== -->
-    <section id="zen-quotes-section" class="zen-quotes-section" aria-label="Tuyển tập Lời Vàng Phật Dạy">
+    <section id="zen-quotes-section" class="zen-quotes-section" aria-label="Tuyển tập Lời Vàng Phật Dạy" data-sc-act="flow">
       <div class="container">
-        <p class="zen-quotes-intro">
+        <p class="zen-quotes-intro" data-sc-in="rise">
           Hành trình trở về Chánh Pháp nguyên bản không mê tín: Khám phá trọn bộ Đại Tạng Kinh Nikāya & Giáo trình đạo đức làm chủ thân tâm, hòa quyện trong làn sóng nhạc thiền thư giãn định tâm phụng sự cộng đồng.
         </p>
 
         <!-- Zen Quotes Carousel Card Deck -->
-        <div class="zen-carousel-wrapper" id="zen-carousel-container">
+        <div class="zen-carousel-wrapper" id="zen-carousel-container" data-sc-in="rise">
           <!-- Sub-filter categories bar -->
           <div class="zen-carousel-cat-tabs" id="carousel-cat-tabs" role="tablist" aria-label="Lọc danh mục lời Phật dạy">
             <button class="zen-tab-btn active" role="tab" aria-selected="true" data-category="all">Tất Cả (112)</button>
@@ -261,10 +262,10 @@
     <!-- ==========================================================================
          KHU VỰC KHÔNG GIAN SÁCH 3D NGUYÊN BẢN (3D PERSPECTIVE FLIP-BOOK SHOWCASE)
          ========================================================================== -->
-    <section id="zen-book-showcase-section" class="zen-book-showcase-section" aria-label="Không Gian Đọc Sách 3D Lật Trang">
+    <section id="zen-book-showcase-section" class="zen-book-showcase-section" aria-label="Không Gian Đọc Sách 3D Lật Trang" data-sc-act="flow">
       <div class="container">
         <!-- Showcase Container Card -->
-        <div class="zen-showcase-card">
+        <div class="zen-showcase-card" data-sc-in="rise">
           <!-- Showcase Header -->
           <div class="zen-showcase-header">
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -463,9 +464,9 @@
     <!-- ==========================================================================
          KHU VỰC 2: TỦ SÁCH PHẬT PHÁP (SACRED SCRIPTURE LIBRARY)
          ========================================================================== -->
-    <section id="library" class="section-wrapper section-bg-darker" aria-label="Tủ sách Phật pháp">
+    <section id="library" class="section-wrapper section-bg-darker" aria-label="Tủ sách Phật pháp" data-sc-act="flow">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-sc-in="rise">
           <span class="section-subtitle">Kho Tàng Pháp Bảo Vô Giá</span>
           <h2 class="section-title">Tủ Sách Phật Giáo <span class="text-gradient-gold">Nguyên Thủy</span></h2>
           <p class="section-desc">
@@ -474,7 +475,7 @@
         </div>
 
         <!-- Library Toolbar: Filter Categories & Search Bar -->
-        <div class="library-toolbar">
+        <div class="library-toolbar" data-sc-in="rise">
           <div class="library-filters" role="tablist" aria-label="Lọc theo danh mục kinh sách">
             <button class="filter-btn active" role="tab" aria-selected="true" data-category="all">Tất Cả Tác Phẩm</button>
             <button class="filter-btn" role="tab" aria-selected="false" data-category="nikaya">Kinh Nikāya (Đại Tạng Gốc)</button>
@@ -510,9 +511,9 @@
     <!-- ==========================================================================
          KHU VỰC 3: THIỀN VIỆN TRỰC TUYẾN VÀ NHẠC THIỀN LIDO
          ========================================================================== -->
-    <section id="meditation" class="section-wrapper zen-meditation-ambient" aria-label="Thiền viện trực tuyến và nhạc thiền">
+    <section id="meditation" class="section-wrapper zen-meditation-ambient" aria-label="Thiền viện trực tuyến và nhạc thiền" data-sc-act="flow">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-sc-in="rise">
           <span class="section-subtitle">Thanh Âm Tĩnh Lặng • Tần Số 432Hz</span>
           <h2 class="section-title">Thiền Viện Trực Tuyến & <span class="text-gradient-gold">Nhạc Thiền LIDO</span></h2>
           <p class="section-desc">
@@ -536,9 +537,9 @@
     <!-- ==========================================================================
          KHU VỰC 4: HỘ TRÌ CHÁNH PHÁP (DHARMA PATRONAGE)
          ========================================================================== -->
-    <section id="support" class="section-wrapper zen-section-alt" aria-label="Hộ trì Chánh pháp">
+    <section id="support" class="section-wrapper zen-section-alt" aria-label="Hộ trì Chánh pháp" data-sc-act="flow">
       <div class="container">
-        <div class="donate-luxury-box">
+        <div class="donate-luxury-box" data-sc-in="rise">
           <div>
             <div class="badge badge-terracotta" style="margin-bottom: 1.25rem;">
               Phước Báu Bố Thí Pháp (Dhamma Dāna)
@@ -737,5 +738,13 @@
   <!-- Application Logic & 3D Cinematic Labyrinth Engine -->
   <script src="js/sacred-labyrinth-3d.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/scrollcraft.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.ScrollCraft && typeof window.ScrollCraft.mount === 'function') {
+        window.ScrollCraft.mount();
+      }
+    });
+  </script>
 </body>
 </html>
