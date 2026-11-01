@@ -642,3 +642,175 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
+
+// ==========================================================================
+// LIDO REAL MEDITATION AUDIO ENGINE: YOUTUBE OFFICIAL CHANNEL STREAMING
+// (Sử dụng trực tiếp âm thanh hòa tấu thực tế từ kênh @1995lido, êm dịu thanh tịnh)
+// ==========================================================================
+let lidoYtPlayer = null;
+let isLidoYtReady = false;
+let isAudioPlaying = false;
+let currentTrackYtId = 'T0tzayJ7oYI';
+
+// Load YouTube IFrame Player API
+if (!window.YT) {
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+window.onYouTubeIframeAPIReady = function() {
+  lidoYtPlayer = new YT.Player('lido-yt-hidden-player', {
+    height: '1',
+    width: '1',
+    videoId: currentTrackYtId,
+    playerVars: {
+      'playsinline': 1,
+      'controls': 0,
+      'disablekb': 1,
+      'fs': 0,
+      'rel': 0,
+      'origin': window.location.origin
+    },
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+};
+
+function onPlayerReady(event) {
+  isLidoYtReady = true;
+  event.target.setVolume(70);
+}
+
+function onPlayerStateChange(event) {
+  const dock = document.getElementById('lido-audio-dock');
+  const icon = document.getElementById('dock-play-icon');
+  const status = document.getElementById('dock-audio-status');
+
+  if (event.data === YT.PlayerState.PLAYING) {
+    isAudioPlaying = true;
+    if (dock) dock.classList.add('playing');
+    if (icon) icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    if (status) {
+      const sel = document.getElementById('dock-sound-selector');
+      const title = sel ? sel.selectedOptions[0].text : 'Nhạc thiền LIDO';
+      status.innerText = 'Đang phát: ' + title;
+    }
+  } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+    isAudioPlaying = false;
+    if (dock) dock.classList.remove('playing');
+    if (icon) icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+    if (status) status.innerText = 'Tạm dừng • Bấm để nghe';
+  }
+}
+
+window.toggleZenAmbientAudio = function() {
+  const status = document.getElementById('dock-audio-status');
+
+  if (!isLidoYtReady || !lidoYtPlayer) {
+    // If API is still loading or fallback
+    if (status) status.innerText = 'Đang kết nối suối nguồn âm thanh...';
+    setTimeout(window.toggleZenAmbientAudio, 600);
+    return;
+  }
+
+  if (!isAudioPlaying) {
+    lidoYtPlayer.playVideo();
+  } else {
+    lidoYtPlayer.pauseVideo();
+  }
+};
+
+window.changeZenAmbientTrack = function(ytId) {
+  currentTrackYtId = ytId;
+  const status = document.getElementById('dock-audio-status');
+  if (status) status.innerText = 'Đang chuyển bản thiền ca...';
+
+  if (lidoYtPlayer && typeof lidoYtPlayer.loadVideoById === 'function') {
+    lidoYtPlayer.loadVideoById(ytId);
+    lidoYtPlayer.playVideo();
+  }
+};
+
+// ==========================================================================
+// FULLSCREEN SANCTUARY CONTROLS
+// ==========================================================================
+window.toggleZen3DFullscreen = function(enable) {
+  if (enable) {
+    document.body.classList.add('zen-3d-fullscreen-active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.dispatchEvent) {
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+    }
+  } else {
+    document.body.classList.remove('zen-3d-fullscreen-active');
+    if (window.dispatchEvent) {
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+    }
+  }
+};
+
+// ESC key to exit 3D Fullscreen
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && document.body.classList.contains('zen-3d-fullscreen-active')) {
+    toggleZen3DFullscreen(false);
+  }
+});
+
+// ==========================================================================
+// READER MODE CONTROLS: FONT RESIZING & COLOR THEMES
+// ==========================================================================
+let currentReaderFontSize = 12; // base size
+window.adjustFontSize = function(delta) {
+  currentReaderFontSize = Math.min(Math.max(currentReaderFontSize + delta, 10), 18);
+  const bookElements = document.querySelectorAll('.page-body-text, .page-verse, .page-body-text p');
+  bookElements.forEach(el => {
+    el.style.fontSize = currentReaderFontSize + 'px';
+    el.style.lineHeight = '1.7';
+  });
+};
+
+window.setReaderTheme = function(theme) {
+  const modal = document.getElementById('zen-reader-modal');
+  if (!modal) return;
+  modal.classList.remove('reader-theme-sepia', 'reader-theme-dark');
+  if (theme === 'sepia') {
+    modal.classList.add('reader-theme-sepia');
+  } else if (theme === 'dark') {
+    modal.classList.add('reader-theme-dark');
+  }
+};
+
+// Pali Tooltip dictionary integration
+const PALI_DICT = {
+  'Mūlapariyāya': 'Kinh Pháp Môn Căn Bản — soi rọi nguồn gốc nhận thức của phàm phu và bậc Thánh',
+  'Sabbāsava': 'Kinh Tất Cả Lậu Hoặc — 7 pháp môn đoạn tận tham sân si vi tế',
+  'Satipaṭṭhāna': 'Tứ Niệm Xứ — Bốn nền tảng chánh niệm: Quán Thân, Thọ, Tâm, Pháp',
+  'Majjhima Nikāya': 'Kinh Trung Bộ — Tập hợp 152 bài kinh vừa của Đại Tạng Phật Giáo Gốc',
+  'Dīgha Nikāya': 'Kinh Trường Bộ — Tập hợp 34 bài kinh dài cốt tủy',
+  'Saṃyutta Nikāya': 'Kinh Tương Ưng Bộ — Các bài kinh đối chiếu theo chủ đề Duyên Khởi & Ngũ Uẩn',
+  'Aṅguttara Nikāya': 'Kinh Tăng Chi Bộ — Pháp thoại thực tiễn xếp theo pháp số từ 1 đến 11'
+};
+
+function injectPaliTooltips() {
+  document.querySelectorAll('.page-body-text, .page-title, .page-chapter-tag').forEach(el => {
+    let html = el.innerHTML;
+    for (const [term, desc] of Object.entries(PALI_DICT)) {
+      const regex = new RegExp(`(?<!<span class="pali-term"[^>]*>)\\b(${term})\\b`, 'g');
+      html = html.replace(regex, `<span class="pali-term" data-tooltip="${desc}">$1</span>`);
+    }
+    el.innerHTML = html;
+  });
+}
+
+// Hook into updateStaticPagesView
+const originalUpdateView = window.updateStaticPagesView;
+if (typeof originalUpdateView === 'function') {
+  window.updateStaticPagesView = function() {
+    originalUpdateView();
+    setTimeout(injectPaliTooltips, 50);
+  };
+}

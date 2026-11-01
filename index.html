@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="css/scrollcraft.css">
 </head>
 <body>
+  <!-- Nút Thoát Chế Độ Chiêm Bái 3D Toàn Màn Hình -->
+  <button class="zen-exit-fullscreen-btn" id="btn-exit-zen-3d" onclick="toggleZen3DFullscreen(false)" aria-label="Thoát toàn màn hình">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <span>Thoát Chế Độ Chiêm Bái</span>
+  </button>
   <!-- Accessible Skip Navigation Link -->
   <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
 
@@ -100,6 +105,10 @@
               <span class="top-bar-title font-serif">Mê Cung Không Gian 3D • 5 Đại Thánh Địa Nơi Đức Phật Thành Đạo (Tự Động 10s)</span>
             </div>
             <div class="top-bar-actions">
+              <button class="btn-zen-fullscreen" id="btn-enter-zen-3d" onclick="toggleZen3DFullscreen(true)" aria-label="Mở chế độ chiêm bái 3D toàn cảnh">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                <span>Toàn Cảnh 3D</span>
+              </button>
               <button class="btn-info-pill" id="btn-toggle-info" aria-label="Xem lời Phật dạy" aria-expanded="false" aria-controls="hero-quote-drawer">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -639,6 +648,13 @@
         <div>
           <h2 class="reader-title" id="modal-book-title">KINH TRUNG BỘ (MAJJHIMA NIKĀYA) — BẢN 3D</h2>
           <span id="modal-book-desc" style="font-size: 12px; color: #d0c8be;">Cố Đại Lão HT. Thích Minh Châu dịch Việt • Bảo chứng: daophatgoc.com</span>
+          <div class="reader-toolbar">
+            <button class="reader-tool-btn" onclick="adjustFontSize(-1)" aria-label="Giảm cỡ chữ">A- Nhỏ</button>
+            <button class="reader-tool-btn" onclick="adjustFontSize(1)" aria-label="Tăng cỡ chữ">A+ Lớn</button>
+            <button class="reader-tool-btn" onclick="setReaderTheme('default')" aria-label="Giao diện trang giấy cổ">Giấy Cổ</button>
+            <button class="reader-tool-btn" onclick="setReaderTheme('sepia')" aria-label="Giao diện ngà thanh tịnh">Màu Ngà</button>
+            <button class="reader-tool-btn" onclick="setReaderTheme('dark')" aria-label="Giao diện ban đêm">Bóng Đêm</button>
+          </div>
         </div>
       </div>
       <button class="btn-close-reader" id="btn-close-reader" onclick="closeZen3DReader()" aria-label="Đóng giao diện đọc sách 3D (Phím Escape)">
@@ -746,5 +762,33 @@
       }
     });
   </script>
+  <!-- ==========================================================================
+       LIDO UPGRADE: PERSISTENT FLOATING AUDIO DOCK (432Hz ZEN SOUNDSCAPE)
+       ========================================================================== -->
+  <div class="lido-audio-dock" id="lido-audio-dock" role="region" aria-label="Thanh phát nhạc thiền định tâm 432Hz">
+    <button class="audio-dock-btn" id="dock-play-btn" onclick="toggleZenAmbientAudio()" aria-label="Bật / Tắt nhạc thiền 432Hz">
+      <svg id="dock-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+    <div class="audio-dock-info" onclick="toggleZenAmbientAudio()">
+      <div class="audio-dock-title">
+        <span>432Hz ĐỊNH TÂM</span>
+        <div class="audio-eq-waves" id="dock-eq-waves">
+          <span class="audio-eq-bar"></span>
+          <span class="audio-eq-bar"></span>
+          <span class="audio-eq-bar"></span>
+          <span class="audio-eq-bar"></span>
+        </div>
+      </div>
+      <span class="audio-dock-sub" id="dock-audio-status">Sóng Alpha An Lạc • Bấm để nghe</span>
+    </div>
+    <!-- Hidden iframe for YouTube IFrame API audio streaming -->
+    <div id="lido-yt-hidden-player" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+    <select class="audio-dock-select" id="dock-sound-selector" onchange="changeZenAmbientTrack(this.value)" aria-label="Chọn bài nhạc thiền LIDO">
+      <option value="T0tzayJ7oYI">1. Tịnh Tâm Liên Hoa (432Hz)</option>
+      <option value="IR25mm93aCo">2. Vô Ưu Tĩnh Lặng (2.5 Giờ)</option>
+      <option value="pRfoEtGl_Ng">3. Cổ Cầm Dạ Ảnh (852Hz)</option>
+    </select>
+  </div>
+
 </body>
 </html>

@@ -1635,3 +1635,234 @@ h1, h2, h3, h4, .font-serif {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   LIDO UPGRADE: PERSISTENT FLOATING AUDIO DOCK (432Hz ZEN SOUNDSCAPE)
+   ========================================================================== */
+.lido-audio-dock {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  background: rgba(18, 15, 12, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 195, 120, 0.35);
+  border-radius: 999px;
+  padding: 6px 14px 6px 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 195, 120, 0.15);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lido-audio-dock:hover {
+  border-color: rgba(229, 195, 120, 0.6);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 25px rgba(229, 195, 120, 0.25);
+  transform: translateY(-2px);
+}
+.audio-dock-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c5892d 0%, #b85032 100%);
+  border: none;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(184, 80, 50, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+.audio-dock-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(184, 80, 50, 0.6);
+}
+.audio-dock-info {
+  display: flex;
+  flex-direction: column;
+  margin: 0 12px 0 10px;
+  cursor: pointer;
+}
+.audio-dock-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e5c378;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.audio-dock-sub {
+  font-size: 0.7rem;
+  color: #b5a999;
+  letter-spacing: 0.3px;
+}
+.audio-eq-waves {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 4px;
+}
+.audio-eq-bar {
+  width: 2.5px;
+  background: #e5c378;
+  border-radius: 1px;
+  height: 4px;
+}
+.playing .audio-eq-bar:nth-child(1) { animation: soundBar 0.8s infinite ease-in-out alternate; }
+.playing .audio-eq-bar:nth-child(2) { animation: soundBar 1.1s infinite 0.2s ease-in-out alternate; }
+.playing .audio-eq-bar:nth-child(3) { animation: soundBar 0.9s infinite 0.4s ease-in-out alternate; }
+.playing .audio-eq-bar:nth-child(4) { animation: soundBar 1.2s infinite 0.1s ease-in-out alternate; }
+
+@keyframes soundBar {
+  0% { height: 3px; }
+  100% { height: 12px; }
+}
+
+.audio-dock-select {
+  background: rgba(30, 26, 20, 0.85);
+  border: 1px solid rgba(229, 195, 120, 0.3);
+  color: #e5c378;
+  font-size: 0.72rem;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  outline: none;
+}
+.audio-dock-select:focus {
+  border-color: #e5c378;
+}
+
+/* ==========================================================================
+   LIDO UPGRADE: IMMERSIVE 3D FULLSCREEN SANCTUARY CONTROLS
+   ========================================================================== */
+.btn-zen-fullscreen {
+  background: rgba(30, 25, 20, 0.75);
+  border: 1px solid rgba(229, 195, 120, 0.35);
+  color: #e5c378;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+.btn-zen-fullscreen:hover {
+  background: rgba(229, 195, 120, 0.15);
+  border-color: #e5c378;
+  color: #fff;
+  transform: translateY(-1px);
+}
+body.zen-3d-fullscreen-active .site-nav,
+body.zen-3d-fullscreen-active .hero-top-bar,
+body.zen-3d-fullscreen-active #zen-quotes-section,
+body.zen-3d-fullscreen-active #zen-book-showcase-section,
+body.zen-3d-fullscreen-active #library,
+body.zen-3d-fullscreen-active #meditation,
+body.zen-3d-fullscreen-active #support,
+body.zen-3d-fullscreen-active .site-footer {
+  display: none !important;
+}
+body.zen-3d-fullscreen-active #hero {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body.zen-3d-fullscreen-active .labyrinth-hero-card {
+  bottom: 24px !important;
+  max-width: 650px !important;
+}
+.zen-exit-fullscreen-btn {
+  display: none;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  background: rgba(184, 80, 50, 0.9);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+body.zen-3d-fullscreen-active .zen-exit-fullscreen-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   LIDO UPGRADE: ENHANCED COMFORT READER CONTROLS & PALĪ TOOLTIPS
+   ========================================================================== */
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.reader-tool-btn {
+  background: rgba(229, 195, 120, 0.1);
+  border: 1px solid rgba(229, 195, 120, 0.25);
+  color: #e5c378;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.reader-tool-btn:hover {
+  background: rgba(229, 195, 120, 0.25);
+  color: #fff;
+}
+.reader-theme-sepia .page-gold-border {
+  background: #f7f1e3 !important;
+  color: #2c251e !important;
+}
+.reader-theme-dark .page-gold-border {
+  background: #191612 !important;
+  color: #e6dfd5 !important;
+  border-color: rgba(229, 195, 120, 0.4) !important;
+}
+.reader-theme-dark .page-body-text, 
+.reader-theme-dark .page-verse {
+  color: #d8cebf !important;
+}
+.pali-term {
+  border-bottom: 1px dashed #c5892d;
+  color: #b85032;
+  cursor: help;
+  position: relative;
+  font-weight: 600;
+}
+.pali-term:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #18140f;
+  color: #e5c378;
+  border: 1px solid #c5892d;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  font-weight: 400;
+  line-height: 1.4;
+  pointer-events: none;
+}
