@@ -650,6 +650,7 @@ footer{
   </div>
 </footer>
 
+<script src="../../js/numerology_engine.js"></script>
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
@@ -858,8 +859,8 @@ footer{
         '<p style="margin:0 0 14px;color:var(--muted);font-size:14.5px">Ngoài bài luận chi tiết và Thẻ Bản Đồ PNG phía trên, hệ thống gửi tặng miễn phí 100% trọn bộ <b>Cẩm nang khổ A4 sạch (đủ 12 tháng liên tiếp, ma trận nghề vượng khí &amp; bảng tương hợp)</b> tính riêng theo ngày sinh <b>' + escHtml(res.ngay_sinh || p.ngay_sinh) + '</b> để bạn lưu PDF đọc cả năm:</p>' +
         (previewMonthsHtml ? '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:16px">' + previewMonthsHtml + '</div>' : '') +
         '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px">' +
-          '<a href="' + escHtml(bkViewUrl) + '" target="_blank" rel="noopener" class="btn-gold" style="flex:1.4;min-width:250px;padding:14px 20px;font-size:15px;text-decoration:none">🖨️ Mở Cẩm Nang Lộ Trình 12 Tháng A4 &amp; Lưu PDF Ngay — Miễn Phí 100% ↗</a>' +
-          '<a href="' + escHtml(bkDlUrl) + '" class="btn-outline" style="flex:1;min-width:220px;padding:14px 18px;border-color:#6EE7B7;color:#6EE7B7;text-decoration:none">⬇️ Tải File Cẩm Nang (.HTML lưu máy trọn đời · 0đ)</a>' +
+          '<button type="button" id="btn-open-booklet" class="btn-gold" style="flex:1.4;min-width:250px;padding:14px 20px;font-size:15px;cursor:pointer;border:none">🖨️ Mở Cẩm Nang Lộ Trình 12 Tháng A4 &amp; Lưu PDF Ngay — Miễn Phí 100% ↗</button>' +
+          '<button type="button" id="btn-dl-booklet" class="btn-outline" style="flex:1;min-width:220px;padding:14px 18px;border-color:#6EE7B7;color:#6EE7B7;cursor:pointer">⬇️ Tải File Cẩm Nang (.HTML lưu máy trọn đời · 0đ)</button>' +
         '</div>' +
         '<div style="padding-top:12px;border-top:1px dashed rgba(255,255,255,.14);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">' +
           '<span style="font-size:13.5px;color:var(--muted)">💚 Thấy bản luận giải &amp; cẩm nang hữu ích? Bạn có thể tùy tâm trợ duyên duy trì website:</span>' +
@@ -915,44 +916,31 @@ footer{
       '</div>' +
       vipUpsellHtml;
 
-    var btTipTsh = $('btn-tip-tsh');
-    if (btTipTsh) {
-      btTipTsh.onclick = function(){
-        btTipTsh.disabled = true;
-        var oldLbl = btTipTsh.textContent;
-        btTipTsh.textContent = '⏳ Đang tạo mã VietQR ủng hộ 5.000đ…';
-        fetch('/api/don', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            loai: 'ung-ho',
-            mon: 'banh-tieu',
-            ten: (res.ho_ten || '').slice(0, 30),
-            loi_nhan: 'Tiếp sức chuyên trang Thần số học miễn phí',
-            nguon: 'tip-than-so-hoc'
-          })
-        }).then(function(r){ return r.json(); }).then(function(o){
-          btTipTsh.disabled = false; btTipTsh.textContent = oldLbl;
-          if (!o.qr) return;
-          var qBox = $('vip-tsh-qr'); qBox.hidden = false;
-          qBox.innerHTML =
-            '<img src="' + escHtml(o.qr) + '" alt="VietQR 5.000đ" style="max-width:220px;width:100%;background:#fff;padding:10px;border-radius:16px;border:2px solid #10B981">' +
-            '<p style="font-weight:800;font-size:14px;color:#F8FAFC;margin:10px 0 4px">📲 Quét ủng hộ tự nguyện: <span style="color:#6EE7B7">' + o.so_tien.toLocaleString('vi-VN') + 'đ</span> · Nội dung: <span style="color:#FDE68A">' + escHtml(o.noi_dung) + '</span></p>' +
-            '<p style="margin:0;font-size:12.8px;color:var(--muted)">Cảm ơn bạn đã tiếp sức nuôi server công cụ Thần Số Học miễn phí của Deta AI Lab! 💚</p>';
-          qBox.scrollIntoView({behavior: 'smooth', block: 'center'});
-          var dem = 0, tm = setInterval(function(){
-            dem++;
-            fetch('/api/don/' + o.ma + '?k=' + o.k, {cache: 'no-store'}).then(function(r2){ return r2.json(); }).then(function(d){
-              if (d.trang_thai === 'xong') {
-                clearInterval(tm);
-                qBox.innerHTML = '<div style="font-weight:900;font-size:16px;color:#6EE7B7">🎉 Đã nhận 5.000đ bánh tiêu! Cảm ơn ' + escHtml(res.ho_ten || 'bạn') + ' đã tiếp sức cho Deta AI Lab!</div>';
-              }
-            }).catch(function(){});
-            if (dem > 360) clearInterval(tm);
-          }, 3000);
-        }).catch(function(){
-          btTipTsh.disabled = false; btTipTsh.textContent = oldLbl;
-        });
+    var btnOpenBk = $('btn-open-booklet');
+    if (btnOpenBk) {
+      btnOpenBk.onclick = function(){
+        if (res.booklet_html) {
+          var b = new Blob([res.booklet_html], { type: 'text/html;charset=utf-8' });
+          var u = URL.createObjectURL(b);
+          window.open(u, '_blank');
+        } else if (res.booklet_view_url) {
+          window.open(res.booklet_view_url, '_blank');
+        }
+      };
+    }
+    var btnDlBk = $('btn-dl-booklet');
+    if (btnDlBk) {
+      btnDlBk.onclick = function(){
+        if (res.booklet_html) {
+          var slug = String(res.ho_ten || 'ban-do').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || '1995lido';
+          var b = new Blob([res.booklet_html], { type: 'text/html;charset=utf-8' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(b);
+          a.download = 'cam-nang-than-so-hoc-' + slug + '.html';
+          a.click();
+        } else if (res.booklet_dl_url) {
+          window.location.href = res.booklet_dl_url;
+        }
       };
     }
 
@@ -1033,22 +1021,36 @@ footer{
     bt.disabled = true;
     bt.textContent = '✨ Đang lập Kim tự tháp & luận giải 5 phần (khoảng 8–12 giây)…';
 
-    fetch('/api/cong-cu/chay', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        cong_cu: 'than-so-hoc',
-        ho_ten: ten,
-        ngay_sinh: ngaySinh,
-        cau_hoi: cauHoi
-      })
-    }).then(function(r){ return r.json(); }).then(function(res){
-      bt.disabled = false; bt.textContent = oldTxt;
-      renderFullDashboard(res);
-    }).catch(function(){
-      bt.disabled = false; bt.textContent = oldTxt;
-      alert('Máy chủ đang bận xử lý nhiều bản đồ cùng lúc, bạn bấm thử lại sau vài giây nhé!');
-    });
+    setTimeout(function(){
+      try {
+        if (typeof window.runNumerologyClientEngine === 'function') {
+          var res = window.runNumerologyClientEngine(ten, ngaySinh, cauHoi);
+          bt.disabled = false; bt.textContent = oldTxt;
+          renderFullDashboard(res);
+        } else {
+          fetch('/api/cong-cu/chay', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              cong_cu: 'than-so-hoc',
+              ho_ten: ten,
+              ngay_sinh: ngaySinh,
+              cau_hoi: cauHoi
+            })
+          }).then(function(r){ return r.json(); }).then(function(res){
+            bt.disabled = false; bt.textContent = oldTxt;
+            renderFullDashboard(res);
+          }).catch(function(){
+            bt.disabled = false; bt.textContent = oldTxt;
+            alert('Máy chủ đang bận xử lý nhiều bản đồ cùng lúc, bạn bấm thử lại sau vài giây nhé!');
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        bt.disabled = false; bt.textContent = oldTxt;
+        alert('Có lỗi nhỏ khi tính toán, bạn vui lòng kiểm tra lại họ tên và ngày sinh nhé!');
+      }
+    }, 400);
     return false;
   };
 })();
