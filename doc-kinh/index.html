@@ -901,6 +901,19 @@
       applyFont(savedFont);
     } catch(e) {}
 
+    // Select Sutta without full page reload
+    function selectSutta(idx) {
+      if (idx < 0 || idx >= catalog.length) return;
+      currentIndex = idx;
+      currentSutta = catalog[currentIndex];
+      try {
+        var newSearch = '?id=' + encodeURIComponent(currentSutta.id);
+        window.history.pushState({ id: currentSutta.id }, '', newSearch);
+      } catch(e) {}
+      renderSutta();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // Populate TOC Drawer
     function renderToc() {
       var container = document.getElementById('toc-list-container');
@@ -908,8 +921,13 @@
       catalog.forEach(function(item, idx) {
         var a = document.createElement('a');
         a.className = 'toc-item' + (item.id === currentSutta.id ? ' active' : '');
-        a.href = '/doc-kinh?id=' + item.id;
+        a.href = '?id=' + encodeURIComponent(item.id);
         a.innerHTML = '<small>' + (item.category_name || 'Kinh Điển') + '</small>' + item.title;
+        a.onclick = function(e) {
+          e.preventDefault();
+          selectSutta(idx);
+          toggleTocDrawer(false);
+        };
         container.appendChild(a);
       });
     }
@@ -944,20 +962,43 @@
       document.getElementById('sutta-body').innerHTML = currentSutta.content_html || '<p>Đang cập nhật nội dung...</p>';
 
       // Prev / Next Sutta
-      var prevSutta = (currentIndex > 0) ? catalog[currentIndex - 1] : catalog[catalog.length - 1];
-      var nextSutta = (currentIndex < catalog.length - 1) ? catalog[currentIndex + 1] : catalog[0];
+      var prevIdx = (currentIndex > 0) ? currentIndex - 1 : catalog.length - 1;
+      var nextIdx = (currentIndex < catalog.length - 1) ? currentIndex + 1 : 0;
+      var prevSutta = catalog[prevIdx];
+      var nextSutta = catalog[nextIdx];
 
       var btnPrev = document.getElementById('btn-prev-sutta');
-      btnPrev.href = '/doc-kinh?id=' + prevSutta.id;
+      btnPrev.href = '?id=' + encodeURIComponent(prevSutta.id);
+      btnPrev.onclick = function(e) {
+        e.preventDefault();
+        selectSutta(prevIdx);
+      };
       document.getElementById('prev-sutta-title').textContent = prevSutta.title;
 
       var btnNext = document.getElementById('btn-next-sutta');
-      btnNext.href = '/doc-kinh?id=' + nextSutta.id;
+      btnNext.href = '?id=' + encodeURIComponent(nextSutta.id);
+      btnNext.onclick = function(e) {
+        e.preventDefault();
+        selectSutta(nextIdx);
+      };
       document.getElementById('next-sutta-title').textContent = nextSutta.title;
 
       updateBookmarkButton();
       renderToc();
     }
+
+    // Support browser Back/Forward buttons
+    window.addEventListener('popstate', function() {
+      var p = new URLSearchParams(window.location.search);
+      var reqId = p.get('id') || (catalog[0] ? catalog[0].id : '');
+      var foundIdx = catalog.findIndex(function(x) { return x.id === reqId; });
+      if (foundIdx !== -1 && foundIdx !== currentIndex) {
+        currentIndex = foundIdx;
+        currentSutta = catalog[currentIndex];
+        renderSutta();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
 
     // Reading Progress & Sticky Toolbar Title
     window.addEventListener('scroll', function() {
