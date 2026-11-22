@@ -642,17 +642,40 @@
     .cylinder-svg-wrap {
       display: inline-block;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: bottom center;
+      position: relative;
+    }
+    .cylinder-svg-wrap:hover {
+      transform: scale(1.06);
     }
     .cylinder-svg-wrap.shaking {
-      animation: shakeCylinder 0.45s infinite;
+      animation: shakeRealistic 0.15s infinite alternate ease-in-out;
     }
-    @keyframes shakeCylinder {
-      0% { transform: rotate(0deg) translateY(0); }
-      25% { transform: rotate(-9deg) translateY(-6px); }
-      50% { transform: rotate(8deg) translateY(2px); }
-      75% { transform: rotate(-7deg) translateY(-4px); }
-      100% { transform: rotate(0deg) translateY(0); }
+    @keyframes shakeRealistic {
+      0% { transform: rotate(-9deg) translateY(-5px); }
+      50% { transform: rotate(8deg) translateY(3px); }
+      100% { transform: rotate(-7deg) translateY(-3px); }
+    }
+    .cylinder-svg-wrap.shaking .stick-1 {
+      animation: stickBounce1 0.14s infinite alternate;
+    }
+    .cylinder-svg-wrap.shaking .stick-2 {
+      animation: stickBounce2 0.18s infinite alternate;
+    }
+    .cylinder-svg-wrap.shaking .stick-4 {
+      animation: stickBounce1 0.17s infinite alternate;
+    }
+    .cylinder-svg-wrap.shaking .stick-5 {
+      animation: stickBounce2 0.15s infinite alternate;
+    }
+    @keyframes stickBounce1 {
+      from { transform: rotate(-10deg) translateY(0); }
+      to { transform: rotate(-12deg) translateY(-8px); }
+    }
+    @keyframes stickBounce2 {
+      from { transform: rotate(6deg) translateY(0); }
+      to { transform: rotate(8deg) translateY(-7px); }
     }
 
     /* AUTHENTIC PARCHMENT ORACLE SCROLL ("TỜ XĂM GIẤY DÓ ĐÓNG TRIỆN ĐỎ") */
@@ -1316,19 +1339,29 @@
         <!-- LEFT: SHAKING BAMBOO CYLINDER & INPUTS -->
         <div class="card-box">
           <div class="bamboo-stage">
-            <div class="cylinder-svg-wrap" id="bamboo-cylinder" onclick="drawPeaceLot()">
-              <svg width="124" height="142" viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="46" y="10" width="7" height="58" rx="3" transform="rotate(-10 46 10)" fill="#FDE68A" stroke="#92400E" stroke-width="2"/>
-                <rect x="58" y="6" width="7" height="62" rx="3" transform="rotate(-3 58 6)" fill="#FEF3C7" stroke="#92400E" stroke-width="2"/>
-                <rect x="70" y="4" width="8" height="64" rx="3" fill="#FBE3A4" stroke="#991B1B" stroke-width="2.5"/>
-                <rect x="82" y="8" width="7" height="60" rx="3" transform="rotate(6 82 8)" fill="#FDE68A" stroke="#92400E" stroke-width="2"/>
-                <rect x="92" y="14" width="7" height="55" rx="3" transform="rotate(14 92 14)" fill="#FEF3C7" stroke="#92400E" stroke-width="2"/>
-                <path d="M36 52H104L98 144C98 148 86 152 70 152C54 152 42 148 42 144L36 52Z" fill="url(#cylGrad)" stroke="#F59E0B" stroke-width="3.5"/>
-                <ellipse cx="70" cy="52" rx="34" ry="8" fill="#451A03" stroke="#F59E0B" stroke-width="3"/>
-                <rect x="52" y="76" width="36" height="48" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
-                <text x="70" y="105" text-anchor="middle" fill="#991B1B" font-family="serif" font-weight="bold" font-size="16">BÌNH AN</text>
+            <div class="cylinder-svg-wrap" id="bamboo-cylinder" onclick="drawPeaceLot()" title="Chạm vào ống xăm để lắc">
+              <svg id="svg-bamboo-box" width="136" height="156" viewBox="0 0 140 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 5 Sticks -->
+                <rect class="stick stick-1" x="46" y="24" width="7" height="62" rx="3" transform="rotate(-10 46 24)" fill="#FDE68A" stroke="#92400E" stroke-width="2"/>
+                <rect class="stick stick-2" x="58" y="20" width="7" height="66" rx="3" transform="rotate(-3 58 20)" fill="#FEF3C7" stroke="#92400E" stroke-width="2"/>
+                
+                <!-- Center Lucky Stick with slide-up group -->
+                <g id="lucky-stick-group" style="transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1)">
+                  <rect id="lucky-stick" x="69" y="14" width="8" height="72" rx="3.5" fill="#FDE68A" stroke="#991B1B" stroke-width="2.5"/>
+                  <rect x="70.5" y="17" width="5" height="19" rx="1.5" fill="#DC2626"/>
+                  <text id="stick-num-text" x="73" y="30" text-anchor="middle" fill="#FEF3C7" font-size="8.5" font-weight="900" font-family="'Be Vietnam Pro',sans-serif">✦</text>
+                </g>
+
+                <rect class="stick stick-4" x="82" y="22" width="7" height="64" rx="3" transform="rotate(6 82 22)" fill="#FDE68A" stroke="#92400E" stroke-width="2"/>
+                <rect class="stick stick-5" x="92" y="28" width="7" height="58" rx="3" transform="rotate(14 92 28)" fill="#FEF3C7" stroke="#92400E" stroke-width="2"/>
+
+                <!-- Front Cylinder Body -->
+                <path d="M36 56H104L98 148C98 152 86 156 70 156C54 152 42 148 42 144L36 56Z" fill="url(#cylGrad)" stroke="#F59E0B" stroke-width="3.5"/>
+                <ellipse cx="70" cy="56" rx="34" ry="8" fill="#451A03" stroke="#F59E0B" stroke-width="3"/>
+                <rect x="52" y="80" width="36" height="48" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+                <text x="70" y="109" text-anchor="middle" fill="#991B1B" font-family="serif" font-weight="bold" font-size="16">BÌNH AN</text>
                 <defs>
-                  <linearGradient id="cylGrad" x1="36" y1="52" x2="104" y2="152" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="cylGrad" x1="36" y1="56" x2="104" y2="156" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stop-color="#991B1B"/>
                     <stop offset="50%" stop-color="#7F1D1D"/>
                     <stop offset="100%" stop-color="#450A0A"/>
@@ -1336,8 +1369,8 @@
                 </defs>
               </svg>
             </div>
-            <div style="font-size:12.5px;font-weight:700;color:var(--gold-bright);margin-top:4px">
-              👆 Chạm vào Ống Xăm để lắc quẻ
+            <div style="font-size:13px;font-weight:700;color:var(--gold-bright);margin-top:6px" id="shake-guide-text">
+              ✨ Bấm vào Ống Xăm hoặc bấm nút bên dưới để lắc quẻ
             </div>
           </div>
 
@@ -2057,11 +2090,13 @@ Hoa thơm nở giữa đời.</pre>
       { so: 18, ten: "Quẻ Số 18 · Tùng Bách Vững Vàng (Cát Lành)", cap: "Cát Lành", tho: "Gió sương lay chẳng đổ,\nRễ bám chặt đá xanh.\nĐợi xuân về ấm áp,\nLộc biếc trổ đầy cành.", y_nghia: "Giai đoạn này đòi hỏi ở bạn sự bền bỉ và tĩnh tại như cây tùng trên núi. Chưa phải lúc vội vàng chạy theo lợi ích ngắn hạn; hãy củng cố sức khỏe, rèn kỹ năng gốc và tích lũy nội lực.", hanh_dong: ["Tập trung hoàn thành trọn vẹn từng việc nhỏ thay vì ôm đồm nhiều việc cùng lúc.", "Kiểm soát chi tiêu hợp lý trong tuần này, ưu tiên tích lũy an toàn.", "Dành 15 phút đi bộ hoặc vận động nhẹ để giải phóng năng lượng ứ đọng."] },
       { so: 24, ten: "Quẻ Số 24 · Xuân Vũ Nhuận Mộc (Thượng Cát)", cap: "Thượng Cát", tho: "Mưa xuân rơi thấm đất,\nMầm khô bỗng hóa xanh.\nQuý nhân từ phương tới,\nViệc khó hóa việc lành.", y_nghia: "Bạn sắp nhận được một sự trợ giúp quý giá hoặc một tin vui bất ngờ từ người có kinh nghiệm. Những thiện cảm bạn từng gieo trồng trước đây nay quay trở lại nâng đỡ bạn đúng lúc cần thiết nhất.", hanh_dong: ["Đừng ngại mở lời xin lời khuyên từ người đi trước mà bạn tin tưởng.", "Giữ thái độ khiêm tốn, chân thành trong mọi cuộc gặp gỡ tuần này.", "Gieo một hạt giống thiện lành nhỏ: giúp đỡ một người đang lúng túng quanh bạn."] },
       { so: 33, ten: "Quẻ Số 33 · Minh Châu Xuất Hải (Đại Cát)", cap: "Thượng Thượng Cát", tho: "Ngọc sáng nơi biển thẳm,\nĐến ngày tỏa hào quang.\nTâm thành trời chẳng phụ,\nPhúc lộc tự tìm sang.", y_nghia: "Giá trị thực sự và sự tận tâm của bạn sắp được ghi nhận xứng đáng. Dù trước đó bạn có cảm giác công sức mình bỏ ra chưa ai thấy, thì sắp tới chính năng lực thật sẽ giúp bạn tỏa sáng bền vững.", hanh_dong: ["Tự tin trình bày ý tưởng hoặc sản phẩm tâm huyết của bạn ra ánh sáng.", "Giữ chữ tín tuyệt đối trong từng lời hứa nhỏ nhất với khách hàng và đồng nghiệp.", "Dành thời gian buổi tối tĩnh tâm đọc vài trang sách hoặc nghe tiếng chuông thiền."] },
-      { so: 42, ten: "Quẻ Số 42 · Thanh Phong Tẩy Trần (Bình An Chuyển Hóa)", cap: "Thượng Bình An", tho: "Gió thanh lay trúc biếc,\nBụi trần nhẹ bay đi.\nChuyện qua đừnguyến tiếc,\nAn nhiên bước xuân thì.", y_nghia: "Quẻ nhắc bạn hãy tha thứ cho những thiếu sót đã qua của bản thân và người khác. Đừng mang chiếc ba-lô chứa đầy chuyện cũ của ngày hôm qua để bước vào ngày mai tươi sáng.", hanh_dong: ["Thở ra thật chậm và tự nhủ: 'Mình cho phép bản thân được bình an ngay lúc này'.", "Tắt thông báo mạng xã hội 30 phút trước khi ngủ để tâm không bị xao động.", "Trân trọng sức khỏe hiện tại — có sức khỏe và sự bình tĩnh là có tất cả."] },
-      { so: 56, ten: "Quẻ Số 56 · Bách Điểu Quy Lâm (Gia Đạo & Tâm An)", cap: "Thượng Cát", tho: "Chim mỏi cánh về tổ,\nĐèn ấm sáng hiên nhà.\nNgoài kia bao giông bão,\nVề đây hóa thuận hòa.", y_nghia: "Năng lượng may mắn lớn nhất của bạn lúc này nằm ở sự gắn kết gia đình và không gian sống ấm áp. Khi hậu phương và nội tâm yên ổn, mọi việc bên ngoài dù phức tạp đến đâu cũng sẽ tự khắc đi vào quỹ đạo.", hanh_dong: ["Ăn một bữa cơm trọn vẹn, không nhìn màn hình điện thoại cùng người thân.", "Lắng nghe tâm sự của người nhà bằng sự kiên nhẫn và bao dung.", "Thắp một nén hương tâm hoặc thả một chiếc đèn hoa đăng cầu an cho gia đình."] }
+      { so: 42, ten: "Quẻ Số 42 · Thanh Phong Tẩy Trần (Bình An Chuyển Hóa)", cap: "Thượng Bình An", tho: "Gió thanh lay trúc biếc,\nBụi trần nhẹ bay đi.\nChuyện qua đừng luyến tiếc,\nAn nhiên bước xuân thì.", y_nghia: "Quẻ nhắc bạn hãy tha thứ cho những thiếu sót đã qua của bản thân và người khác. Đừng mang chiếc ba-lô chứa đầy chuyện cũ của ngày hôm qua để bước vào ngày mai tươi sáng.", hanh_dong: ["Thở ra thật chậm và tự nhủ: \'Mình cho phép bản thân được bình an ngay lúc này\'.", "Tắt thông báo mạng xã hội 30 phút trước khi ngủ để tâm không bị xao động.", "Trân trọng sức khỏe hiện tại — có sức khỏe và sự bình tĩnh là có tất cả."] },
+      { so: 56, ten: "Quẻ Số 56 · Bách Điểu Quy Lâm (Gia Đạo & Tâm An)", cap: "Thượng Cát", tho: "Chim mỏi cánh về tổ,\nĐèn ấm sáng hiên nhà.\nNgoài kia bao giông bão,\nVề đây hóa thuận hòa.", y_nghia: "Năng lượng may mắn lớn nhất của bạn lúc này nằm ở sự gắn kết gia đình và không gian sống ấm áp. Khi hậu phương và nội tâm yên ổn, mọi việc bên ngoài dù phức tạp đến đâu cũng sẽ tự khắc đi vào quỹ đạo.", hanh_dong: ["Ăn một bữa cơm trọn vẹn, không nhìn màn hình điện thoại cùng người thân.", "Lắng nghe tâm sự của người nhà bằng sự kiên nhẫn và bao dung.", "Thắp một nén hương tâm hoặc thả một chiếc đèn hoa đăng cầu an cho gia đình."] },
+      { so: 68, ten: "Quẻ Số 68 · Kim Ngọc Mãn Đường (Phước Đức Tròn Đầy)", cap: "Đại Cát", tho: "Ruộng phước dày công cấy,\nNay trĩu hạt vàng ươm.\nTâm lành sinh quả ngọt,\nVạn sự đặng hanh thông.", y_nghia: "Những nhân lành bạn đã gieo trồng bằng sự tử tế và trung thực đang tạo nên quả ngọt vững chắc. Tài lộc và sự hanh thông sẽ đến một cách tự nhiên khi bạn đặt cái tâm trong sáng lên hàng đầu.", hanh_dong: ["Trích một phần nhỏ tùy tâm để làm việc thiện hoặc giúp đỡ người khó khăn.", "Kiểm kê lại tài chính và lập kế hoạch chi tiêu có trách nhiệm cho tháng tới.", "Mỉm cười biết ơn những điều tốt đẹp đang hiện diện trong cuộc sống."] },
+      { so: 88, ten: "Quẻ Số 88 · Tâm Tĩnh Trí Minh (Đại Cát)", cap: "Đại Cát", tho: "Mặt hồ không gợn sóng,\nSoi bóng rạng trăng rằm.\nTrí tuệ từ tâm tĩnh,\nSáng soi suốt tháng năm.", y_nghia: "Đỉnh cao của trí tuệ là sự tĩnh lặng. Đứng trước những lựa chọn quan trọng, hãy cho mình khoảng lặng để lắng nghe trực giác thay vì đưa ra quyết định trong sự vội vã hay áp lực dư luận.", hanh_dong: ["Dành 5 phút ngồi yên, nhắm mắt và theo dõi hơi thở tự nhiên.", "Hạn chế lướt mạng xã hội vô thức trong ngày hôm nay.", "Đọc một trang kinh hoặc sách triết lý sống an lạc."] }
     ];
 
-    function getStoredLanterns() {
+    function getStoredLanterns()    function getStoredLanterns() {
       try {
         const stored = localStorage.getItem('lido_user_lanterns');
         if (stored) {
@@ -2570,70 +2605,155 @@ Hoa thơm nở giữa đời.</pre>
       }
     }
 
-    function applyLotToUI(d, cyl, btn) {
-      setTimeout(() => {
-        if (cyl) cyl.classList.remove('shaking');
-        btn.disabled = false;
-        btn.innerText = '🎋 Lắc Lại Quẻ Khác (Miễn Phí 100%)';
-        if (!d || !d.ok) return;
-        currentLotData = d;
-        ringBellSound();
-        document.getElementById('lot-badge').innerText = d.cap_que;
-        document.getElementById('lot-title').innerText = d.ten_que;
-        document.getElementById('lot-meta').innerText = `Người gieo quẻ: ${d.phap_danh} · Ngày ${d.ngay_gieo}`;
-        document.getElementById('lot-poem').innerText = d.tho_que;
-        document.getElementById('lot-meaning').innerText = d.luan_giai;
-        document.getElementById('lot-actions').innerHTML = (d.hanh_dong || []).map(x => `<li style="margin-bottom:5px">${x}</li>`).join('');
-        showToast('🎋 Bạn vừa nhận được ' + d.ten_que + '!');
-      }, 480);
+    // Client-side Lunar Calendar Calculation
+    function getClientLunarInfo() {
+      const now = new Date();
+      const anchor = new Date(2026, 1, 17); // 17/02/2026: Mùng 1 Tết Bính Ngọ
+      const diffDays = (now - anchor) / (1000 * 60 * 60 * 24);
+      const synodic = 29.530588853;
+      const lunations = Math.floor(diffDays / synodic);
+      let dayInMonth = Math.floor(diffDays - lunations * synodic) + 1;
+      dayInMonth = Math.max(1, Math.min(30, dayInMonth));
+      const lunarMonth = ((lunations % 12) + 12) % 12 + 1;
+      const canChiYear = "Năm Bính Ngọ 2026";
+      let dip = "";
+      if (dayInMonth === 1) dip = "Hôm nay Mùng 1 Âm lịch · Đại cát gieo duyên lành";
+      else if (dayInMonth === 15) dip = "Hôm nay ngày Rằm · Trăng tròn viên mãn cầu an";
+      else if (dayInMonth < 15) dip = `Còn ${15 - dayInMonth} ngày đến Rằm Tháng ${lunarMonth}`;
+      else dip = `Hạ tuần Tháng ${lunarMonth} Âm lịch`;
+      return {
+        am_lich: `Ngày ${dayInMonth < 10 ? '0' + dayInMonth : dayInMonth} Tháng ${lunarMonth < 10 ? '0' + lunarMonth : lunarMonth} (${canChiYear})`,
+        dip_dac_biet: dip
+      };
     }
 
-    // ================= 6. LẮC ỐNG XĂM GIEO QUẺ BÌNH AN AI & XUẤT THẺ PNG 1080x1350 =================
+    function updateLunarHudClient() {
+      try {
+        const el = document.getElementById('hud-lunar');
+        if (!el) return;
+        const l = getClientLunarInfo();
+        el.innerText = '🌙 ' + l.am_lich + ' · ' + l.dip_dac_biet;
+      } catch(e) {}
+    }
+
+    function personalizeLotMeaning(baseMeaning, phapDanh, chuDe, tamSu) {
+      const mapTopic = {
+        'binh-an': 'Gia đạo & Sức khỏe Bình an',
+        'cong-viec': 'Sự nghiệp & Công việc Hanh thông',
+        'tai-loc': 'Tài chính & Cơ hội Kinh doanh',
+        'tinh-duyen': 'Nhân duyên & Sự thấu hiểu',
+        'tinh-tam': 'Buông bỏ áp lực & Chữa lành tâm hồn'
+      };
+      const tenChuDe = mapTopic[chuDe] || 'Thân tâm An lạc & Vạn sự Hanh thông';
+      const cleanName = phapDanh || 'Đạo hữu';
+      if (tamSu && tamSu.trim()) {
+        return `Về điều ${cleanName} đang trăn trở ("${tamSu.trim()}"): ${baseMeaning} Ở phương diện ${tenChuDe.toLowerCase()}, lời Phật dạy khuyên bạn hãy giữ tâm bình khí hòa, kiên nhẫn trong từng bước đi thì mọi nút thắt đều tự khắc được tháo gỡ an lành.`;
+      }
+      return `Ứng với tâm nguyện về ${tenChuDe} của ${cleanName}: ${baseMeaning}`;
+    }
+
+    let isDrawingLot = false;
+    let lastLotIndex = -1;
+
+    // ================= 6. LẮC ỐNG XĂM GIEO QUẺ BÌNH AN AI (100% CLIENT-SIDE ANIMATION & LUẬN GIẢI) =================
     async function drawPeaceLot() {
+      if (isDrawingLot) return;
+      isDrawingLot = true;
+
       const btn = document.getElementById('btn-draw-lot');
       const cyl = document.getElementById('bamboo-cylinder');
+      const luckyGroup = document.getElementById('lucky-stick-group');
+      const stickText = document.getElementById('stick-num-text');
+      const guideText = document.getElementById('shake-guide-text');
+
       btn.disabled = true;
-      btn.innerText = '🎋 Đang lắc ống xăm & luận giải quẻ bình an...';
+      btn.innerText = '🎋 Đang lắc ống xăm... (Chờ que xăm xuất hiện)';
+      if (guideText) guideText.innerHTML = '🎋 <i>Ống xăm đang lắc dồn dập, tâm hướng về điều bình an...</i>';
+
+      // 1. Hạ que xăm cũ xuống (nếu đã trồi lên trước đó)
+      if (luckyGroup) luckyGroup.style.transform = 'translateY(0)';
+      if (stickText) stickText.textContent = '✦';
+
+      // 2. Kích hoạt rung lắc ống xăm
       if (cyl) cyl.classList.add('shaking');
 
-      // Realistic bamboo sticks clacking sound sequence
-      playWoodenFishSound();
-      setTimeout(playWoodenFishSound, 140);
-      setTimeout(playWoodenFishSound, 280);
-      setTimeout(playWoodenFishSound, 420);
+      // 3. Chuỗi âm thanh gõ mõ / gõ que xăm lách cách 7 nhịp sinh động
+      playWoodenFishSound(0.5);
+      setTimeout(() => playWoodenFishSound(0.55), 140);
+      setTimeout(() => playWoodenFishSound(0.6), 280);
+      setTimeout(() => playWoodenFishSound(0.65), 440);
+      setTimeout(() => playWoodenFishSound(0.7), 620);
+      setTimeout(() => playWoodenFishSound(0.75), 800);
+      setTimeout(() => playWoodenFishSound(0.8), 980);
 
+      // 4. Lấy dữ liệu người gieo quẻ
       const userPd = document.getElementById('gq-name').value.trim() || myName;
       const userTopic = document.getElementById('gq-topic').value;
       const userThought = document.getElementById('gq-thought').value.trim();
 
-      try {
-        const r = await fetch('/api/chua/gieo-que', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phap_danh: userPd, chu_de: userTopic, tam_su: userThought })
-        });
-        const d = await r.json();
-        if (d && d.ok) {
-          applyLotToUI(d, cyl, btn);
-          return;
-        }
-      } catch (e) {}
-
-      // Fallback offline / GitHub Pages:
-      const randomLot = DEFAULT_LOTS[Math.floor(Math.random() * DEFAULT_LOTS.length)];
+      // 5. Chọn ngẫu nhiên quẻ (khác quẻ cũ để luôn thấy kết quả mới)
+      let pickIdx = Math.floor(Math.random() * DEFAULT_LOTS.length);
+      if (DEFAULT_LOTS.length > 1 && pickIdx === lastLotIndex) {
+        pickIdx = (pickIdx + 1) % DEFAULT_LOTS.length;
+      }
+      lastLotIndex = pickIdx;
+      const q = DEFAULT_LOTS[pickIdx];
       const todayStr = new Date().toLocaleDateString('vi-VN');
-      const offlineLot = {
-        ok: true,
-        so_que: randomLot.so,
-        ten_que: randomLot.ten,
-        cap_que: randomLot.cap,
-        tho_que: randomLot.tho,
-        luan_giai: randomLot.y_nghia,
-        hanh_dong: randomLot.hanh_dong,
-        phap_danh: userPd,
-        ngay_gieo: todayStr
-      };
-      applyLotToUI(offlineLot, cyl, btn);
+
+      // 6. Sau 1.0 giây: CÂY XĂM TRỒI LÊN KHỎI MIỆNG ỐNG!
+      setTimeout(() => {
+        if (luckyGroup) luckyGroup.style.transform = 'translateY(-34px)';
+        if (stickText) stickText.textContent = (q.so < 10 ? '0' : '') + q.so;
+        if (guideText) guideText.innerHTML = `✨ <b style="color:#FDE68A">Đã trúng Quẻ Số ${(q.so < 10 ? '0' : '') + q.so}</b> — Mời đọc bài thơ & lời khuyên bên phải!`;
+      }, 1000);
+
+      // 7. Sau 1.35 giây: Dừng lắc, đổ chuông khánh thanh tịnh & hiển thị bài thơ quẻ
+      setTimeout(() => {
+        if (cyl) cyl.classList.remove('shaking');
+        ringBellSound();
+
+        const luanGiaiCustom = personalizeLotMeaning(q.y_nghia, userPd, userTopic, userThought);
+        const lotData = {
+          ok: true,
+          so_que: q.so,
+          ten_que: q.ten,
+          cap_que: q.cap,
+          tho_que: q.tho,
+          luan_giai: luanGiaiCustom,
+          hanh_dong: q.hanh_dong,
+          phap_danh: userPd,
+          ngay_gieo: todayStr
+        };
+        currentLotData = lotData;
+
+        // Cập nhật thẻ kết quả giấy dó bên phải
+        document.getElementById('lot-badge').innerText = lotData.cap_que;
+        document.getElementById('lot-title').innerText = lotData.ten_que;
+        document.getElementById('lot-meta').innerText = `Người gieo quẻ: ${lotData.phap_danh} · Ngày ${lotData.ngay_gieo}`;
+        document.getElementById('lot-poem').innerText = lotData.tho_que;
+        document.getElementById('lot-meaning').innerText = lotData.luan_giai;
+        document.getElementById('lot-actions').innerHTML = (lotData.hanh_dong || []).map(x => `<li style="margin-bottom:5px">${x}</li>`).join('');
+
+        // Hiệu ứng hào quang vàng nổi bật lên thẻ quẻ
+        const resBox = document.getElementById('lot-result-box');
+        if (resBox) {
+          resBox.style.transition = 'box-shadow 0.6s ease';
+          resBox.style.boxShadow = '0 0 45px rgba(245, 158, 11, 0.75), inset 0 0 0 4px #FBF5E6';
+          setTimeout(() => {
+            resBox.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 0 4px #FBF5E6, inset 0 0 0 5.5px rgba(153, 27, 27, 0.45)';
+          }, 1800);
+        }
+
+        showToast('🎋 Bạn vừa nhận được ' + lotData.ten_que + '!');
+        btn.disabled = false;
+        btn.innerText = '🎋 Lắc Lại Quẻ Khác (Miễn Phí 100%)';
+        isDrawingLot = false;
+
+        // Tự động cuộn nhẹ xuống xem thẻ quẻ nếu đang ở màn hình nhỏ/điện thoại
+        if (window.innerWidth < 960 && resBox) {
+          resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 1380);
     }
 
     function exportLotCardPNG() {
@@ -2826,9 +2946,13 @@ Hoa thơm nở giữa đời.</pre>
     }
 
     // Initialize state & periodic sync
-    fetchTempleState();
-    setInterval(() => syncPresence('', 'ngoi-thien'), 12000);
-    setInterval(fetchTempleState, 15000);
+    updateLunarHudClient();
+    const isStaticHost = location.hostname.endsWith('github.io') || location.protocol === 'file:';
+    if (!isStaticHost) {
+      fetchTempleState();
+      setInterval(() => syncPresence('', 'ngoi-thien'), 12000);
+      setInterval(fetchTempleState, 15000);
+    }
 
     // Traffic heartbeat (/api/dang-xem)
     (function trackTraffic() {
