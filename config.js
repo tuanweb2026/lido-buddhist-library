@@ -101,3 +101,7 @@ const APP_CONFIG = {
     }
   ]
 };
+
+// Đóng băng bảo mật: ngăn chặn mọi hành vi thay đổi cấu hình ngân hàng từ client
+Object.freeze(APP_CONFIG.bank);
+Object.freeze(APP_CONFIG);

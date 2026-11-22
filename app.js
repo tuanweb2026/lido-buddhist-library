@@ -2,8 +2,8 @@
 // LOGIC XỬ LÝ ỨNG DỤNG DONATE, KÊNH @1995LIDO & ĐI CHÙA ONLINE
 // =============================================================================
 
-// Khởi tạo state ứng dụng
-let currentBank = { ...APP_CONFIG.bank };
+// Khởi tạo state ứng dụng (Khóa bất biến - Cố định bảo mật thông tin ngân hàng)
+const currentBank = Object.freeze({ ...APP_CONFIG.bank });
 let selectedTier = APP_CONFIG.tiers[0]; // Mặc định gói Chén Trà An Yên
 let customAmount = 0;
 let audioContext = null;
@@ -15,16 +15,6 @@ let templeState = {
   flowerCount: parseInt(localStorage.getItem("1995lido_flower_count") || "0", 10),
   incenseLit: true
 };
-
-// Lấy thông tin đã lưu trong LocalStorage nếu có
-const savedBank = localStorage.getItem("1995lido_bank_config");
-if (savedBank) {
-  try {
-    currentBank = { ...currentBank, ...JSON.parse(savedBank) };
-  } catch (e) {
-    console.warn("Không thể tải cấu hình lưu tạm:", e);
-  }
-}
 
 // Khởi tạo ứng dụng sau khi DOM load xong
 document.addEventListener("DOMContentLoaded", () => {
@@ -612,33 +602,6 @@ function triggerLotusPetals() {
   }
 }
 
-// Modal Cập Nhật Thông Tin Ngân Hàng Nhanh
-function openBankConfigModal() {
-  document.getElementById("config-bank-id").value = currentBank.bankId;
-  document.getElementById("config-bank-name").value = currentBank.bankName;
-  document.getElementById("config-account-number").value = currentBank.accountNumber;
-  document.getElementById("config-account-holder").value = currentBank.accountHolder;
-  document.getElementById("config-modal").classList.remove("hidden");
-}
-
-function closeBankConfigModal() {
-  document.getElementById("config-modal").classList.add("hidden");
-}
-
-function saveBankConfig(e) {
-  e.preventDefault();
-  currentBank.bankId = document.getElementById("config-bank-id").value.trim().toUpperCase();
-  currentBank.bankName = document.getElementById("config-bank-name").value.trim();
-  currentBank.accountNumber = document.getElementById("config-account-number").value.trim();
-  currentBank.accountHolder = document.getElementById("config-account-holder").value.trim().toUpperCase();
-
-  localStorage.setItem("1995lido_bank_config", JSON.stringify(currentBank));
-  updateQRDisplay();
-  closeBankConfigModal();
-  showToast("Đã lưu thông tin tài khoản ngân hàng thành công!");
-  playSingingBowl(false);
-}
-
 // Lắng nghe sự kiện
 function setupEventListeners() {
   const form = document.getElementById("wish-form");
@@ -646,7 +609,4 @@ function setupEventListeners() {
 
   const prayerForm = document.getElementById("prayer-form");
   if (prayerForm) prayerForm.addEventListener("submit", submitPrayer);
-
-  const bankForm = document.getElementById("bank-config-form");
-  if (bankForm) bankForm.addEventListener("submit", saveBankConfig);
 }

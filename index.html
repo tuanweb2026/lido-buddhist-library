@@ -103,13 +103,6 @@
           <span class="hidden lg:inline">Bản 3D</span>
         </a>
 
-        <!-- Nút cấu hình STK nhanh -->
-        <button onclick="openBankConfigModal()" 
-                class="px-2.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-medium flex items-center gap-1 border border-stone-300 transition-all"
-                title="Chỉnh sửa Số Tài Khoản của bạn">
-          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
-          <span class="hidden xl:inline">Cài Đặt STK</span>
-        </button>
 
         <!-- Kênh YouTube -->
         <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener noreferrer" 
@@ -552,14 +545,6 @@
 
             </div>
 
-            <!-- Nút chỉnh sửa STK của chính bạn -->
-            <div class="mt-4 pt-4 border-t border-stone-200/80 text-center">
-              <button onclick="openBankConfigModal()" 
-                      class="text-xs text-amber-700 hover:text-amber-900 font-medium flex items-center justify-center gap-1 mx-auto hover:underline">
-                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                Bạn muốn đổi sang STK thật của mình? Bấm vào đây
-              </button>
-            </div>
 
           </div>
         </div>
@@ -834,67 +819,6 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL CẤU HÌNH NHANH STK ==================== -->
-  <div id="config-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 relative animate-zen-breath">
-      
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-serif font-bold text-lg text-stone-900 flex items-center gap-2">
-          <i data-lucide="credit-card" class="w-5 h-5 text-amber-700"></i>
-          Đổi Sang STK Thật Của Bạn
-        </h3>
-        <button onclick="closeBankConfigModal()" class="text-stone-400 hover:text-stone-700 p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <p class="text-xs text-stone-500 mb-4 leading-relaxed">
-        Nhập thông tin tài khoản ngân hàng của bạn vào đây. Hệ thống sẽ tự động cập nhật mã QR và lưu trực tiếp trên máy của bạn.
-      </p>
-
-      <form id="bank-config-form" class="space-y-3.5 text-xs">
-        <div>
-          <label class="block font-bold text-stone-700 uppercase mb-1">Mã Ngân Hàng VietQR (Ví dụ: MB, VCB, TCB, ACB, VPB...):</label>
-          <input type="text" id="config-bank-id" required
-                 placeholder="MB, VCB, TCB, ACB..." 
-                 class="w-full px-3 py-2 rounded-xl border border-stone-300 font-mono text-sm uppercase">
-        </div>
-
-        <div>
-          <label class="block font-bold text-stone-700 uppercase mb-1">Tên Đầy Đủ Của Ngân Hàng:</label>
-          <input type="text" id="config-bank-name" required
-                 placeholder="Ví dụ: MB Bank (Ngân Hàng Quân Đội)" 
-                 class="w-full px-3 py-2 rounded-xl border border-stone-300 text-sm">
-        </div>
-
-        <div>
-          <label class="block font-bold text-stone-700 uppercase mb-1">Số Tài Khoản Của Bạn:</label>
-          <input type="text" id="config-account-number" required
-                 placeholder="Nhập số tài khoản thật của bạn" 
-                 class="w-full px-3 py-2 rounded-xl border border-stone-300 font-mono text-sm">
-        </div>
-
-        <div>
-          <label class="block font-bold text-stone-700 uppercase mb-1">Tên Chủ Tài Khoản (Viết hoa không dấu):</label>
-          <input type="text" id="config-account-holder" required
-                 placeholder="Ví dụ: NGUYEN VAN A" 
-                 class="w-full px-3 py-2 rounded-xl border border-stone-300 uppercase text-sm">
-        </div>
-
-        <div class="flex items-center gap-2 pt-3">
-          <button type="button" onclick="closeBankConfigModal()" 
-                  class="flex-1 py-2.5 rounded-xl border border-stone-300 text-stone-700 font-bold hover:bg-stone-100">
-            Hủy Bỏ
-          </button>
-          <button type="submit" 
-                  class="flex-1 py-2.5 rounded-xl btn-zen font-bold">
-            Lưu Thay Đổi
-          </button>
-        </div>
-      </form>
-
-    </div>
-  </div>
 
   <!-- ==================== TOAST THÔNG BÁO ==================== -->
   <div id="toast" class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-stone-900 text-white shadow-2xl border border-stone-700 text-xs sm:text-sm font-medium">
