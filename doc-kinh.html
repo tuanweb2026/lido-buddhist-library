@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#284e42">
+  <title>Đọc Kinh Sách Phật Giáo Nguyên Thủy | LIDO Zen Reader</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= THEMES ================= */
+    :root {
+      --bg-reader: #FCFAF7;
+      --text-reader: #24352F;
+      --text-muted: #636D68;
+      --border-reader: #E7E1DA;
+      --accent-reader: #284E42;
+      --accent-hover: #1e3b32;
+      --surface-reader: #FFFFFF;
+      --quote-bg: rgba(40, 78, 66, 0.05);
+      --quote-border: #284E42;
+      --gold-reader: #D97706;
+      --gold-light: #FEF3C7;
+      --reader-font: "Lora", Georgia, serif;
+      --reader-size: 17.5px;
+      --reader-line-height: 1.85;
+      --container-width: 780px;
+    }
+
+    /* THEME: WHITE */
+    [data-theme="white"] {
+      --bg-reader: #FFFFFF;
+      --text-reader: #1E293B;
+      --text-muted: #64748B;
+      --border-reader: #E2E8F0;
+      --surface-reader: #F8FAFC;
+      --quote-bg: #F1F5F9;
+      --quote-border: #475569;
+    }
+
+    /* THEME: SEPIA (GIẤY DÓ) */
+    [data-theme="sepia"] {
+      --bg-reader: #F5EEDB;
+      --text-reader: #433422;
+      --text-muted: #7C6853;
+      --border-reader: #DECDB3;
+      --surface-reader: #FAF5EB;
+      --quote-bg: rgba(124, 104, 83, 0.08);
+      --quote-border: #7C6853;
+      --accent-reader: #8B5E34;
+    }
+
+    /* THEME: FOREST TEA (TRÀ THIỀN) */
+    [data-theme="tea"] {
+      --bg-reader: #192A24;
+      --text-reader: #E8F2EC;
+      --text-muted: #95B3A4;
+      --border-reader: #274239;
+      --surface-reader: #20352E;
+      --quote-bg: rgba(255, 255, 255, 0.05);
+      --quote-border: #52B788;
+      --accent-reader: #6EE7B7;
+    }
+
+    /* THEME: DARK (THIỀN ĐÊM) */
+    [data-theme="dark"] {
+      --bg-reader: #121820;
+      --text-reader: #E2E8F0;
+      --text-muted: #8E9BAE;
+      --border-reader: #232E3C;
+      --surface-reader: #1A222D;
+      --quote-bg: rgba(255, 255, 255, 0.04);
+      --quote-border: #94A3B8;
+      --accent-reader: #38BDF8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-reader);
+      color: var(--text-reader);
+      font-family: var(--reader-font);
+      font-size: var(--reader-size);
+      line-height: var(--reader-line-height);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s, color 0.25s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--accent-reader); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ================= PROGRESS BAR ================= */
+    #reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, #10B981, #D97706);
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s ease;
+    }
+
+    /* ================= STICKY READER TOOLBAR ================= */
+    .reader-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: var(--bg-reader);
+      border-bottom: 1px solid var(--border-reader);
+      padding: 10px 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+    .toolbar-inner {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+    .btn-back-shelf {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-back-shelf:hover {
+      background: var(--surface-reader);
+      color: var(--text-reader);
+      text-decoration: none;
+    }
+    .toolbar-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-reader);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.25s ease;
+      flex: 1;
+      text-align: center;
+    }
+    .toolbar-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 36px;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--surface-reader);
+      border: 1px solid var(--border-reader);
+      color: var(--text-reader);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tool-btn:hover {
+      border-color: var(--accent-reader);
+      color: var(--accent-reader);
+    }
+    .tool-btn.active {
+      background: var(--accent-reader);
+      color: #fff;
+      border-color: var(--accent-reader);
+    }
+
+    /* ================= MAIN READING VIEWPORT ================= */
+    .reader-container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      flex: 1;
+      width: 100%;
+    }
+    .sutta-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-reader);
+    }
+    .sutta-meta-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--surface-reader);
+      border: 1px solid var(--border-reader);
+      color: var(--accent-reader);
+    }
+    .reading-time-pill {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .sutta-main-title {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .sutta-pali-title {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .sutta-translator {
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* AUDIO PLAYER BOX */
+    .audio-player-card {
+      margin: 24px 0 32px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: var(--surface-reader);
+      border: 1px solid var(--border-reader);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+    .audio-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .audio-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .audio-info b {
+      display: block;
+      font-size: 13px;
+      color: var(--text-reader);
+    }
+    .audio-info small {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .audio-player-card audio {
+      max-width: 280px;
+      width: 100%;
+      height: 38px;
+      border-radius: 999px;
+    }
+
+    /* SUMMARY CALLOUT */
+    .summary-callout {
+      padding: 20px 24px;
+      border-radius: 14px;
+      background: var(--quote-bg);
+      border-left: 4px solid var(--quote-border);
+      margin-bottom: 34px;
+      font-size: calc(var(--reader-size) * 0.95);
+      line-height: 1.75;
+    }
+    .summary-callout strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-reader);
+    }
+
+    /* ================= SCRIPTURE TEXT CONTENT ================= */
+    .sutta-content {
+      font-size: var(--reader-size);
+      line-height: var(--reader-line-height);
+    }
+    .sutta-content p {
+      margin-bottom: 1.5em;
+      text-align: justify;
+    }
+    .sutta-content p.verse-quote {
+      padding-left: 20px;
+      border-left: 2.5px solid var(--quote-border);
+      font-style: italic;
+      color: var(--text-reader);
+      margin: 1.4em 0;
+    }
+    .sutta-content h4.reader-subheading {
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-size: calc(var(--reader-size) * 1.05);
+      font-weight: 700;
+      color: var(--accent-reader);
+      margin: 2em 0 0.8em;
+      border-bottom: 1px dashed var(--border-reader);
+      padding-bottom: 6px;
+    }
+    .sutta-content .book-page-section {
+      padding: 24px;
+      margin-bottom: 24px;
+      background: var(--surface-reader);
+      border-radius: 12px;
+      border: 1px solid var(--border-reader);
+    }
+    .sutta-content .page-badge {
+      font-size: 11px;
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-weight: 700;
+      color: var(--gold-reader);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .sutta-content .page-heading {
+      font-size: 19px;
+      margin-bottom: 6px;
+      color: var(--text-reader);
+    }
+    .sutta-content .page-subheading {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .sutta-content .page-footer-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-reader);
+    }
+
+    /* ================= SCRIPTURE FOOTER ================= */
+    .sutta-footer {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-reader);
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+    .sutta-nav-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .nav-sutta-btn {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--surface-reader);
+      border: 1px solid var(--border-reader);
+      color: var(--text-reader);
+      max-width: 48%;
+      transition: all 0.2s;
+    }
+    .nav-sutta-btn:hover {
+      border-color: var(--accent-reader);
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+    .nav-sutta-btn small {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .nav-sutta-btn span {
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    /* INVITE TEA CALLOUT */
+    .tea-invite-card {
+      padding: 24px;
+      border-radius: 16px;
+      background: linear-gradient(120deg, rgba(246, 225, 212, 0.45), rgba(40, 78, 66, 0.06));
+      border: 1px solid var(--border-reader);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .tea-invite-card h4 {
+      font-family: "Lora", serif;
+      font-size: 19px;
+      margin-bottom: 6px;
+      color: var(--text-reader);
+    }
+    .tea-invite-card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 16px;
+      line-height: 1.65;
+    }
+    .tea-invite-card a.btn-tea {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: var(--accent-reader);
+      color: #fff !important;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(40, 78, 66, 0.2);
+      transition: all 0.2s;
+    }
+    .tea-invite-card a.btn-tea:hover {
+      transform: translateY(-1px);
+    }
+
+    /* SOURCE INFO */
+    .source-credit {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ================= SETTINGS DRAWER / MODAL ================= */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-backdrop.show { display: flex; }
+    .settings-modal {
+      background: var(--bg-reader);
+      border: 1px solid var(--border-reader);
+      border-radius: 20px;
+      padding: 28px;
+      width: 90%;
+      max-width: 440px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      font-family: "Be Vietnam Pro", sans-serif;
+      animation: modalPop 0.2s ease;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-reader);
+    }
+    .modal-head h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-reader);
+    }
+    .btn-close-modal {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .setting-group {
+      margin-bottom: 20px;
+    }
+    .setting-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    /* FONT SIZE CONTROLLER */
+    .size-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--surface-reader);
+      border: 1px solid var(--border-reader);
+      border-radius: 12px;
+      padding: 6px;
+    }
+    .size-btn {
+      flex: 1;
+      height: 38px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      color: var(--text-reader);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .size-btn:hover { background: var(--bg-reader); }
+    .size-btn.active {
+      background: var(--accent-reader);
+      color: #fff;
+    }
+
+    /* THEME PALETTES */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .theme-chip {
+      height: 52px;
+      border-radius: 12px;
+      border: 2px solid var(--border-reader);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .theme-chip.active {
+      border-color: var(--accent-reader);
+      box-shadow: 0 0 0 2px var(--accent-reader);
+    }
+
+    /* FONT FAMILIES */
+    .font-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .font-btn {
+      padding: 10px;
+      border-radius: 10px;
+      background: var(--surface-reader);
+      border: 1.5px solid var(--border-reader);
+      color: var(--text-reader);
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .font-btn:hover { border-color: var(--accent-reader); }
+    .font-btn.active {
+      background: var(--accent-reader);
+      color: #fff;
+      border-color: var(--accent-reader);
+    }
+
+    /* ================= TOC DRAWER (MỤC LỤC BÀI KINH) ================= */
+    .toc-drawer {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 340px;
+      max-width: 88vw;
+      height: 100vh;
+      background: var(--bg-reader);
+      border-left: 1px solid var(--border-reader);
+      z-index: 250;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+    .toc-drawer.open { right: 0; }
+    .toc-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border-reader);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .toc-head h3 { font-size: 15px; font-weight: 700; color: var(--text-reader); }
+    .toc-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 14px;
+    }
+    .toc-item {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: var(--text-reader);
+      transition: all 0.18s;
+      line-height: 1.5;
+    }
+    .toc-item small {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .toc-item:hover {
+      background: var(--surface-reader);
+      color: var(--accent-reader);
+      text-decoration: none;
+    }
+    .toc-item.active {
+      background: var(--accent-reader);
+      color: #fff;
+    }
+    .toc-item.active small { color: rgba(255, 255, 255, 0.8); }
+
+    /* TOAST */
+    #reader-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10223D;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-weight: 600;
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    #reader-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .reader-container { padding: 24px 16px 60px; }
+      .audio-player-card { flex-direction: column; align-items: stretch; gap: 10px; }
+      .audio-player-card audio { max-width: 100%; }
+      .nav-sutta-btn { max-width: 100%; width: 100%; }
+      .sutta-nav-buttons { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- READING PROGRESS -->
+  <div id="reading-progress-bar"></div>
+
+  <!-- STICKY READER TOOLBAR -->
+  <header class="reader-toolbar">
+    <div class="toolbar-inner">
+      <a href="kinh-sach.html" class="btn-back-shelf" title="Quay lại Tủ Sách">
+        <span>←</span>
+        <span>Tủ Sách</span>
+      </a>
+
+      <div class="toolbar-title" id="tb-title">Kinh Niệm Xứ</div>
+
+      <div class="toolbar-actions">
+        <!-- Settings Button -->
+        <button type="button" class="tool-btn" onclick="openSettingsModal()" title="Tùy chỉnh giao diện đọc">
+          <span>⚙️</span>
+          <span style="font-size:12px">Đọc</span>
+        </button>
+
+        <!-- TOC Drawer Button -->
+        <button type="button" class="tool-btn" onclick="toggleTocDrawer(true)" title="Mục lục bài kinh">
+          <span>📑</span>
+          <span style="font-size:12px">Mục lục</span>
+        </button>
+
+        <!-- Bookmark Button -->
+        <button type="button" class="tool-btn" id="btn-save-this" onclick="toggleCurrentBookmark()" title="Lưu bài này">
+          <span id="save-icon">🤍</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN READING VIEWPORT -->
+  <main class="reader-container" id="sutta-container">
+    
+    <!-- HEADER -->
+    <header class="sutta-header">
+      <div class="sutta-meta-tags">
+        <span class="category-badge" id="sutta-cat-badge">Kinh Trung Bộ</span>
+        <span class="reading-time-pill" id="sutta-read-time">⏱️ 12 phút đọc</span>
+      </div>
+
+      <h1 class="sutta-main-title" id="sutta-heading">Đang nạp bài kinh...</h1>
+      <div class="sutta-pali-title" id="sutta-pali">Satipaṭṭhāna Sutta</div>
+
+      <div class="sutta-translator">
+        <span>Dịch giả: <strong id="sutta-author">HT. Thích Minh Châu</strong></span>
+        <span>•</span>
+        <span>Nguồn tham khảo: <a id="sutta-source-link" href="https://daophatgoc.com/" target="_blank" rel="noopener">daophatgoc.com ↗</a></span>
+      </div>
+    </header>
+
+    <!-- AUDIO PLAYER -->
+    <div class="audio-player-card" id="audio-card" style="display:none">
+      <div class="audio-icon">🎧</div>
+      <div class="audio-info">
+        <b>Bản Đọc Âm Thanh Cổ Truyền</b>
+        <small id="audio-lbl">Lắng nghe giọng tụng kinh tĩnh tâm, định tĩnh thân tâm</small>
+      </div>
+      <audio id="sutta-audio-player" controls preload="metadata"></audio>
+    </div>
+
+    <!-- SUMMARY CALLOUT -->
+    <div class="summary-callout" id="summary-box">
+      <strong>Đôi Dòng Cốt Tủy</strong>
+      <div id="summary-text">...</div>
+    </div>
+
+    <!-- SCRIPTURE BODY -->
+    <article class="sutta-content" id="sutta-body">
+      <!-- Injected from JS -->
+    </article>
+
+    <!-- SCRIPTURE FOOTER & NAVIGATION -->
+    <footer class="sutta-footer">
+      <div class="sutta-nav-buttons">
+        <a href="#" id="btn-prev-sutta" class="nav-sutta-btn">
+          <small>← Bài kinh trước</small>
+          <span id="prev-sutta-title">...</span>
+        </a>
+        <a href="#" id="btn-next-sutta" class="nav-sutta-btn" style="text-align:right">
+          <small>Bài kinh tiếp theo →</small>
+          <span id="next-sutta-title">...</span>
+        </a>
+      </div>
+
+      <!-- TEA CALLOUT -->
+      <div class="tea-invite-card">
+        <h4>Gửi một tách trà ấm hộ trì Chánh Pháp</h4>
+        <p>Nếu những bài kinh nguyên thủy này mang đến cho bạn sự tĩnh lặng và an vui, bạn có thể tự nguyện góp một lời động viên để chúng tôi tiếp tục duy trì và số hóa kinh điển.</p>
+        <a href="ung-ho.html" class="btn-tea">
+          <span>🍵</span>
+          <span>Gửi một tách trà (@1995lido)</span>
+        </a>
+      </div>
+
+      <div class="source-credit">
+        Trích từ <b>Đại Tạng Kinh Nikāya</b> &amp; <b>daophatgoc.com</b>.<br>
+        Tủ sách Phật học LIDO số hóa và phục vụ vì mục đích phụng sự phi thương mại.
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ================= SETTINGS MODAL ================= -->
+  <div class="modal-backdrop" id="settings-backdrop" onclick="closeSettingsModal(event)">
+    <div class="settings-modal" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <h3>⚙️ Tùy Chỉnh Giao Diện Đọc</h3>
+        <button type="button" class="btn-close-modal" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <!-- CỠ CHỮ -->
+      <div class="setting-group">
+        <span class="setting-label">Cỡ Chữ</span>
+        <div class="size-controls">
+          <button type="button" class="size-btn" data-sz="15.5px" onclick="changeFontSize('15.5px', this)">A-</button>
+          <button type="button" class="size-btn active" data-sz="17.5px" onclick="changeFontSize('17.5px', this)">Vừa</button>
+          <button type="button" class="size-btn" data-sz="20px" onclick="changeFontSize('20px', this)">A+</button>
+          <button type="button" class="size-btn" data-sz="23px" onclick="changeFontSize('23px', this)">A++</button>
+        </div>
+      </div>
+
+      <!-- MÀU NỀN -->
+      <div class="setting-group">
+        <span class="setting-label">Chế Độ Màu</span>
+        <div class="theme-grid">
+          <div class="theme-chip active" data-thm="cream" style="background:#FCFAF7;color:#24352F" onclick="changeTheme('cream', this)">
+            Giấy mộc
+          </div>
+          <div class="theme-chip" data-thm="white" style="background:#FFFFFF;color:#1E293B" onclick="changeTheme('white', this)">
+            Sáng
+          </div>
+          <div class="theme-chip" data-thm="sepia" style="background:#F5EEDB;color:#433422" onclick="changeTheme('sepia', this)">
+            Giấy dó
+          </div>
+          <div class="theme-chip" data-thm="tea" style="background:#192A24;color:#E8F2EC" onclick="changeTheme('tea', this)">
+            Trà thiền
+          </div>
+          <div class="theme-chip" data-thm="dark" style="background:#121820;color:#E2E8F0" onclick="changeTheme('dark', this)">
+            Tối
+          </div>
+        </div>
+      </div>
+
+      <!-- PHÔNG CHỮ -->
+      <div class="setting-group">
+        <span class="setting-label">Phông Chữ</span>
+        <div class="font-options">
+          <button type="button" class="font-btn active" data-fnt="lora" style="font-family:'Lora',serif" onclick="changeFont('lora', this)">
+            Lora
+          </button>
+          <button type="button" class="font-btn" data-fnt="sans" style="font-family:'Be Vietnam Pro',sans-serif" onclick="changeFont('sans', this)">
+            Vietnam Sans
+          </button>
+          <button type="button" class="font-btn" data-fnt="noto" style="font-family:'Noto Serif',serif" onclick="changeFont('noto', this)">
+            Noto Serif
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOC DRAWER (MỤC LỤC BÀI KINH) ================= -->
+  <div class="toc-drawer" id="toc-drawer">
+    <div class="toc-head">
+      <h3>📑 Mục Lục Kinh Sách</h3>
+      <button type="button" class="btn-close-modal" onclick="toggleTocDrawer(false)">✕</button>
+    </div>
+    <div class="toc-list" id="toc-list-container">
+      <!-- Injected from JS -->
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="reader-toast">Đã lưu bài kinh!</div>
+
+  <!-- DATA & SCRIPTS -->
+  <script src="data/kinh_sach_data.js"></script>
+  <script>
+    var catalog = window.KINH_SACH_CATALOG || [];
+    var currentSutta = null;
+    var currentIndex = 0;
+
+    // Parse URL params
+    var params = new URLSearchParams(window.location.search);
+    var requestedId = params.get('id') || 'kinh-trung-bo-kinh-niem-xu';
+
+    // Find sutta
+    currentIndex = catalog.findIndex(function(x) { return x.id === requestedId; });
+    if (currentIndex === -1) currentIndex = 0;
+    currentSutta = catalog[currentIndex];
+
+    // Load saved preferences from localStorage
+    try {
+      var savedTheme = localStorage.getItem('lido_reader_theme') || 'cream';
+      var savedSize = localStorage.getItem('lido_reader_size') || '17.5px';
+      var savedFont = localStorage.getItem('lido_reader_font') || 'lora';
+      applyTheme(savedTheme);
+      applyFontSize(savedSize);
+      applyFont(savedFont);
+    } catch(e) {}
+
+    // Populate TOC Drawer
+    function renderToc() {
+      var container = document.getElementById('toc-list-container');
+      container.innerHTML = '';
+      catalog.forEach(function(item, idx) {
+        var a = document.createElement('a');
+        a.className = 'toc-item' + (item.id === currentSutta.id ? ' active' : '');
+        a.href = '/doc-kinh?id=' + item.id;
+        a.innerHTML = '<small>' + (item.category_name || 'Kinh Điển') + '</small>' + item.title;
+        container.appendChild(a);
+      });
+    }
+
+    // Render Current Sutta
+    function renderSutta() {
+      if (!currentSutta) return;
+
+      document.title = currentSutta.title + " | Tủ Sách Phật Giáo LIDO";
+      document.getElementById('tb-title').textContent = currentSutta.title;
+      document.getElementById('sutta-cat-badge').textContent = currentSutta.category_name || 'Kinh Điển';
+      document.getElementById('sutta-read-time').textContent = '⏱️ ' + (currentSutta.reading_time || '10 phút đọc');
+      document.getElementById('sutta-heading').textContent = currentSutta.title;
+      document.getElementById('sutta-pali').textContent = currentSutta.pali_title || '';
+      document.getElementById('sutta-author').textContent = currentSutta.translator || 'HT. Thích Minh Châu';
+      document.getElementById('sutta-source-link').href = currentSutta.source_url || 'https://daophatgoc.com/';
+
+      // Summary
+      document.getElementById('summary-text').textContent = currentSutta.summary || 'Lời Phật dạy nguyên thủy.';
+
+      // Audio
+      var audioCard = document.getElementById('audio-card');
+      var audioPlayer = document.getElementById('sutta-audio-player');
+      if (currentSutta.audio_url) {
+        audioPlayer.src = currentSutta.audio_url;
+        audioCard.style.display = 'flex';
+      } else {
+        audioCard.style.display = 'none';
+      }
+
+      // Content
+      document.getElementById('sutta-body').innerHTML = currentSutta.content_html || '<p>Đang cập nhật nội dung...</p>';
+
+      // Prev / Next Sutta
+      var prevSutta = (currentIndex > 0) ? catalog[currentIndex - 1] : catalog[catalog.length - 1];
+      var nextSutta = (currentIndex < catalog.length - 1) ? catalog[currentIndex + 1] : catalog[0];
+
+      var btnPrev = document.getElementById('btn-prev-sutta');
+      btnPrev.href = '/doc-kinh?id=' + prevSutta.id;
+      document.getElementById('prev-sutta-title').textContent = prevSutta.title;
+
+      var btnNext = document.getElementById('btn-next-sutta');
+      btnNext.href = '/doc-kinh?id=' + nextSutta.id;
+      document.getElementById('next-sutta-title').textContent = nextSutta.title;
+
+      updateBookmarkButton();
+      renderToc();
+    }
+
+    // Reading Progress & Sticky Toolbar Title
+    window.addEventListener('scroll', function() {
+      var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (window.scrollY / (h || 1)) * 100;
+      document.getElementById('reading-progress-bar').style.width = scrolled + '%';
+
+      var tbTitle = document.getElementById('tb-title');
+      if (window.scrollY > 280) {
+        tbTitle.classList.add('visible');
+      } else {
+        tbTitle.classList.remove('visible');
+      }
+    });
+
+    // Bookmark Handling
+    function isCurrentBookmarked() {
+      try {
+        var s = JSON.parse(localStorage.getItem('lido_bookmarked_suttas') || '[]');
+        return s.indexOf(currentSutta.id) !== -1;
+      } catch(e) { return false; }
+    }
+
+    function updateBookmarkButton() {
+      var saved = isCurrentBookmarked();
+      var icon = document.getElementById('save-icon');
+      var btn = document.getElementById('btn-save-this');
+      if (saved) {
+        icon.textContent = '❤️';
+        btn.classList.add('active');
+        btn.title = 'Đã lưu trong tủ sách';
+      } else {
+        icon.textContent = '🤍';
+        btn.classList.remove('active');
+        btn.title = 'Lưu bài kinh này';
+      }
+    }
+
+    function toggleCurrentBookmark() {
+      try {
+        var s = JSON.parse(localStorage.getItem('lido_bookmarked_suttas') || '[]');
+        var idx = s.indexOf(currentSutta.id);
+        if (idx !== -1) {
+          s.splice(idx, 1);
+          showToast('Đã bỏ lưu bài kinh');
+        } else {
+          s.push(currentSutta.id);
+          showToast('Đã lưu bài kinh vào Tủ Sách của bạn ❤️');
+        }
+        localStorage.setItem('lido_bookmarked_suttas', JSON.stringify(s));
+        updateBookmarkButton();
+      } catch(e) {}
+    }
+
+    function showToast(msg) {
+      var t = document.getElementById('reader-toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function(){ t.classList.remove('show'); }, 2400);
+    }
+
+    // Modal Settings Controls
+    function openSettingsModal() {
+      document.getElementById('settings-backdrop').classList.add('show');
+    }
+    function closeSettingsModal(e) {
+      if (!e || e.target.id === 'settings-backdrop' || e.target.classList.contains('btn-close-modal')) {
+        document.getElementById('settings-backdrop').classList.remove('show');
+      }
+    }
+
+    function toggleTocDrawer(open) {
+      var drawer = document.getElementById('toc-drawer');
+      if (open) drawer.classList.add('open');
+      else drawer.classList.remove('open');
+    }
+
+    // Font Size
+    function applyFontSize(sz) {
+      document.documentElement.style.setProperty('--reader-size', sz);
+      var btns = document.querySelectorAll('.size-btn');
+      btns.forEach(function(b){
+        if (b.getAttribute('data-sz') === sz) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      try { localStorage.setItem('lido_reader_size', sz); } catch(e) {}
+    }
+    function changeFontSize(sz, btn) { applyFontSize(sz); }
+
+    // Theme
+    function applyTheme(thm) {
+      if (thm === 'cream') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', thm);
+      }
+      var chips = document.querySelectorAll('.theme-chip');
+      chips.forEach(function(c){
+        if (c.getAttribute('data-thm') === thm) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+      try { localStorage.setItem('lido_reader_theme', thm); } catch(e) {}
+    }
+    function changeTheme(thm, chip) { applyTheme(thm); }
+
+    // Font Family
+    function applyFont(fnt) {
+      var val = '"Lora", Georgia, serif';
+      if (fnt === 'sans') val = '"Be Vietnam Pro", system-ui, sans-serif';
+      else if (fnt === 'noto') val = '"Noto Serif", serif';
+      document.documentElement.style.setProperty('--reader-font', val);
+
+      var btns = document.querySelectorAll('.font-btn');
+      btns.forEach(function(b){
+        if (b.getAttribute('data-fnt') === fnt) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      try { localStorage.setItem('lido_reader_font', fnt); } catch(e) {}
+    }
+    function changeFont(fnt, btn) { applyFont(fnt); }
+
+    // Initialize
+    renderSutta();
+  </script>
+</body>
+</html>

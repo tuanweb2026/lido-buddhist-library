@@ -1,0 +1,1272 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#284e42">
+  <title>Gửi @1995lido một tách trà ấm | Nhạc Thiền & Thư Viện Phật Học LIDO</title>
+  <meta name="description" content="Chút động viên tự nguyện tiếp sức duy trì kênh Nhạc Thiền 432Hz @1995lido và Thư viện Phật học Nikāya LIDO hoàn toàn miễn phí.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-cream: #FCFAF7;
+      --color-ink: #24352F;
+      --color-muted: #636D68;
+      --color-line: #E7E1DA;
+      --color-surface: #FFFFFF;
+      --color-soft-surface: #F3F1ED;
+      --color-accent: #284E42;
+      --color-accent-hover: #1e3b32;
+      --color-selected: #F6E1D4;
+      --color-gold: #D97706;
+      --color-gold-light: #FEF3C7;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-body: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+      --font-serif: "Lora", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--color-cream);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ================= HEADER ================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(252, 250, 247, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-line);
+      transition: all 0.25s ease;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+    .brand-logo:hover { text-decoration: none; }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #284E42, #3E5A44);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      box-shadow: 0 4px 12px rgba(40, 78, 66, 0.2);
+    }
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .brand-name small {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-muted);
+    }
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .desktop-nav a {
+      color: var(--color-ink);
+      transition: color 0.2s;
+    }
+    .desktop-nav a:hover {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    .desktop-nav a.active {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+    .header-support-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      color: #fff !important;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(40, 78, 66, 0.25);
+    }
+    .header-support-btn:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ================= MAIN CONTENT ================= */
+    .support-page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 24px 60px;
+      flex: 1;
+      width: 100%;
+    }
+    .support-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 24px;
+    }
+    .support-breadcrumb a { color: var(--color-muted); }
+    .support-breadcrumb span[aria-hidden] { color: var(--color-line); }
+
+    /* ================= HERO CARD ================= */
+    .support-hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 28px;
+      padding: 38px 42px;
+      margin-bottom: 32px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(120deg, rgba(246, 225, 212, 0.55), rgba(40, 78, 66, 0.05));
+      border: 1px solid var(--color-line);
+      overflow: hidden;
+    }
+    .support-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--color-accent);
+      border: 1px solid rgba(40, 78, 66, 0.12);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .badge-terracotta {
+      background: rgba(201, 104, 70, 0.12);
+      border-color: #c96846;
+      color: #b84f2b;
+    }
+    .support-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.8vw, 42px);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--color-ink);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .support-hero p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--color-muted);
+      max-width: 580px;
+    }
+    .support-hero p.donate-quote {
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--color-ink);
+    }
+    .support-voluntary-note {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: rgba(246, 225, 212, 0.45);
+      border-left: 3px solid #c96846;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--color-muted);
+    }
+    .support-hero-art {
+      width: 100%;
+      height: 250px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(40, 78, 66, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .support-hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================= 2-COLUMN GRID ================= */
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .support-panel {
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-line);
+      background: var(--color-surface);
+      box-shadow: 0 4px 24px rgba(40, 78, 66, 0.035);
+    }
+    .support-panel h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.3;
+    }
+    .support-panel-icon {
+      font-size: 22px;
+    }
+    .support-panel > p.panel-sub {
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 10px 0 20px;
+      color: var(--color-muted);
+    }
+
+    /* AMOUNTS BUTTON GROUP */
+    .support-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .amount-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 6px;
+      min-height: 60px;
+      border: 1.5px solid var(--color-line);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      color: var(--color-ink);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .amount-btn small {
+      font-size: 10.5px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+    .amount-btn:hover {
+      border-color: var(--color-accent);
+      background: var(--color-soft-surface);
+    }
+    .amount-btn.active {
+      background: var(--color-accent);
+      color: #fff;
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 14px rgba(40, 78, 66, 0.25);
+    }
+    .amount-btn.active small {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .check-icon {
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    /* CUSTOM AMOUNT INPUT */
+    .custom-amount-field {
+      display: none;
+      margin-bottom: 20px;
+      animation: fadeIn 0.2s ease;
+    }
+    .custom-amount-field.show {
+      display: block;
+    }
+    .custom-amount-field label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--color-muted);
+      margin-bottom: 6px;
+    }
+    .custom-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .custom-input-wrap input {
+      width: 100%;
+      padding: 12px 64px 12px 14px;
+      border: 1.5px solid var(--color-line);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-accent);
+      background: var(--color-cream);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .custom-input-wrap input:focus {
+      border-color: var(--color-accent);
+    }
+    .custom-input-wrap span {
+      position: absolute;
+      right: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-muted);
+      pointer-events: none;
+    }
+
+    /* MESSAGE INPUT */
+    .support-message {
+      margin: 22px 0;
+    }
+    .support-message-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .support-message-heading label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+    .support-message-heading label span {
+      font-weight: 400;
+      color: var(--color-muted);
+      font-size: 12px;
+    }
+    .support-update-qr {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: transparent;
+      border: 1px solid rgba(40, 78, 66, 0.35);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .support-update-qr:hover {
+      background: var(--color-soft-surface);
+    }
+    .support-field textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--color-line);
+      border-radius: var(--radius-sm);
+      background: var(--color-cream);
+      color: var(--color-ink);
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 72px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .support-field textarea:focus {
+      border-color: var(--color-accent);
+    }
+    .support-field small {
+      display: block;
+      margin-top: 6px;
+      font-size: 11.5px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+    .support-auto-notice {
+      font-size: 12px;
+      color: var(--color-muted);
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    /* PURPOSE BOX */
+    .support-purpose {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: rgba(40, 78, 66, 0.06);
+      border: 1px solid rgba(40, 78, 66, 0.1);
+      margin: 22px 0;
+    }
+    .support-purpose h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+    }
+    .support-purpose ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .support-purpose li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .support-purpose li::before {
+      content: "•";
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    /* VOLUNTARY DISCLAIMER */
+    .support-voluntary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--color-muted);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--color-soft-surface);
+    }
+
+    /* ================= BANK PANEL (RIGHT) ================= */
+    .support-transfer {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      align-items: start;
+    }
+    .support-qr {
+      text-align: center;
+    }
+    .qr-frame {
+      background: #ffffff;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--color-line);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      display: inline-block;
+      width: 100%;
+      max-width: 210px;
+      position: relative;
+    }
+    .qr-frame img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .qr-frame:hover img {
+      transform: scale(1.02);
+    }
+    .qr-amount-pill {
+      margin-top: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    .btn-download-qr {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--color-soft-surface);
+      border: 1px solid var(--color-line);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+      text-decoration: none !important;
+      transition: all 0.2s;
+    }
+    .btn-download-qr:hover {
+      background: var(--color-line);
+    }
+
+    /* BANK VALUES LIST */
+    .support-bank-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .support-bank-value {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-sm);
+      background: var(--color-cream);
+      transition: border-color 0.2s;
+    }
+    .support-bank-value:hover {
+      border-color: rgba(40, 78, 66, 0.35);
+    }
+    .support-bank-value-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .support-bank-value-info small {
+      display: block;
+      font-size: 11px;
+      color: var(--color-muted);
+      margin-bottom: 2px;
+    }
+    .support-bank-value-info strong {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-ink);
+      display: block;
+      overflow-wrap: break-word;
+      font-family: var(--font-body);
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 38px;
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--color-line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--color-accent);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover {
+      background: var(--color-soft-surface);
+      border-color: var(--color-accent);
+    }
+    .copy-btn.copied {
+      background: #10B981;
+      color: #fff;
+      border-color: #10B981;
+    }
+
+    .support-qr-notice {
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--color-muted);
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--color-line);
+    }
+    .support-note {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* TOAST ALERT */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10223D;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer {
+      border-top: 1px solid var(--color-line);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 42px 24px 50px;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-ink);
+      font-size: 16px;
+      max-width: 680px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+    .footer-links a {
+      color: var(--color-muted);
+    }
+    .footer-links a:hover {
+      color: var(--color-accent);
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 960px) {
+      .support-hero {
+        grid-template-columns: 1fr;
+        padding: 28px 24px;
+        gap: 20px;
+      }
+      .support-hero-art {
+        height: 200px;
+      }
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+      .support-transfer {
+        grid-template-columns: 200px 1fr;
+      }
+      .desktop-nav {
+        display: none;
+      }
+    }
+    @media (max-width: 600px) {
+      .support-page {
+        padding: 16px 16px 40px;
+      }
+      .support-panel {
+        padding: 22px 18px;
+      }
+      .support-amounts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .support-transfer {
+        grid-template-columns: 1fr;
+      }
+      .support-qr {
+        max-width: 220px;
+        margin: 0 auto;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-logo" href="../index.html" aria-label="Trang chủ Nhạc Thiền 1995 Lido">
+        <div class="brand-icon">🪷</div>
+        <div class="brand-name">
+          <span>Nhạc Thiền 1995 Lido</span>
+          <small>&amp; Thư Viện Phật Học Nikāya</small>
+        </div>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Điều hướng">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../kinh-sach.html">📖 Tủ Sách Nikāya</a>
+        <a href="../chua-online.html">🛕 Chùa Online (Liên Hoa Các)</a>
+        <a href="../than-so-hoc.html">🔮 Thần Số Học</a>
+      </nav>
+
+      <a class="header-support-btn" href="../ung-ho.html" aria-label="Ủng hộ kênh">
+        <span>🍵</span>
+        <span>Gửi một tách trà</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="support-page" id="noi-dung">
+    
+    <!-- BREADCRUMB -->
+    <nav class="support-breadcrumb" aria-label="Đường dẫn">
+      <a href="../index.html">Trang chủ</a>
+      <span aria-hidden="true">/</span>
+      <span>Ủng hộ @1995lido</span>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <header class="support-hero">
+      <div class="support-hero-copy">
+        <div class="support-eyebrow badge-terracotta">
+          <span>🪷</span>
+          <span>Phước Báu Bố Thí Pháp (Dhamma Dāna)</span>
+        </div>
+        <h1>Hộ Trì Tủ Sách &amp; Nhạc Thiền LIDO</h1>
+        <p class="donate-quote">
+          <em>“Pháp thí thắng mọi thí, Pháp vị thắng mọi vị”</em> — Nếu hữu duyên và hoan hỷ, quý vị có thể tùy tâm trợ duyên để LIDO duy trì website và kênh nhạc thiền, đồng thời tiếp tục sáng tạo, chia sẻ những giai điệu an lành hoàn toàn miễn phí đến cộng đồng.
+        </p>
+      </div>
+
+      <picture class="support-hero-art">
+        <img src="../assets/buddha_shakyamuni_serene.webp" 
+             alt="Đức Phật Thích Ca Mâu Ni uy nghi tọa thiền dưới cội Bồ Đề thanh tịnh." 
+             loading="eager"
+             onerror="this.src='../assets/buddha_temple_lotus.png'">
+      </picture>
+    </header>
+
+    <!-- 2-COLUMN SUPPORT GRID -->
+    <div class="support-grid">
+      
+      <!-- CỘT 1: CHỌN MỨC ỦNG HỘ & LỜI NHẮN -->
+      <section class="support-panel" aria-labelledby="support-choose">
+        <h2 id="support-choose">
+          <span class="support-panel-icon">☕</span>
+          <span>Ủng hộ @1995lido</span>
+        </h2>
+        <p class="panel-sub">Chọn một mức ủng hộ phù hợp với tấm lòng của bạn:</p>
+
+        <!-- 4 NÚT MỨC TIỀN -->
+        <div class="support-amounts" role="group" aria-label="Mức ủng hộ">
+          <button type="button" class="amount-btn active" onclick="selectAmount(null, this)">
+            <span><span class="check-icon">✓</span>Tùy tâm</span>
+            <small>Bồ Đề Tâm</small>
+          </button>
+          <button type="button" class="amount-btn" onclick="selectAmount(10000, this)">
+            <span>10.000đ</span>
+            <small>Tách trà an yên</small>
+          </button>
+          <button type="button" class="amount-btn" onclick="selectAmount(20000, this)">
+            <span>20.000đ</span>
+            <small>Chén trà thanh tịnh</small>
+          </button>
+          <button type="button" class="amount-btn" onclick="selectAmount(50000, this)">
+            <span>50.000đ</span>
+            <small>Ngọn nến tuệ giác</small>
+          </button>
+        </div>
+
+        <!-- Ô NHẬP SỐ TIỀN TÙY TÂM (KHI CHỌN TÙY TÂM) -->
+        <div id="custom-amount-box" class="custom-amount-field">
+          <label for="custom-amount-input">Số tiền ủng hộ tùy tâm (VNĐ)</label>
+          <div class="custom-input-wrap">
+            <input type="number" id="custom-amount-input" min="1000" max="100000000" step="5000" 
+                   placeholder="Ví dụ: 30000, 100000..." oninput="handleCustomAmountInput(this.value)">
+            <span>VNĐ</span>
+          </div>
+          <small style="color:var(--color-muted);font-size:11.5px;display:block;margin-top:4px">
+            Có thể nhập từ 1.000đ đến 100.000.000đ hoặc để trống và nhập trực tiếp trong app ngân hàng.
+          </small>
+        </div>
+
+        <!-- LỜI NHẮN CHUYỂN KHOẢN -->
+        <div class="support-message">
+          <div class="support-message-heading">
+            <label for="support-message-input">
+              Lời nhắn trong chuyển khoản <span>(không bắt buộc)</span>
+            </label>
+            <button type="button" class="support-update-qr" onclick="refreshQR()">
+              🔄 Cập nhật QR
+            </button>
+          </div>
+
+          <div class="support-field">
+            <textarea id="support-message-input" maxlength="80" rows="3" 
+                      placeholder="Gửi đôi lời động viên hoặc nguyện ước bình an đến @1995lido…" 
+                      oninput="handleMessageChange(this.value)"></textarea>
+            <small id="support-message-help">
+              <span id="char-count">0</span>/80 · Lời nhắn được chuyển thành không dấu để chuẩn cú pháp ngân hàng.
+            </small>
+          </div>
+
+          <p class="support-auto-notice">
+            ✨ QR tự động cập nhật ngay khi bạn đổi số tiền hoặc lời nhắn.
+          </p>
+        </div>
+
+        <!-- MỤC ĐÍCH SỬ DỤNG GÓP SỨC -->
+        <div class="support-purpose">
+          <h3>
+            <span>🍃</span>
+            <span>Chút động viên của bạn giúp @1995lido:</span>
+          </h3>
+          <ul>
+            <li>Duy trì máy chủ và chi phí vận hành Thư viện Phật học Nikāya số miễn phí.</li>
+            <li>Tiếp tục sáng tác, hòa âm các bản nhạc thiền 432Hz chữa lành, tĩnh tâm.</li>
+            <li>Giữ không gian tĩnh tại này luôn mở rộng và dễ dàng tiếp cận với mọi người.</li>
+          </ul>
+        </div>
+
+        <!-- CAM KẾT HOÀN TOÀN TỰ NGUYỆN -->
+        <p class="support-voluntary">
+          <span>❤️</span>
+          <span>Hoàn toàn tự nguyện · Nghe nhạc thiền và đọc sách Phật pháp luôn miễn phí 100%.</span>
+        </p>
+      </section>
+
+      <!-- CỘT 2: CHUYỂN KHOẢN NGÂN HÀNG & VIETQR -->
+      <section class="support-panel" aria-labelledby="support-bank">
+        <h2 id="support-bank">
+          <span class="support-panel-icon">🏛️</span>
+          <span>Chuyển khoản ngân hàng</span>
+        </h2>
+        <p class="panel-sub">Bạn có thể quét mã QR hoặc chuyển khoản theo thông tin bên dưới:</p>
+
+        <div class="support-transfer">
+          
+          <!-- KHUNG MÃ QR -->
+          <div class="support-qr">
+            <div class="qr-frame">
+              <img id="vietqr-img" 
+                   src="../assets/bidv_qr.png" 
+                   alt="Mã QR Chuyển Khoản Ủng Hộ BIDV NGUYEN ANH TUAN" 
+                   loading="eager">
+            </div>
+            
+            <div style="font-size:14px;font-weight:700;color:var(--color-ink);margin-top:12px">
+              Quét Mã VietQR Chuyển Khoản
+            </div>
+            <div id="qr-amount-display" style="font-size:11.5px;color:var(--color-muted);line-height:1.5;margin-top:4px">
+              Đóng góp tùy tâm • Không ấn định số tiền • Kiểm tra kỹ tên người nhận trước khi chuyển
+            </div>
+
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+              <a id="btn-save-qr" href="../assets/bidv_qr.png" download="bidv-1401132757-nguyen-anh-tuan.png" class="btn-download-qr" onclick="downloadQRCode(event)">
+                <span>💾</span>
+                <span>Tải ảnh mã QR</span>
+              </a>
+              <button type="button" class="btn-download-qr" onclick="resetToOfficialQR()" style="background:#fff">
+                <span>🔄</span>
+                <span>Mã gốc</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CHI TIẾT TÀI KHOẢN VỚI NÚT COPY -->
+          <div class="support-bank-details">
+            
+            <!-- Ngân hàng -->
+            <div class="support-bank-value">
+              <div class="support-bank-value-info">
+                <small>Ngân hàng</small>
+                <strong id="val-bank-name">BIDV — Ngân Hàng TMCP Đầu Tư &amp; Phát Triển Việt Nam</strong>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyText('BIDV', 'Mã ngân hàng BIDV', this)" title="Sao chép">
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Chủ tài khoản -->
+            <div class="support-bank-value">
+              <div class="support-bank-value-info">
+                <small>Chủ tài khoản</small>
+                <strong id="val-account-holder" style="letter-spacing:0.02em">NGUYEN ANH TUAN</strong>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyText(BANK_CONFIG.accountHolder, 'Tên chủ tài khoản', this)" title="Sao chép">
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Số tài khoản -->
+            <div class="support-bank-value" style="background:rgba(217,119,6,0.06);border-color:rgba(217,119,6,0.3)">
+              <div class="support-bank-value-info">
+                <small style="color:#b45309;font-weight:600">Số tài khoản</small>
+                <strong id="val-account-number" style="font-family:monospace;font-size:18px;color:#d97706;font-weight:800;letter-spacing:0.08em">1401132757</strong>
+              </div>
+              <button type="button" class="copy-btn" style="border-color:#d97706;color:#b45309;background:#fff" onclick="copyText(BANK_CONFIG.accountNumber, 'Số tài khoản', this)" title="Sao chép">
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Cú pháp chuyển khoản -->
+            <div class="support-bank-value">
+              <div class="support-bank-value-info">
+                <small>Cú pháp chuyển</small>
+                <strong id="val-memo" style="font-style:italic;font-weight:600">Ho Tri Tu Sach LIDO</strong>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyCurrentMemo(this)" title="Sao chép cú pháp">
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Số tiền ủng hộ (ẩn khi tùy tâm, hiện khi chọn mức) -->
+            <div class="support-bank-value" id="val-amount-row" style="display:none">
+              <div class="support-bank-value-info">
+                <small>Số tiền ủng hộ</small>
+                <strong id="val-amount" style="color:var(--color-accent)">Tùy tâm</strong>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyCurrentAmount(this)" title="Sao chép số tiền">
+                <span>Copy</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="support-voluntary-note">
+          <em>Mọi sự trợ duyên đều xuất phát từ tâm hoan hỷ và hoàn toàn tùy hỷ, không có bất kỳ sự bắt buộc nào. Dù có trợ duyên hay không, quý vị vẫn luôn được chào đón đến với thư viện tham khảo Phật học và âm nhạc thiền định miễn phí của LIDO.</em>
+        </div>
+
+        <p class="support-qr-notice">
+          🛡️ QR được tạo chuẩn VietQR NAPAS 24/7 và tự cập nhật theo số tiền, nội dung chuyển khoản bạn chọn. Hãy kiểm tra đúng tên người nhận và số tiền trong ứng dụng ngân hàng trước khi chuyển.
+        </p>
+
+        <p class="support-note">
+          Kênh @1995lido không yêu cầu đóng góp để nghe nhạc hay đọc sách. Mọi đóng góp đều minh bạch và quý giá đối với chúng tôi. Xin trân trọng tri ân quý bạn đạo! 🙏
+        </p>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand-logo" style="margin-bottom:4px">
+        <div class="brand-icon" style="width:32px;height:32px;font-size:16px">🪷</div>
+        <span style="font-size:15px">Nhạc Thiền 1995 Lido &amp; Thư Viện LIDO</span>
+      </div>
+      
+      <p class="footer-quote">
+        "Vạn sự tùy duyên, vạn vật tùy tâm. Đời người như một đóa sen nở giữa hồ vắng, dẫu sinh ra từ bùn lầy vẫn giữ trọn nét thanh cao tinh khiết."
+      </p>
+
+      <div class="footer-links">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../chua-online.html">Chùa Online (Liên Hoa Các)</a>
+        <a href="../than-so-hoc.html">Thần Số Học Pythagoras</a>
+        <a href="https://tuanweb2026.github.io/lido-buddhist-library/" target="_blank" rel="noopener">Tủ Sách Phật Giáo Nikāya</a>
+        <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener">Kênh YouTube @1995lido</a>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 Thảo Dương TV | Nhạc Thiền &amp; Phật Pháp Tĩnh Tâm (@1995lido). Phụng sự vì cộng đồng.
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" role="status" aria-live="polite">
+    <span>✓</span>
+    <span id="toast-text">Đã sao chép vào bộ nhớ tạm!</span>
+  </div>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // Cấu hình ngân hàng chính xác của bạn (BIDV - NGUYEN ANH TUAN)
+    var BANK_CONFIG = {
+      bankId: "BIDV",
+      bankName: "BIDV — Ngân Hàng TMCP Đầu Tư & Phát Triển Việt Nam",
+      accountNumber: "1401132757",
+      accountHolder: "NGUYEN ANH TUAN",
+      defaultPrefix: "Ho Tri Tu Sach LIDO"
+    };
+
+    // Luôn ưu tiên thông tin chính thức đã cấu hình
+    try {
+      localStorage.setItem('lido_custom_bank', JSON.stringify(BANK_CONFIG));
+    } catch (e) {}
+
+    var currentAmount = null; // Mặc định Tùy tâm để hiển thị ngay ảnh QR gốc chuẩn của tác giả
+    var currentCustomAmount = null;
+    var userMessage = "";
+
+    // Xóa dấu tiếng Việt cho nội dung chuyển khoản
+    function removeVietnameseTones(str) {
+      if (!str) return "";
+      return str.normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .replace(/[^a-zA-Z0-9 ]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 80);
+    }
+
+    function computeMemo() {
+      var clean = removeVietnameseTones(userMessage);
+      if (clean) {
+        return (BANK_CONFIG.defaultPrefix + " " + clean.toUpperCase()).slice(0, 50);
+      }
+      return BANK_CONFIG.defaultPrefix;
+    }
+
+    function formatVND(amt) {
+      if (amt === null || amt === undefined) return "Tùy tâm";
+      return amt.toLocaleString('vi-VN') + " đ";
+    }
+
+    function updateUI() {
+      var amt = (currentAmount === null) ? currentCustomAmount : currentAmount;
+      var memo = computeMemo();
+
+      // Cập nhật text hiển thị
+      document.getElementById('val-bank-name').textContent = BANK_CONFIG.bankName;
+      document.getElementById('val-account-holder').textContent = BANK_CONFIG.accountHolder;
+      document.getElementById('val-account-number').textContent = BANK_CONFIG.accountNumber;
+      document.getElementById('val-memo').textContent = memo;
+
+      var amtRow = document.getElementById('val-amount-row');
+      var qrAmtDisplay = document.getElementById('qr-amount-display');
+      var img = document.getElementById('vietqr-img');
+      var btnSave = document.getElementById('btn-save-qr');
+
+      // Khi chọn Tùy tâm (không chỉ định số tiền và không có lời nhắn tùy chỉnh), hiển thị trực tiếp ảnh BIDV QR gốc từ thư viện của bạn
+      if (!amt && !userMessage) {
+        if (amtRow) amtRow.style.display = 'none';
+        if (qrAmtDisplay) {
+          qrAmtDisplay.textContent = 'Đóng góp tùy tâm • Không ấn định số tiền • Kiểm tra kỹ tên người nhận trước khi chuyển';
+        }
+        img.src = '../assets/bidv_qr.png';
+        if (btnSave) {
+          btnSave.href = '../assets/bidv_qr.png';
+          btnSave.download = 'bidv-1401132757-nguyen-anh-tuan.png';
+        }
+      } else {
+        if (amtRow) {
+          amtRow.style.display = 'flex';
+          document.getElementById('val-amount').textContent = amt ? formatVND(amt) : "Tùy tâm";
+        }
+        if (qrAmtDisplay) {
+          qrAmtDisplay.textContent = amt 
+            ? 'Số tiền: ' + formatVND(amt) + ' • Quét mã để ứng dụng ngân hàng điền tự động' 
+            : 'Đóng góp tùy tâm • Nội dung: ' + memo;
+        }
+        var amtParam = (amt && amt >= 1000) ? "&amount=" + amt : "";
+        var qrUrl = "https://img.vietqr.io/image/" + BANK_CONFIG.bankId + "-" + BANK_CONFIG.accountNumber + "-compact2.png"
+                  + "?accountName=" + encodeURIComponent(BANK_CONFIG.accountHolder)
+                  + "&addInfo=" + encodeURIComponent(memo)
+                  + amtParam;
+        img.src = qrUrl;
+        if (btnSave) {
+          btnSave.href = qrUrl;
+          btnSave.download = 'vietqr-bidv-1401132757.png';
+        }
+      }
+    }
+
+    function resetToOfficialQR() {
+      currentAmount = null;
+      currentCustomAmount = null;
+      userMessage = '';
+      var inpMsg = document.getElementById('support-message-input');
+      if (inpMsg) inpMsg.value = '';
+      var charCount = document.getElementById('char-count');
+      if (charCount) charCount.textContent = '0';
+      var customBox = document.getElementById('custom-amount-box');
+      if (customBox) {
+        customBox.classList.remove('show');
+        var inp = document.getElementById('custom-amount-input');
+        if (inp) inp.value = '';
+      }
+
+      var btns = document.querySelectorAll('.amount-btn');
+      btns.forEach(function(b, idx) {
+        b.classList.remove('active');
+        var check = b.querySelector('.check-icon');
+        if (check) check.remove();
+        if (idx === 0) {
+          b.classList.add('active');
+          var span = b.querySelector('span');
+          if (span && !span.querySelector('.check-icon')) {
+            span.insertAdjacentHTML('afterbegin', '<span class="check-icon">✓</span>');
+          }
+        }
+      });
+
+      updateUI();
+      showToast('Đã phục hồi Mã QR BIDV chính thức của Tủ Sách LIDO 🙏');
+    }
+
+    function selectAmount(amt, btn) {
+      currentAmount = amt;
+      
+      // Cập nhật class nút
+      var btns = document.querySelectorAll('.amount-btn');
+      btns.forEach(function(b) {
+        b.classList.remove('active');
+        var check = b.querySelector('.check-icon');
+        if (check) check.remove();
+      });
+
+      btn.classList.add('active');
+      var span = btn.querySelector('span');
+      if (span && !span.querySelector('.check-icon')) {
+        span.insertAdjacentHTML('afterbegin', '<span class="check-icon">✓</span>');
+      }
+
+      // Xử lý ô tùy tâm
+      var customBox = document.getElementById('custom-amount-box');
+      if (amt === null) {
+        customBox.classList.add('show');
+        var inp = document.getElementById('custom-amount-input');
+        inp.focus();
+        if (inp.value && parseInt(inp.value, 10) > 0) {
+          currentCustomAmount = parseInt(inp.value, 10);
+        } else {
+          currentCustomAmount = null;
+        }
+      } else {
+        customBox.classList.remove('show');
+      }
+
+      updateUI();
+    }
+
+    function handleCustomAmountInput(val) {
+      var n = parseInt(val, 10);
+      if (!isNaN(n) && n >= 1000 && n <= 100000000) {
+        currentCustomAmount = n;
+      } else {
+        currentCustomAmount = null;
+      }
+      updateUI();
+    }
+
+    function handleMessageChange(val) {
+      userMessage = val;
+      document.getElementById('char-count').textContent = val.length;
+      updateUI();
+    }
+
+    function refreshQR() {
+      updateUI();
+      showToast("✨ Đã làm mới mã QR!");
+    }
+
+    // Sao chép vào bộ nhớ tạm
+    function copyText(txt, label, btn) {
+      if (!txt) return;
+      navigator.clipboard.writeText(txt).then(function() {
+        showToast("Đã sao chép: " + txt);
+        if (btn) {
+          var oldText = btn.innerHTML;
+          btn.innerHTML = "✓ Đã chép";
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.innerHTML = oldText;
+            btn.classList.remove('copied');
+          }, 2000);
+        }
+      }).catch(function() {
+        showToast("Vui lòng chọn và sao chép thủ công: " + txt);
+      });
+    }
+
+    function copyCurrentAmount(btn) {
+      var amt = (currentAmount === null) ? currentCustomAmount : currentAmount;
+      if (amt && amt > 0) {
+        copyText(String(amt), "Số tiền", btn);
+      } else {
+        showToast("Chưa chọn số tiền cụ thể.");
+      }
+    }
+
+    function copyCurrentMemo(btn) {
+      var memo = computeMemo();
+      copyText(memo, "Nội dung chuyển khoản", btn);
+    }
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      var txt = document.getElementById('toast-text');
+      txt.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    function downloadQRCode(e) {
+      e.preventDefault();
+      var img = document.getElementById('vietqr-img');
+      var a = document.createElement('a');
+      a.href = img.src;
+      a.download = "vietqr-ung-ho-1995lido.png";
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast("Đang tải ảnh mã QR xuống máy...");
+    }
+
+    // Khởi tạo lần đầu
+    updateUI();
+  </script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#284e42">
+  <title>Tủ Sách Phật Giáo Nguyên Thủy | Nhạc Thiền @1995lido & Thư Viện LIDO</title>
+  <meta name="description" content="Đọc Đại Tạng Kinh Nikāya (HT. Thích Minh Châu) và các tác phẩm Lời Gốc Phật Dạy của Trưởng Lão Thích Thông Lạc từ daophatgoc.com trong không gian đọc ấm cúng, thanh tịnh.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-cream: #FCFAF7;
+      --color-ink: #24352F;
+      --color-muted: #636D68;
+      --color-line: #E7E1DA;
+      --color-surface: #FFFFFF;
+      --color-soft-surface: #F3F1ED;
+      --color-accent: #284E42;
+      --color-accent-hover: #1e3b32;
+      --color-selected: #F6E1D4;
+      --color-gold: #D97706;
+      --color-gold-light: #FEF3C7;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-body: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+      --font-serif: "Lora", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--color-cream);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ================= HEADER ================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(252, 250, 247, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-line);
+      transition: all 0.25s ease;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+    .brand-logo:hover { text-decoration: none; }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #284E42, #3E5A44);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      box-shadow: 0 4px 12px rgba(40, 78, 66, 0.2);
+    }
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .brand-name small {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-muted);
+    }
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .desktop-nav a {
+      color: var(--color-ink);
+      transition: color 0.2s;
+    }
+    .desktop-nav a:hover, .desktop-nav a.active {
+      color: var(--color-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-tea-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      color: #fff !important;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(40, 78, 66, 0.25);
+    }
+    .header-tea-btn:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ================= HERO BANNER ================= */
+    .library-hero {
+      max-width: 1240px;
+      margin: 24px auto 0;
+      padding: 0 24px;
+    }
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 28px;
+      padding: 40px 44px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(120deg, rgba(246, 225, 212, 0.55), rgba(40, 78, 66, 0.05));
+      border: 1px solid var(--color-line);
+      overflow: hidden;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      border: 1px solid rgba(40, 78, 66, 0.14);
+      margin-bottom: 16px;
+    }
+    .hero-card h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.8vw, 42px);
+      font-weight: 600;
+      line-height: 1.28;
+      color: var(--color-ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    .hero-card p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--color-muted);
+      max-width: 580px;
+    }
+    .hero-image-wrap {
+      width: 100%;
+      height: 240px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(40, 78, 66, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================= SEARCH & FILTERS ================= */
+    .catalog-bar {
+      max-width: 1240px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+    .search-box-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 14px 44px 14px 48px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--color-line);
+      background: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--color-ink);
+      outline: none;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 16px rgba(40, 78, 66, 0.12);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--color-muted);
+      pointer-events: none;
+    }
+    .clear-search-btn {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--color-muted);
+      cursor: pointer;
+      display: none;
+    }
+
+    /* CATEGORY PILL TABS */
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .filter-pills::-webkit-scrollbar { display: none; }
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--color-line);
+      background: #fff;
+      color: var(--color-ink);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pill-btn:hover {
+      border-color: var(--color-accent);
+      background: var(--color-soft-surface);
+    }
+    .pill-btn.active {
+      background: var(--color-accent);
+      color: #fff;
+      border-color: var(--color-accent);
+      box-shadow: 0 3px 10px rgba(40, 78, 66, 0.2);
+    }
+
+    /* ================= SCRIPTURE CARDS GRID ================= */
+    .catalog-section {
+      max-width: 1240px;
+      margin: 28px auto 60px;
+      padding: 0 24px;
+      flex: 1;
+      width: 100%;
+    }
+    .catalog-count {
+      font-size: 13.5px;
+      color: var(--color-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sutta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+    .sutta-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-line);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.22s ease;
+      box-shadow: 0 3px 14px rgba(40, 78, 66, 0.035);
+      position: relative;
+    }
+    .sutta-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(40, 78, 66, 0.08);
+      border-color: rgba(40, 78, 66, 0.35);
+    }
+    .sutta-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .sutta-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--color-soft-surface);
+      color: var(--color-accent);
+      border: 1px solid rgba(40, 78, 66, 0.12);
+    }
+    .sutta-time {
+      font-size: 12px;
+      color: var(--color-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sutta-audio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #ECFDF5;
+      color: #065F46;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid #A7F3D0;
+    }
+    .sutta-title {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--color-ink);
+      margin-bottom: 6px;
+    }
+    .sutta-pali {
+      font-size: 12.5px;
+      color: var(--color-muted);
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .sutta-summary {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #4A5568;
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .sutta-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-line);
+      font-size: 13px;
+    }
+    .btn-read-sutta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--color-accent);
+      transition: color 0.2s;
+    }
+    .btn-read-sutta:hover {
+      text-decoration: none;
+      color: var(--color-gold);
+    }
+    .btn-bookmark {
+      background: none;
+      border: none;
+      font-size: 15px;
+      color: var(--color-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .btn-bookmark:hover {
+      background: var(--color-soft-surface);
+      color: #E11D48;
+    }
+    .btn-bookmark.bookmarked {
+      color: #E11D48;
+      font-weight: 600;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--color-muted);
+      grid-column: 1 / -1;
+    }
+    .empty-state span { font-size: 48px; display: block; margin-bottom: 12px; }
+
+    /* ================= DHAMMAPADA QUOTES ================= */
+    .dhammapada-strip {
+      max-width: 1240px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+    .dhammapada-card {
+      padding: 28px 32px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(254, 243, 199, 0.45), rgba(246, 225, 212, 0.4));
+      border: 1px solid rgba(217, 119, 6, 0.22);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .dhammapada-icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    .dhammapada-text h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-gold);
+      margin-bottom: 4px;
+    }
+    .dhammapada-text p {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--color-ink);
+      line-height: 1.6;
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer {
+      border-top: 1px solid var(--color-line);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 42px 24px 50px;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-ink);
+      font-size: 15.5px;
+      max-width: 680px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+    .footer-links a { color: var(--color-muted); }
+    .footer-links a:hover { color: var(--color-accent); }
+    .footer-copy { font-size: 12px; color: var(--color-muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .hero-card { grid-template-columns: 1fr; padding: 26px 20px; gap: 20px; }
+      .hero-image-wrap { height: 180px; }
+      .desktop-nav { display: none; }
+      .sutta-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-logo" href="../index.html" aria-label="Trang chủ Nhạc Thiền 1995 Lido">
+        <div class="brand-icon">🪷</div>
+        <div class="brand-name">
+          <span>Nhạc Thiền 1995 Lido</span>
+          <small>&amp; Thư Viện Phật Học Nikāya</small>
+        </div>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Điều hướng">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../kinh-sach.html" class="active">📖 Tủ Sách Nikāya</a>
+        <a href="../chua-online.html">🛕 Chùa Online (Liên Hoa Các)</a>
+        <a href="../than-so-hoc.html">🔮 Thần Số Học</a>
+        <a href="../ung-ho.html">🍵 Gửi Tách Trà</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-tea-btn" href="../ung-ho.html" aria-label="Gửi một tách trà">
+          <span>🍵</span>
+          <span>Gửi một tách trà</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO BANNER ================= -->
+  <section class="library-hero">
+    <div class="hero-card">
+      <div class="hero-copy">
+        <span class="hero-tag">
+          <span>📖</span>
+          <span>ĐẠI TẠNG NIKĀYA &amp; ĐẠO PHẬT GỐC · MIỄN PHÍ 100%</span>
+        </span>
+        <h1>Tủ Sách Phật Giáo Nguyên Thủy<br>Cho những ngày tâm an yên</h1>
+        <p>
+          Tuyển tập kinh điển Phật giáo Nguyên thủy gốc tiếng Pāḷi (Hòa thượng Thích Minh Châu dịch Việt) và các tác phẩm thực hành xả tâm của Trưởng Lão Thích Thông Lạc từ nguồn tham khảo <b>daophatgoc.com</b>. Mời bạn thảnh thơi nhấp ngụm trà và cùng bước vào cội nguồn lời Phật dạy.
+        </p>
+      </div>
+
+      <picture class="hero-image-wrap">
+        <img src="../assets/buddha_shakyamuni_serene.webp" 
+             alt="Đức Phật Thích Ca Mâu Ni uy nghi tọa thiền dưới cội Bồ Đề thanh tịnh." 
+             loading="eager"
+             onerror="this.src='../assets/buddha_temple_lotus.png'">
+      </picture>
+    </div>
+  </section>
+
+  <!-- ================= SEARCH & CATEGORY FILTERS ================= -->
+  <section class="catalog-bar">
+    <div class="search-box-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="inp-search" class="search-input" 
+             placeholder="Tìm kiếm bài kinh, lời Phật dạy (ví dụ: Niệm Xứ, Lậu hoặc, Xả tâm, Định Niệm, Đoạn Giảm...)" 
+             oninput="handleSearch(this.value)">
+      <button type="button" id="btn-clear-search" class="clear-search-btn" onclick="clearSearch()">✕</button>
+    </div>
+
+    <!-- FILTER PILLS -->
+    <div class="filter-pills" role="tablist" aria-label="Bộ lọc kinh sách">
+      <button type="button" class="pill-btn active" data-filter="all" onclick="filterCategory('all', this)">
+        <span>🪷</span> Tất cả kinh sách (<span id="count-all">0</span>)
+      </button>
+      <button type="button" class="pill-btn" data-filter="kinh-trung-bo" onclick="filterCategory('kinh-trung-bo', this)">
+        <span>📜</span> Kinh Trung Bộ (Majjhima)
+      </button>
+      <button type="button" class="pill-btn" data-filter="sach-chon-nhu" onclick="filterCategory('sach-chon-nhu', this)">
+        <span>🍃</span> Sách Trưởng Lão Thích Thông Lạc
+      </button>
+      <button type="button" class="pill-btn" data-filter="dai-tang-nikaya" onclick="filterCategory('dai-tang-nikaya', this)">
+        <span>🏛️</span> Tuyển Tập 10 Bộ Kinh 3D
+      </button>
+      <button type="button" class="pill-btn" data-filter="saved" onclick="filterCategory('saved', this)">
+        <span>❤️</span> Bài đã lưu (<span id="count-saved">0</span>)
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= DHAMMAPADA KỆ VÀNG ================= -->
+  <section class="dhammapada-strip">
+    <div class="dhammapada-card">
+      <div class="dhammapada-icon">🪷</div>
+      <div class="dhammapada-text">
+        <h4>Lời Vàng Kinh Pháp Cú (Dhammapada • Kệ số 5)</h4>
+        <p id="zen-quote">"Hận thù diệt hận thù, đời này không thể có. Từ bi diệt hận thù, là định luật ngàn thu."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATALOG GRID ================= -->
+  <main class="catalog-section">
+    <div class="catalog-count">
+      <div>Đang hiển thị: <b id="displayed-count">0</b> tác phẩm / bài kinh</div>
+      <div style="font-size:12px">Nguồn đối chiếu: <a href="https://daophatgoc.com/" target="_blank" rel="noopener">daophatgoc.com ↗</a></div>
+    </div>
+
+    <div class="sutta-grid" id="sutta-grid-container">
+      <!-- Dynamic render from JS -->
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand-logo" style="margin-bottom:4px">
+        <div class="brand-icon" style="width:32px;height:32px;font-size:16px">🪷</div>
+        <span style="font-size:15px">Nhạc Thiền 1995 Lido &amp; Thư Viện LIDO</span>
+      </div>
+      
+      <p class="footer-quote">
+        "Pháp của Ta đến để mà thấy, không phải đến để tin theo mù quáng. Có khả năng hướng thượng, được người có trí tự mình giác hiểu."
+      </p>
+
+      <div class="footer-links">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../ung-ho.html">Gửi Tách Trà Ấm</a>
+        <a href="../chua-online.html">Chùa Online (Liên Hoa Các)</a>
+        <a href="../than-so-hoc.html">Thần Số Học</a>
+        <a href="https://daophatgoc.com/" target="_blank" rel="noopener">Trang Đạo Phật Gốc ↗</a>
+        <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener">Kênh YouTube @1995lido</a>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 Thảo Dương TV | Nhạc Thiền &amp; Phật Pháp Tĩnh Tâm (@1995lido). Tủ sách phụng sự phi lợi nhuận.
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DATA & APP -->
+  <script src="../data/kinh_sach_data.js"></script>
+  <script>
+    var currentFilter = 'all';
+    var searchQuery = '';
+    var savedIds = [];
+
+    // Load saved bookmarks from localStorage
+    try {
+      var s = localStorage.getItem('lido_bookmarked_suttas');
+      if (s) savedIds = JSON.parse(s);
+    } catch(e) {}
+
+    var allSuttas = window.KINH_SACH_CATALOG || [];
+
+    // Quotes carousel
+    var ZEN_QUOTES = [
+      "Hận thù diệt hận thù, đời này không thể có. Từ bi diệt hận thù, là định luật ngàn thu. (Pháp Cú 5)",
+      "Tâm dẫn đầu các pháp, tâm làm chủ, tâm tạo. Nếu với tâm thanh tịnh, nói năng hay hành động, an lạc sẽ theo ta như bóng không rời hình. (Pháp Cú 2)",
+      "Chiến thắng vạn quân thù nơi chiến trường không bằng tự chiến thắng chính mình. Chiến thắng chính mình là chiến công oanh liệt nhất. (Pháp Cú 103)",
+      "Không làm mọi điều ác, thành tựu các hạnh lành, giữ tâm ý trong sạch, chính lời chư Phật dạy. (Pháp Cú 183)",
+      "Dễ thấy lỗi của người, khó thấy lỗi của mình. Người ta sàng sảy lỗi người như sàng thóc, còn lỗi mình thì che giấu. (Pháp Cú 252)"
+    ];
+    var qIndex = 0;
+    setInterval(function(){
+      qIndex = (qIndex + 1) % ZEN_QUOTES.length;
+      var el = document.getElementById('zen-quote');
+      if (el) {
+        el.style.opacity = 0;
+        setTimeout(function(){
+          el.textContent = ZEN_QUOTES[qIndex];
+          el.style.opacity = 1;
+        }, 300);
+      }
+    }, 7000);
+
+    function updateCounters() {
+      document.getElementById('count-all').textContent = allSuttas.length;
+      document.getElementById('count-saved').textContent = savedIds.length;
+    }
+
+    function renderSuttas() {
+      var container = document.getElementById('sutta-grid-container');
+      container.innerHTML = '';
+
+      var filtered = allSuttas.filter(function(item) {
+        // Filter by category
+        if (currentFilter === 'saved') {
+          if (savedIds.indexOf(item.id) === -1) return false;
+        } else if (currentFilter !== 'all') {
+          if (item.category !== currentFilter) return false;
+        }
+
+        // Filter by search
+        if (searchQuery) {
+          var q = searchQuery.toLowerCase();
+          var matchTitle = item.title.toLowerCase().indexOf(q) !== -1;
+          var matchSummary = (item.summary || '').toLowerCase().indexOf(q) !== -1;
+          var matchPali = (item.pali_title || '').toLowerCase().indexOf(q) !== -1;
+          if (!matchTitle && !matchSummary && !matchPali) return false;
+        }
+
+        return true;
+      });
+
+      document.getElementById('displayed-count').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty-state"><span>🍃</span><h3>Không tìm thấy bài kinh phù hợp</h3><p>Hãy thử tìm bằng từ khóa khác hoặc chuyển sang danh mục "Tất cả".</p></div>';
+        return;
+      }
+
+      filtered.forEach(function(sutta) {
+        var isSaved = savedIds.indexOf(sutta.id) !== -1;
+        var card = document.createElement('article');
+        card.className = 'sutta-card';
+        
+        var audioBadge = sutta.audio_url ? '<span class="sutta-audio-pill">🔊 Có MP3</span>' : '';
+        var bookmarkBtn = '<button type="button" class="btn-bookmark ' + (isSaved ? 'bookmarked' : '') + '" onclick="toggleBookmark(\'' + sutta.id + '\', this)" title="' + (isSaved ? 'Bỏ lưu' : 'Lưu bài đọc') + '">'
+                        + (isSaved ? '❤️ Đã lưu' : '🤍 Lưu')
+                        + '</button>';
+
+        card.innerHTML = 
+          '<div>' +
+            '<div class="sutta-card-meta">' +
+              '<span class="sutta-tag">' + (sutta.category_name || 'Kinh Điển') + '</span>' +
+              '<div style="display:flex;align-items:center;gap:6px">' +
+                audioBadge +
+                '<span class="sutta-time">⏱️ ' + sutta.reading_time + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<h3 class="sutta-title">' +
+              '<a href="../doc-kinh.html?id=' + sutta.id + '">' + sutta.title + '</a>' +
+            '</h3>' +
+            (sutta.pali_title ? '<div class="sutta-pali">' + sutta.pali_title + '</div>' : '') +
+            '<p class="sutta-summary">' + sutta.summary + '</p>' +
+          '</div>' +
+          '<div class="sutta-card-footer">' +
+            '<a href="../doc-kinh.html?id=' + sutta.id + '" class="btn-read-sutta">' +
+              '<span>Đọc bài kinh</span> →' +
+            '</a>' +
+            bookmarkBtn +
+          '</div>';
+
+        container.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      currentFilter = cat;
+      var pills = document.querySelectorAll('.pill-btn');
+      pills.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      renderSuttas();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim();
+      var btnClear = document.getElementById('btn-clear-search');
+      if (searchQuery) {
+        btnClear.style.display = 'block';
+      } else {
+        btnClear.style.display = 'none';
+      }
+      renderSuttas();
+    }
+
+    function clearSearch() {
+      document.getElementById('inp-search').value = '';
+      handleSearch('');
+    }
+
+    function toggleBookmark(id, btn) {
+      var idx = savedIds.indexOf(id);
+      if (idx !== -1) {
+        savedIds.splice(idx, 1);
+        btn.classList.remove('bookmarked');
+        btn.innerHTML = '🤍 Lưu';
+      } else {
+        savedIds.push(id);
+        btn.classList.add('bookmarked');
+        btn.innerHTML = '❤️ Đã lưu';
+      }
+      try {
+        localStorage.setItem('lido_bookmarked_suttas', JSON.stringify(savedIds));
+      } catch(e) {}
+      updateCounters();
+      if (currentFilter === 'saved') renderSuttas();
+    }
+
+    // Initialize
+    updateCounters();
+    renderSuttas();
+  </script>
+</body>
+</html>
