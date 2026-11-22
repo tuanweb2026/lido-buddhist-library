@@ -1,0 +1,15 @@
+{
+  "bank": {
+    "bankId": "BIDV",
+    "bankName": "BIDV — Ngân Hàng TMCP Đầu Tư & Phát Triển Việt Nam",
+    "accountNumber": "1401132757",
+    "accountHolder": "NGUYEN ANH TUAN",
+    "defaultMessage": "Ho Tri Tu Sach LIDO"
+  },
+  "channel": {
+    "handle": "@1995lido",
+    "name": "Thảo Dương TV | Nhạc Thiền & Phật Pháp Tĩnh Tâm",
+    "youtubeUrl": "https://www.youtube.com/@1995lido",
+    "libraryUrl": "https://tuanweb2026.github.io/lido-buddhist-library/"
+  }
+}

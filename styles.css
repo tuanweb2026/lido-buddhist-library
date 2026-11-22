@@ -1,0 +1,264 @@
+/* =============================================================================
+   GIAO DIỆN NHẠC THIỀN @1995LIDO, TỦ SÁCH & ĐI CHÙA ONLINE - ZEN BUDDHIST STYLES
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-serif: 'Lora', serif;
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+  /* Zen Warm Sandalwood & Lotus Palette */
+  --bg-parchment: #FBF8F3;
+  --bg-card: #FFFFFF;
+  --bg-zen-dark: #1F1916;
+  --color-sand: #EFE7DC;
+  --color-saffron: #D97706;
+  --color-saffron-light: #FDE68A;
+  --color-amber-deep: #92400E;
+  --color-sandalwood: #3D261C;
+  --color-moss: #3E5A44;
+  --color-moss-light: #E8EFE9;
+  --color-lotus-pink: #E07A5F;
+  --text-primary: #2B1D17;
+  --text-muted: #6B5B52;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-parchment);
+  color: var(--text-primary);
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(217, 119, 6, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(62, 90, 68, 0.05) 0%, transparent 45%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Hiệu ứng thở Thiền (Zen Breathing Animation) */
+@keyframes zenBreath {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(217, 119, 6, 0.15);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px rgba(217, 119, 6, 0.3);
+  }
+}
+
+.animate-zen-breath {
+  animation: zenBreath 6s ease-in-out infinite;
+}
+
+/* Vòng sáng hào quang (Golden Halo Glow) */
+.halo-glow {
+  box-shadow: 0 10px 40px -10px rgba(217, 119, 6, 0.2), 0 0 0 1px rgba(217, 119, 6, 0.12);
+}
+
+.buddha-halo {
+  animation: haloPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes haloPulse {
+  0% {
+    filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.45));
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 0 45px rgba(245, 158, 11, 0.75)) drop-shadow(0 0 15px rgba(254, 240, 138, 0.9));
+    transform: scale(1.015);
+  }
+}
+
+/* Thẻ Zen Card */
+.zen-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(223, 210, 196, 0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zen-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 119, 6, 0.5);
+  box-shadow: 0 14px 35px -8px rgba(61, 38, 28, 0.08);
+}
+
+/* Cánh hoa sen bay lượn (Floating Petals) */
+.petal {
+  position: fixed;
+  top: -20px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 99;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(105vh) rotate(360deg);
+  }
+}
+
+/* Nút bấm Zen Button */
+.btn-zen {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 100%);
+  color: #FFFDF9;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.25);
+}
+
+.btn-zen:hover {
+  background: linear-gradient(135deg, #92400E 0%, #B45309 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(180, 83, 9, 0.35);
+}
+
+.btn-zen-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-sandalwood);
+  border: 1px solid #DFD2C4;
+  transition: all 0.25s ease;
+}
+
+.btn-zen-secondary:hover {
+  background: #FFFDF9;
+  border-color: var(--color-saffron);
+  color: var(--color-saffron);
+}
+
+/* =============================================================================
+   CHÙA ONLINE — HIỆU ỨNG TÂM LINH & CHÁNH ĐIỆN
+   ============================================================================= */
+.temple-altar-bg {
+  background-color: #120e0c;
+  background-image: 
+    linear-gradient(to bottom, rgba(18, 14, 12, 0.75) 0%, rgba(18, 14, 12, 0.92) 100%),
+    url('assets/sacred_temple_hall.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Khói hương trầm bay lên */
+@keyframes smokeRise {
+  0% {
+    opacity: 0.1;
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-40px) scaleX(1.4) rotate(4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scaleX(2) rotate(-8deg);
+  }
+}
+
+.smoke-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 243, 199, 0.8) 0%, rgba(217, 119, 6, 0.2) 60%, transparent 100%);
+  filter: blur(2px);
+  animation: smokeRise 3s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  pointer-events: none;
+}
+
+/* Đốm lửa ngọn nến bập bùng */
+@keyframes candleFlicker {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
+  }
+  25% {
+    transform: scale(1.08, 0.95) translateY(-1px);
+    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.95));
+  }
+  50% {
+    transform: scale(0.96, 1.05) translateY(1px);
+    filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.7));
+  }
+  75% {
+    transform: scale(1.04, 1.02) translateY(-0.5px);
+    filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9));
+  }
+}
+
+.candle-flame {
+  animation: candleFlicker 1.8s ease-in-out infinite;
+}
+
+/* Nút tương tác chùa online */
+.btn-ritual {
+  background: rgba(43, 29, 23, 0.8);
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  color: #FEF3C7;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+.btn-ritual:hover {
+  background: rgba(180, 83, 9, 0.8);
+  border-color: #F59E0B;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(217, 119, 6, 0.4);
+}
+
+.btn-ritual:active {
+  transform: scale(0.95);
+}
+
+/* Hiệu ứng gõ mõ */
+@keyframes moPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+.mo-active {
+  animation: moPulse 0.15s ease-out;
+}
+
+/* Toast Notification */
+#toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F4EDE2;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4C3B2;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B59E89;
+}

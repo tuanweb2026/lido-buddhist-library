@@ -1,802 +1,909 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIDO Buddhist Library 3D — Miền Cực Lạc & Đại Tạng Phật Giáo Gốc</title>
-  <meta name="description" content="Khám phá trọn bộ Đại Tạng Kinh Nikāya & Tủ sách Trưởng lão Thích Thông Lạc kết hợp Nhạc thiền 432Hz hỗ trợ định tâm, buông xả muộn phiền trong không gian 3D thanh tịnh.">
+  <title>Chung Tay Hộ Trì LIDO — Đi Chùa Online, Nhạc Thiền 432Hz & Thư Viện Nikāya</title>
+  <meta name="description" content="Không gian Đi Chùa Online thanh tịnh, thắp hương, gõ mõ, cầu an, nghe nhạc thiền 432Hz @1995lido và đọc sách Phật giáo Nguyên thủy LIDO.">
   
-  <!-- Fonts: Cinzel (Cinematic Titles) & Plus Jakarta Sans (Readable Content & Pāli Characters) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/book3d.css">
-  <link rel="stylesheet" href="css/scrollcraft.css">
-</head>
-<body>
-  <!-- Nút Thoát Chế Độ Chiêm Bái 3D Toàn Màn Hình -->
-  <button class="zen-exit-fullscreen-btn" id="btn-exit-zen-3d" onclick="toggleZen3DFullscreen(false)" aria-label="Thoát toàn màn hình">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    <span>Thoát Chế Độ Chiêm Bái</span>
-  </button>
-  <!-- Accessible Skip Navigation Link -->
-  <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            saffron: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+            },
+            zen: {
+              parchment: '#FBF8F3',
+              sand: '#EFE7DC',
+              sandalwood: '#3D261C',
+              moss: '#3E5A44'
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- ==========================================================================
-       HEADER & NAVIGATION BAR
-       ========================================================================== -->
-  <header class="site-nav" role="banner">
-    <div class="container nav-container">
-      <a href="#hero" class="brand-logo" aria-label="LIDO Đại Tạng Nikāya & Nhạc Thiền Trang Chủ">
-        <div class="brand-icon-emblem">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E5C378" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3c1.5 3 4.5 5 8 5-2 4-5.5 6-8 13-2.5-7-6-9-8-13 3.5 0 6.5-2 8-5z"/>
-            <path d="M12 8c2.5 3 5 4 7 4-1.5 3-4 5-7 9-3-4-5.5-6-7-9 2 0 4.5-1 7-4z"/>
-          </svg>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-200 selection:text-amber-900">
+
+  <!-- ==================== THANH ĐIỀU HƯỚNG / HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-[#FBF8F3]/95 backdrop-blur-md border-b border-stone-200/80 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3 flex items-center justify-between">
+      
+      <!-- Logo & Tên Kênh -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-700 to-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-800/20 group-hover:scale-105 transition-transform">
+          <span class="text-xl">🪷</span>
         </div>
-        <div class="brand-text">
-          <span class="brand-title">LIDO</span>
-          <span class="brand-tagline">ĐẠI TẠNG NIKĀYA & NHẠC THIỀN</span>
+        <div>
+          <span class="font-serif font-bold text-stone-900 text-base sm:text-lg block tracking-wide leading-tight group-hover:text-amber-800 transition-colors">
+            Nhạc Thiền 1995 Lido
+          </span>
+          <span class="text-xs text-amber-700 font-medium tracking-wider flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block animate-pulse"></span>
+            & Thư Viện Phật Học Nikāya
+          </span>
         </div>
       </a>
 
-      <nav role="navigation" aria-label="Điều hướng chính" class="main-navigation-wrapper">
-        <div class="visitor-counter-pill" title="Tổng số lượt độc giả hữu duyên ghé thăm" aria-live="polite">
-          <span class="counter-label">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E5C378" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px;">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            Lượt xem:
-          </span>
-          <span class="num lido-visitor-count-val" id="lido-visitor-count">25</span>
-        </div>
+      <!-- Các nút thao tác nhanh -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Nút Gửi Tách Trà Ấm -->
+        <a href="ung-ho.html" 
+           class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md shadow-emerald-950/20 active:scale-95 transition-all"
+           title="Gửi tặng một tách trà ấm">
+          <span>🍵</span>
+          <span>Gửi Tách Trà</span>
+        </a>
 
-        <ul class="nav-links" id="main-nav-links">
-          <li><a href="#hero" class="nav-link active">Trang Chủ</a></li>
-          <li><a href="kinh-sach.html" class="nav-link">Tủ Sách Zen Reader</a></li>
-          <li><a href="chua-online.html" class="nav-link">Đi Chùa Online</a></li>
-          <li><a href="#library" class="nav-link">Tủ Sách Nikāya 3D</a></li>
-          <li><a href="#meditation" class="nav-link">Nhạc Thiền Định Tâm</a></li>
-          <li><a href="ung-ho.html" class="nav-link">Gửi Tách Trà</a></li>
-        </ul>
-      </nav>
+        <!-- Nút Đi Chùa Online Nổi Bật -->
+        <a href="chua-online.html" 
+           class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md shadow-amber-900/20 active:scale-95 transition-all">
+          <span>🛕</span>
+          <span>Chùa Online (Liên Hoa Các)</span>
+        </a>
 
-      <div class="nav-actions">
-        <a href="ung-ho.html" class="btn-primary-terracotta" aria-label="Hộ trì Chánh pháp">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-          </svg>
-          <span>Hộ Trì Chánh Pháp</span>
+        <!-- Nút gõ chuông thiền -->
+        <button onclick="toggleZenSound()" 
+                class="px-3 py-2 rounded-xl bg-amber-100/80 hover:bg-amber-200 text-amber-900 text-xs sm:text-sm font-medium flex items-center gap-1.5 border border-amber-300 transition-all shadow-sm active:scale-95" 
+                title="Nghe tiếng chuông xoay Tây Tạng định tâm">
+          <i data-lucide="bell" class="w-4 h-4 text-amber-700 animate-bounce"></i>
+          <span class="hidden md:inline">Chuông Tỉnh Thức</span>
+        </button>
+
+        <!-- Thư Viện Tủ Sách Phật Học Nikāya Link -->
+        <a href="kinh-sach.html" 
+           class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-emerald-300 transition-all shadow-sm"
+           title="Khám phá Tủ Sách Phật Giáo Nguyên Thủy">
+          <i data-lucide="book-marked" class="w-3.5 h-3.5 text-emerald-700"></i>
+          <span>Tủ Sách Nikāya</span>
+        </a>
+
+        <!-- Không gian 3D -->
+        <a href="index-3d.html" 
+           class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-amber-300 transition-all shadow-sm"
+           title="Khám phá Không Gian Phật Giáo 3D">
+          <span>✨</span>
+          <span class="hidden lg:inline">Bản 3D</span>
+        </a>
+
+        <!-- Nút cấu hình STK nhanh -->
+        <button onclick="openBankConfigModal()" 
+                class="px-2.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-medium flex items-center gap-1 border border-stone-300 transition-all"
+                title="Chỉnh sửa Số Tài Khoản của bạn">
+          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+          <span class="hidden xl:inline">Cài Đặt STK</span>
+        </button>
+
+        <!-- Kênh YouTube -->
+        <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener noreferrer" 
+           class="px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-medium flex items-center gap-1 shadow-sm transition-all hover:shadow-red-600/30">
+          <i data-lucide="youtube" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Kênh @1995lido</span>
         </a>
       </div>
 
-      <button class="menu-toggle" aria-label="Mở bảng điều hướng di động" aria-expanded="false" aria-controls="main-nav-links">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
   </header>
 
-  <main role="main" id="main-content">
-    <!-- ==========================================================================
-         KHU VỰC 1: CỔNG VÀO KHÔNG GIAN PHẬT GIÁO 3D — MÊ CUNG THÁNH ĐỊA THÀNH ĐẠO
-         ========================================================================== -->
-    <section id="hero" class="hero-section" aria-label="Mê Cung Không Gian 3D Thánh Địa Phật Giáo" data-sc-act="flow">
-      <!-- Dynamic Ambient Blurred Spatial Layer -->
-      <div id="hero-spatial-bg" class="hero-spatial-bg" aria-hidden="true"></div>
+  <!-- ==================== HERO SECTION: Ý NGHĨA & TIẾNG CHUÔNG ==================== -->
+  <section class="relative pt-10 pb-12 px-4 sm:px-6 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-      <!-- Three.js 3D Curved Panoramic Canvas -->
-      <div id="three-canvas-container" class="webgl-container" aria-hidden="true" data-sc-parallax="0.15"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
       
-      <!-- Fallback Image if WebGL fails -->
-      <div class="webgl-fallback" aria-hidden="true"></div>
-
-      <div class="container hero-overlay">
-        <div class="hero-grid">
-          <!-- Top Compact Bar: 1/10 screen height, 100% visible 3D behind -->
-          <div class="hero-top-bar" id="hero-top-bar">
-            <div class="top-bar-left">
-              <span class="pulse-dot"></span>
-              <span class="top-bar-title font-serif">Mê Cung Không Gian 3D • 5 Đại Thánh Địa Nơi Đức Phật Thành Đạo (Tự Động 10s)</span>
-            </div>
-            <div class="top-bar-actions">
-              <button class="btn-zen-fullscreen" id="btn-enter-zen-3d" onclick="toggleZen3DFullscreen(true)" aria-label="Mở chế độ chiêm bái 3D toàn cảnh">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                <span>Toàn Cảnh 3D</span>
-              </button>
-              <button class="btn-info-pill" id="btn-toggle-info" aria-label="Xem lời Phật dạy" aria-expanded="false" aria-controls="hero-quote-drawer">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                  <polyline points="10 9 9 9 8 9"/>
-                </svg>
-                <span>Lời Phật Dạy</span>
-              </button>
-              <a href="#library" class="btn-info-pill gold" aria-label="Chuyển đến Tủ Sách Gốc">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>
-                <span>Tủ Sách Gốc</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Expandable Light Info Modal (Hidden by default, opened on demand) -->
-          <div class="hero-quote-drawer" id="hero-quote-drawer" role="region" aria-label="Lời dạy của Đức Phật về 4 thánh tích" style="display: none;">
-            <p class="hero-quote-text font-serif">
-              "Này Ananda, có bốn thánh tích mà người có niềm tin nên đến chiêm bái và khởi tâm xúc động thanh tịnh: Nơi Như Lai đản sanh, nơi Như Lai chứng ngộ Vô Thượng Chánh Đẳng Giác, nơi Như Lai chuyển Pháp Luân đầu tiên, và nơi Như Lai nhập Đại Bát Niết Bàn."
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-              <span class="hero-quote-source">— Kinh Đại Bát Niết Bàn (Mahāparinibbāna Sutta), Dīgha Nikāya 16</span>
-              <button class="btn-close-drawer" id="btn-close-drawer" aria-label="Đóng bảng lời Phật dạy">✕ Đóng</button>
-            </div>
-          </div>
-
-          <!-- Hero 3D Spatial Labyrinth Ultra-Slim Floating Pill Dock (Height reduced by 50%) -->
-          <div class="labyrinth-hero-card">
-            <!-- 10s Auto Progress Bar -->
-            <div class="timer-bar-track">
-              <div class="timer-bar-progress" id="hud-timer-progress"></div>
-            </div>
-
-            <!-- Row 1: Badge, Title & Counter -->
-            <div class="labyrinth-meta-header">
-              <div class="meta-header-left">
-                <span class="badge-site-holy" id="hud-site-badge">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 3px;">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                  Lâm Tỳ Ni
-                </span>
-                <h2 class="labyrinth-title font-serif" id="hud-site-title">Đền Thờ Hoàng Hậu Maya Devi (Lumbini)</h2>
-              </div>
-              <span class="counter-tag" id="hud-site-counter">1 / 10</span>
-            </div>
-
-            <!-- Row 2: 5 Holy Sites Tabs & Nav Controls -->
-            <div class="labyrinth-ctrl-row">
-              <div class="holy-sites-selector" role="tablist" aria-label="Chọn 5 đại thánh địa Phật giáo">
-                <button class="site-pill-btn active" role="tab" aria-selected="true" data-start="0">1. Lâm Tỳ Ni</button>
-                <button class="site-pill-btn" role="tab" aria-selected="false" data-start="2">2. Bồ Đề Đạo Tràng</button>
-                <button class="site-pill-btn" role="tab" aria-selected="false" data-start="4">3. Lộc Uyển</button>
-                <button class="site-pill-btn" role="tab" aria-selected="false" data-start="6">4. Linh Thứu</button>
-                <button class="site-pill-btn" role="tab" aria-selected="false" data-start="8">5. Câu Thi Na</button>
-              </div>
-
-              <div class="labyrinth-nav-group">
-                <button class="btn-ctrl-nav" id="btn-labyrinth-prev" aria-label="Chiêm bái cảnh trước">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="15 18 9 12 15 6"/>
-                  </svg>
-                </button>
-                <button class="btn-auto-toggle active" id="btn-labyrinth-autoplay" aria-label="Tạm dừng tự động chuyển cảnh (10 giây)">
-                  <span id="autoplay-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -1px; margin-right: 3px;">
-                      <rect x="6" y="4" width="4" height="16"/>
-                      <rect x="14" y="4" width="4" height="16"/>
-                    </svg>
-                  </span>
-                  10s
-                </button>
-                <button class="btn-ctrl-nav" id="btn-labyrinth-next" aria-label="Chiêm bái cảnh tiếp theo">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Huy hiệu phụng sự -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300/80 text-amber-900 text-xs sm:text-sm font-medium mb-5 shadow-sm">
+        <span class="text-amber-600 text-sm">🪷</span>
+        <span>Về Miền Tỉnh Thức — Nơi Nương Tựa Của Tâm Hồn</span>
       </div>
-    </section>
 
-    <!-- ==========================================================================
-         KHU VỰC TRÍ TUỆ: LỜI VÀNG PHẬT DẠY & TRIẾT LÝ TỈNH THỨC (ZEN QUOTES CAROUSEL)
-         ========================================================================== -->
-    <section id="zen-quotes-section" class="zen-quotes-section" aria-label="Tuyển tập Lời Vàng Phật Dạy" data-sc-act="flow">
-      <div class="container">
-        <p class="zen-quotes-intro" data-sc-in="rise">
-          Hành trình trở về Chánh Pháp nguyên bản không mê tín: Khám phá trọn bộ Đại Tạng Kinh Nikāya & Giáo trình đạo đức làm chủ thân tâm, hòa quyện trong làn sóng nhạc thiền thư giãn định tâm phụng sự cộng đồng.
+      <!-- Tiêu đề chính -->
+      <h1 class="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-stone-900 leading-tight mb-4">
+        Chung Tay Hộ Trì LIDO — <br class="hidden sm:inline">
+        <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent">
+          Đi Chùa Online, Nhạc Thiền & Kinh Nikāya
+        </span>
+      </h1>
+
+      <!-- Khung Trích Dẫn Thiền Ngữ Sâu Lắng -->
+      <div class="p-6 rounded-3xl bg-white/80 border border-amber-200/90 shadow-sm max-w-3xl mx-auto mb-8 backdrop-blur-sm">
+        <p class="font-serif italic text-base sm:text-lg text-amber-950 leading-relaxed">
+          “Vạn sự tùy duyên, vạn vật tùy tâm. Đời người như một đóa sen nở giữa hồ vắng, dẫu sinh ra từ bùn lầy vẫn giữ trọn nét thanh cao tinh khiết. Giữa những bộn bề và áp lực của cuộc sống nhân gian, xin bạn hãy dành ra một khoảng lặng dịu êm. Thả lỏng đôi bờ vai, hít một hơi thật sâu và thở ra mọi lo toan nặng trĩu. Cứ an nhiên mà sống, việc gì đến sẽ đến, người cần gặp sẽ gặp, buông bỏ chấp niệm ắt thấy lòng nhẹ tựa mây trời.”
         </p>
-
-        <!-- Zen Quotes Carousel Card Deck -->
-        <div class="zen-carousel-wrapper" id="zen-carousel-container" data-sc-in="rise">
-          <!-- Sub-filter categories bar -->
-          <div class="zen-carousel-cat-tabs" id="carousel-cat-tabs" role="tablist" aria-label="Lọc danh mục lời Phật dạy">
-            <button class="zen-tab-btn active" role="tab" aria-selected="true" data-category="all">Tất Cả (112)</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Bản Chất Của Tâm & Giải Phóng Bản Ngã">Tâm & Bản Ngã</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Thức Thực, Nghiệp Lực & Luân Hồi">Thức Thực</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Thực Hành Đời Thường & An Lạc Nội Tại">Đời Thường</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Vô Thường">Vô Thường (35)</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Vô Ngã">Vô Ngã (35)</button>
-            <button class="zen-tab-btn" role="tab" aria-selected="false" data-category="Tánh Không">Tánh Không (30)</button>
-          </div>
-
-          <div class="zen-carousel-header">
-            <div class="zen-carousel-tag" id="carousel-tag">
-              <span id="carousel-icon" aria-hidden="true">🪷</span>
-              <span id="carousel-tag-text">Vô Thường</span>
-            </div>
-            <div class="zen-carousel-controls">
-              <button class="zen-carousel-btn" id="carousel-prev" title="Lời dạy trước" aria-label="Lời Phật dạy trước đó">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="15 18 9 12 15 6"/>
-                </svg>
-              </button>
-              <span class="zen-carousel-counter" id="carousel-counter" aria-live="polite">16 / 112</span>
-              <button class="zen-carousel-btn" id="carousel-next" title="Lời dạy kế tiếp" aria-label="Lời Phật dạy kế tiếp">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </button>
-              <button class="zen-carousel-btn zen-btn-random" id="carousel-random" title="Rút ngẫu nhiên một lời dạy" aria-label="Rút ngẫu nhiên một lời dạy">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5"/>
-                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-                  <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
-                  <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="zen-carousel-card" aria-live="polite" aria-atomic="true">
-            <div class="zen-quote-marks">“</div>
-            <p class="zen-quote-text" id="hero-quote">
-              "Đừng bám chấp vào quá khứ, đừng mong cầu ở tương lai. Hiện tại chính là nơi bình an nhất."
-            </p>
-            <div class="zen-quote-meta">
-              <div class="quote-source-badge" id="hero-quote-source">VÔ THƯỜNG (IMPERMANENCE) • CÂU 4/35</div>
-              <div class="quote-author-name" id="hero-quote-author">— Triết Lý Phật Đà & Lời Vàng Trưởng Lão</div>
-            </div>
-          </div>
-
-          <!-- Progress bar for 112 quotes -->
-          <div class="zen-carousel-progress-box">
-            <div class="zen-carousel-progress-bar" id="carousel-progress-bar" style="width: 14%;"></div>
-          </div>
+        <div class="mt-3 text-xs text-amber-700 font-bold uppercase tracking-wider">
+          — Đôi Dòng Tĩnh Tâm Gửi Bạn • Kênh Nhạc Thiền @1995lido
         </div>
       </div>
-    </section>
 
-    <!-- ==========================================================================
-         KHU VỰC KHÔNG GIAN SÁCH 3D NGUYÊN BẢN (3D PERSPECTIVE FLIP-BOOK SHOWCASE)
-         ========================================================================== -->
-    <section id="zen-book-showcase-section" class="zen-book-showcase-section" aria-label="Không Gian Đọc Sách 3D Lật Trang" data-sc-act="flow">
-      <div class="container">
-        <!-- Showcase Container Card -->
-        <div class="zen-showcase-card" data-sc-in="rise">
-          <!-- Showcase Header -->
-          <div class="zen-showcase-header">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 1.6rem;">🪷</span>
-              <div>
-                <div style="font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #E5C378; letter-spacing: 0.06em;">ĐẠI TẠNG KINH ĐIỂN 3D NGUYÊN BẢN</div>
-                <div style="font-size: 12px; color: #A3AFA7; margin-top: 2px;">Công nghệ lật giở từng trang sách 3D thực tế (CSS 3D Perspective) • Trích rút từ daophatgoc.com</div>
-              </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10B981; box-shadow: 0 0 10px #10B981;"></span>
-              <span style="font-size: 11px; color: #D6E0D9; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Không Gian Thiền Môn</span>
-            </div>
-          </div>
-
-          <!-- 3D Book Stage -->
-          <div class="zen-book-stage">
-            <div class="zen-3d-book" id="zen3d-book-elem">
-              <div class="zen-book-shadow"></div>
-
-              <!-- CỐ ĐỊNH TRANG TRÁI (Trang 1 / Mở đầu) -->
-              <div class="leaf-static-left" id="book-static-left">
-                <div class="page-gold-border">
-                  <div class="page-chapter-tag">Đạo Phật Gốc • Cốt Tủy</div>
-                  <div class="page-title">Lời Tựa Đại Tạng LIDO</div>
-                  <div class="page-body-text">
-                    <p>Trở về cội nguồn lời Phật dạy nguyên bản không mê tín cầu cạnh.</p>
-                    <p style="margin-top: 8px;">Đạo Phật là con đường chuyển hóa tâm thức, xả bỏ tham - sân - si để chứng đạt sự an tịnh và giải thoát ngay trong đời sống hiện tại.</p>
-                    <div class="page-verse">
-                      "Tâm dẫn đầu mọi pháp,<br>
-                      Tâm làm chủ tạo tác.<br>
-                      Nếu với tâm thanh tịnh,<br>
-                      An lạc sẽ theo sau."
-                    </div>
-                  </div>
-                  <div class="page-footer-num">Trang I • LIDO Buddhist Library</div>
-                </div>
-              </div>
-
-              <!-- TỜ LẬT SỐ 1 (Leaf 1: Trang 2 & Trang 3) -->
-              <div class="zen-book-leaf" id="leaf-1" style="z-index: 3;">
-                <!-- Mặt Phải Ban Đầu (Trang 2) -->
-                <div class="leaf-face">
-                  <div class="page-gold-border">
-                    <div class="page-chapter-tag">Kinh Pháp Cú (Dhammapada)</div>
-                    <div class="page-title">Phẩm Song Yếu (Kệ 1 - 2)</div>
-                    <div class="page-body-text">
-                      <div class="page-verse">
-                        <b>1.</b> Ý dẫn đầu các pháp,<br>
-                        Ý làm chủ, ý tạo,<br>
-                        Nếu với ý ô nhiễm,<br>
-                        Nói năng hay hành động,<br>
-                        Khổ não bước theo sau,<br>
-                        Như xe chân vật kéo.
-                      </div>
-                      <div class="page-verse">
-                        <b>2.</b> Ý dẫn đầu các pháp,<br>
-                        Ý làm chủ, ý tạo,<br>
-                        Nếu với ý thanh tịnh,<br>
-                        Nói năng hay hành động,<br>
-                        An lạc bước theo sau,<br>
-                        Như bóng chẳng rời hình.
-                      </div>
-                    </div>
-                    <div class="page-footer-num">Trang 2 • HT. Thích Minh Châu</div>
-                  </div>
-                </div>
-                <!-- Mặt Sau Khi Lật Sang Trái (Trang 3) -->
-                <div class="leaf-face leaf-back">
-                  <div class="page-gold-border">
-                    <div class="page-chapter-tag">Kinh Pháp Cú (Dhammapada)</div>
-                    <div class="page-title">Phẩm Không Phóng Dật (Kệ 21)</div>
-                    <div class="page-body-text">
-                      <div class="page-verse">
-                        <b>21.</b> Không phóng dật: đường sống,<br>
-                        Phóng dật là đường chết.<br>
-                        Người không phóng dật: sống,<br>
-                        Kẻ phóng dật: như chết.
-                      </div>
-                      <p style="margin-top: 10px; font-size: 11.5px; line-height: 1.6; color: #4a3e31;">
-                        Phóng dật là buông lung tâm ý chạy theo dục lạc trần cảnh. Bậc hiền trí luôn tỉnh giác giữ gìn sáu căn thanh tịnh.
-                      </p>
-                    </div>
-                    <div class="page-footer-num">Trang 3 • HT. Thích Minh Châu</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- TỜ LẬT SỐ 2 (Leaf 2: Trang 4 & Trang 5) -->
-              <div class="zen-book-leaf" id="leaf-2" style="z-index: 2;">
-                <!-- Mặt Phải Ban Đầu (Trang 4) -->
-                <div class="leaf-face">
-                  <div class="page-gold-border">
-                    <div class="page-chapter-tag">Kinh Trung Bộ (Majjhima Nikāya)</div>
-                    <div class="page-title">Kinh Tất Cả Lậu Hoặc (Sabbāsava)</div>
-                    <div class="page-body-text">
-                      <p style="font-size: 11.5px; line-height: 1.65; color: #2b241c;">
-                        Đức Thế Tôn thuyết giảng <b>Bảy phương pháp</b> đoạn trừ phiền não tận gốc:
-                      </p>
-                      <ul style="font-size: 11px; line-height: 1.6; margin-top: 6px; padding-left: 16px; color: #423627;">
-                        <li>1. Do Tri kiến chân chánh đoạn trừ</li>
-                        <li>2. Do Phòng hộ sáu căn đoạn trừ</li>
-                        <li>3. Do Thọ dụng như lý y phục, ẩm thực</li>
-                        <li>4. Do Kham nhẫn nóng lạnh, cơ cực</li>
-                        <li>5. Do Tránh né hiểm nguy, bạn ác</li>
-                        <li>6. Do Trừ diệt tham sân khi vừa khởi</li>
-                        <li>7. Do Tu tập Bảy Giác Chi thanh tịnh</li>
-                      </ul>
-                    </div>
-                    <div class="page-footer-num">Trang 4 • HT. Thích Minh Châu</div>
-                  </div>
-                </div>
-                <!-- Mặt Sau Khi Lật Sang Trái (Trang 5) -->
-                <div class="leaf-face leaf-back">
-                  <div class="page-gold-border">
-                    <div class="page-chapter-tag">Kinh Trung Bộ (Majjhima Nikāya)</div>
-                    <div class="page-title">Kinh Niệm Xứ (Satipaṭṭhāna)</div>
-                    <div class="page-body-text">
-                      <p style="font-size: 11.5px; line-height: 1.65; color: #2b241c;">
-                        Con đường duy nhất thanh tịnh tâm ý, diệt trừ khổ ưu, thành tựu chánh trí, chứng ngộ Niết-bàn:
-                      </p>
-                      <div class="page-verse" style="margin-top: 8px;">
-                        • <b>Quán Thân trên thân:</b> hơi thở, oai nghi.<br>
-                        • <b>Quán Thọ trên thọ:</b> khổ, lạc, xả.<br>
-                        • <b>Quán Tâm trên tâm:</b> tham, sân, si.<br>
-                        • <b>Quán Pháp trên pháp:</b> năm triền cái, bảy giác chi.
-                      </div>
-                    </div>
-                    <div class="page-footer-num">Trang 5 • HT. Thích Minh Châu</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- CỐ ĐỊNH TRANG PHẢI (Trang 6 / Hồi hướng) -->
-              <div class="zen-book-leaf" id="leaf-last" style="z-index: 1; pointer-events: none;">
-                <div class="leaf-face">
-                  <div class="page-gold-border">
-                    <div class="page-chapter-tag">Hồi Hướng Tam Bảo</div>
-                    <div class="page-title">Nguyện Pháp Âm Lan Tỏa</div>
-                    <div class="page-body-text">
-                      <div class="page-verse">
-                        "Pháp thí thắng mọi thí,<br>
-                        Pháp vị thắng mọi vị,<br>
-                        Pháp hỷ thắng mọi hỷ,<br>
-                        Ái diệt, dứt mọi khổ."<br>
-                        <small style="color: #514332; font-weight: 600;">(Kinh Pháp Cú 354)</small>
-                      </div>
-                      <p style="margin-top: 8px; font-size: 11.5px; text-align: justify; color: #2b241c;">
-                        Nguyện đem công đức ấn tống Đại Tạng 3D hồi hướng cho tất cả chúng sanh đều có chánh kiến, tâm luôn thanh thản, an lạc và vô sự.
-                      </p>
-                      <div style="text-align: center; margin-top: 10px;">
-                        <button class="btn-read-modal-3d" onclick="openZen3DReader('bk-trungbo')" aria-label="Mở Bản 50 Kinh Trung Bộ 3D">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                          </svg>
-                          <span>Mở Bản 50 Kinh Trung Bộ ↗</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="page-footer-num">Trang VI • Tủ Sách LIDO 3D</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Bottom Nav Controls for Showcase -->
-          <div class="book-nav-bar">
-            <button class="btn-book-turn" id="btn-showcase-prev" onclick="turnShowcaseLeaf(-1)" aria-label="Lật về trang trước">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-              Lật Về Trang Trước
-            </button>
-            <div class="book-page-status" id="showcase-turn-status" style="color: #E5C378;" aria-live="polite">
-              Trang 1 - 2 / 6
-            </div>
-            <button class="btn-book-turn" id="btn-showcase-next" onclick="turnShowcaseLeaf(1)" aria-label="Lật tiếp trang sau">
-              Lật Tiếp Trang Sau
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-left: 4px;">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Footer Bar -->
-          <div style="text-align: center; margin-top: 14px; font-size: 12px; color: #A0B4AA;">
-            <span>💡 Dùng nút lật trang để trải nghiệm trực quan, hoặc bấm <b>"Mở Sách 3D Lật Trang"</b> ở từng bộ kinh bên dưới để đọc toàn bộ 10 tác phẩm.</span>
-          </div>
-        </div>
+      <!-- Các nút kêu gọi chính -->
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="ung-ho.html" class="px-6 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-sm font-bold flex items-center gap-2 shadow-lg shadow-emerald-950/20 transition-all">
+          <span>🍵</span>
+          Gửi Một Tách Trà Ấm
+        </a>
+        <a href="#di-chua-online" class="px-6 py-3 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-sm font-bold flex items-center gap-2 shadow-lg shadow-amber-900/20 transition-all">
+          <span>🛕</span>
+          Vào Chánh Điện Đi Chùa Online
+        </a>
+        <a href="#donate-section" class="px-6 py-3 rounded-xl btn-zen text-sm font-bold flex items-center gap-2">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+          Gieo Duyên Hộ Trì LIDO
+        </a>
+        <a href="kinh-sach.html" 
+           class="px-6 py-3 rounded-xl btn-zen-secondary text-sm font-bold flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4 text-emerald-700"></i>
+          Tủ Sách Nikāya (Đọc Miễn Phí)
+        </a>
       </div>
-    </section>
 
-    <!-- ==========================================================================
-         KHU VỰC 2: TỦ SÁCH PHẬT PHÁP (SACRED SCRIPTURE LIBRARY)
-         ========================================================================== -->
-    <section id="library" class="section-wrapper section-bg-darker" aria-label="Tủ sách Phật pháp" data-sc-act="flow">
-      <div class="container">
-        <div class="section-header" data-sc-in="rise">
-          <span class="section-subtitle">Kho Tàng Pháp Bảo Vô Giá</span>
-          <h2 class="section-title">Tủ Sách Phật Giáo <span class="text-gradient-gold">Nguyên Thủy</span></h2>
-          <p class="section-desc">
-            Trọn bộ 5 bộ Kinh Tạng Nikāya gốc và các tác phẩm khai sáng chánh kiến của Trưởng lão Thích Thông Lạc, kết nối trực tiếp đến các ấn bản điện tử chuẩn xác.
+    </div>
+  </section>
+
+  <!-- =============================================================================
+       KHU VỰC ĐẶC BIỆT: ĐI CHÙA ONLINE — CHÁNH ĐIỆN TÂM LINH LIDO
+       ============================================================================= -->
+  <section id="di-chua-online" class="py-16 px-4 sm:px-6 relative temple-altar-bg border-y-4 border-amber-600/40 text-stone-100 shadow-2xl">
+    <div class="max-w-5xl mx-auto">
+      
+      <!-- Tiêu đề Chánh Điện -->
+      <div class="text-center mb-8">
+        <span class="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-amber-950/80 border border-amber-500/50 text-amber-300 text-xs font-bold uppercase tracking-widest shadow-lg">
+          <span>🪷</span> Chánh Điện Tâm Linh Trực Tuyến
+        </span>
+        <h2 class="font-serif font-bold text-3xl sm:text-4xl text-amber-100 mt-2">
+          Không Gian Đi Chùa Online
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-300 mt-2 max-w-xl mx-auto leading-relaxed">
+          Nơi quý Phật tử dù ở bất cứ nơi đâu cũng có thể hướng tâm về Tam Bảo: Thắp nén tâm hương, thỉnh chuông gõ mõ, lạy Phật, dâng sớ cầu an và rút quẻ lời Phật dạy.
+        </p>
+      </div>
+
+      <!-- BANNER LIÊN HOA CÁC CHÙA ONLINE TOÀN NĂNG (TÍCH HỢP TỪ AI-MONEY) -->
+      <div class="mb-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#2A150C] via-[#1A0E08] to-[#2E1A0E] border-2 border-amber-500/60 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div class="absolute -right-8 -bottom-8 w-60 h-60 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="space-y-2.5 text-center md:text-left relative z-10">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider border border-amber-500/40">
+            <span>🪷</span> Đã Tích Hợp Module Liên Hoa Các (/chua-online)
+          </div>
+          <h3 class="font-serif font-bold text-2xl sm:text-3xl text-amber-100">
+            Liên Hoa Các — Không Gian Chùa Online 3D
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-300 max-w-xl leading-relaxed">
+            Trải nghiệm trọn vẹn: <strong>Gõ mõ ASMR 432Hz</strong>, <strong>Lần chuỗi 108 hạt Bồ Đề</strong>, <strong>Thả hoa đăng trôi trên hồ sen đêm trăng thời gian thực</strong>, <strong>Lắc ống xăm gieo quẻ AI</strong> và <strong>tải ảnh Thẻ Quẻ Bình An đóng triện đỏ</strong> (PNG 1080x1350)!
           </p>
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-amber-300/80 pt-1 font-medium">
+            <span>✨ Âm thanh Web Audio</span>
+            <span>•</span>
+            <span>🌕 Đếm ngược Rằm/Mùng 1</span>
+            <span>•</span>
+            <span>👥 Bạn đồng tu viếng chùa</span>
+          </div>
         </div>
+        <div class="shrink-0 relative z-10">
+          <a href="chua-online.html" 
+             class="px-6 py-4 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-amber-950/60 transition-all flex items-center gap-2.5 transform hover:scale-105 active:scale-95 border border-amber-400/40">
+            <span>🛕 Mở Không Gian Liên Hoa Các</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
 
-        <!-- Library Toolbar: Filter Categories & Search Bar -->
-        <div class="library-toolbar" data-sc-in="rise">
-          <div class="library-filters" role="tablist" aria-label="Lọc theo danh mục kinh sách">
-            <button class="filter-btn active" role="tab" aria-selected="true" data-category="all">Tất Cả Tác Phẩm</button>
-            <button class="filter-btn" role="tab" aria-selected="false" data-category="nikaya">Kinh Nikāya (Đại Tạng Gốc)</button>
-            <button class="filter-btn" role="tab" aria-selected="false" data-category="thonglac">Trưởng Lão Thích Thông Lạc</button>
-            <button class="filter-btn" role="tab" aria-selected="false" data-category="thien">Thực Hành Giải Thoát</button>
+      <!-- BÀN THỜ PHẬT CHÁNH ĐIỆN (ALTAR DISPLAY) -->
+      <div class="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-gradient-to-b from-black/60 via-amber-950/40 to-black/90 p-6 sm:p-10 shadow-2xl mb-8">
+        
+        <!-- Khung hiển thị Kim Thân Phật & Tòa Sen -->
+        <div class="relative flex flex-col items-center justify-center min-h-[340px] sm:min-h-[400px]">
+          
+          <!-- Hào quang hoàng kim sau lưng Phật -->
+          <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-amber-400/20 blur-3xl pointer-events-none"></div>
+
+          <!-- Hình Tượng Phật Thích Ca Mâu Ni & Tòa Sen Ngọc Bích -->
+          <div class="relative z-10 text-center">
+            <img src="assets/buddha_temple_lotus.png" 
+                 alt="Đức Bổn Sư Thích Ca Mâu Ni Phật" 
+                 class="w-64 sm:w-76 md:w-84 max-h-[290px] sm:max-h-[350px] object-contain mx-auto buddha-halo transition-transform hover:scale-105 duration-500">
+            
+            <div class="mt-2 text-xs font-serif tracking-widest text-amber-300 uppercase font-semibold">
+              Nam Mô Bổn Sư Thích Ca Mâu Ni Phật
+            </div>
           </div>
 
-          <div class="library-search-box">
-            <label for="search-input" class="sr-only">Tìm kiếm kinh sách, tác giả, pháp môn</label>
-            <span class="search-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
+          <!-- Lư Hương Trầm Nghi Ngút & Đèn Dầu Nến Hoa Sen -->
+          <div class="relative z-20 w-full max-w-md mx-auto mt-4 pt-4 border-t border-amber-500/30 flex items-end justify-around">
+            
+            <!-- Ngọn nến bên trái -->
+            <div class="text-center">
+              <div class="text-2xl candle-flame">🕯️</div>
+              <span class="text-[10px] text-amber-300/80 block mt-1">Đèn Tuệ Giác</span>
+            </div>
+
+            <!-- Lư Hương Trung Tâm với Khói Trầm Bay Lên -->
+            <div class="relative text-center px-4">
+              <!-- Khu vực khói trầm -->
+              <div id="incense-smoke-box" class="relative w-16 h-20 mx-auto pointer-events-none">
+                <!-- Smoke particles render dynamically -->
+              </div>
+              <div class="text-3xl filter drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)) cursor-pointer hover:scale-110 transition-transform" 
+                   onclick="ritualThapHuong()" title="Bấm vào để thắp hương">
+                🪔
+              </div>
+              <span class="text-[11px] text-amber-300 font-bold block mt-1">Lư Tâm Hương</span>
+            </div>
+
+            <!-- Ngọn nến bên phải -->
+            <div class="text-center">
+              <div class="text-2xl candle-flame">🕯️</div>
+              <span class="text-[10px] text-amber-300/80 block mt-1">Đèn Từ Bi</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BỘ ĐẾM CÔNG ĐỨC TÂM LINH (COUNTERS) -->
+        <div class="mt-6 pt-5 border-t border-amber-500/20 grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="p-2.5 rounded-xl bg-black/40 border border-amber-500/20">
+            <span class="text-amber-400 font-black text-base sm:text-lg block" id="temple-counter-mo">0</span>
+            <span class="text-stone-300 text-[11px]">Tiếng Mõ Định Tâm</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-amber-500/20">
+            <span class="text-amber-400 font-black text-base sm:text-lg block" id="temple-counter-lay">0</span>
+            <span class="text-stone-300 text-[11px]">Lạy Phật Cầu An</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-amber-500/20">
+            <span class="text-amber-400 font-black text-base sm:text-lg block" id="temple-counter-hoa">0</span>
+            <span class="text-stone-300 text-[11px]">Đóa Sen Dâng Phật</span>
+          </div>
+        </div>
+
+        <!-- THANH CÔNG CỤ 5 NGHI THỨC ĐI CHÙA (ACTION TOOLBAR) -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          
+          <button onclick="ritualThapHuong()" 
+                  class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2">
+            <span>🪔</span>
+            <span>Thắp Hương</span>
+          </button>
+
+          <button onclick="ritualGoMo()" 
+                  class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2"
+                  id="mo-btn">
+            <span id="mo-icon" class="inline-block">🪵</span>
+            <span>Gõ Mõ (Cốc!)</span>
+          </button>
+
+          <button onclick="ritualLayPhat()" 
+                  class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2">
+            <span>🙏</span>
+            <span>Lạy Phật</span>
+          </button>
+
+          <button onclick="ritualDangHoa()" 
+                  class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2">
+            <span>🪷</span>
+            <span>Dâng Hoa Sen</span>
+          </button>
+
+          <button onclick="ritualRutQue()" 
+                  class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-gradient-to-r from-amber-600/90 to-amber-700/90 text-white border-amber-400">
+            <span>📜</span>
+            <span>Rút Quẻ Lời Phật Dạy</span>
+          </button>
+
+          <a href="#donate-section" 
+             class="btn-ritual px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-emerald-800/80 border-emerald-500 text-emerald-200 hover:text-white">
+            <span>💰</span>
+            <span>Cúng Dường Tam Bảo</span>
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- KHU VỰC DÂNG SỚ CẦU AN & SỔ CẦU AN CỦA CHÙA ONLINE -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Form Dâng Sớ Cầu An (5 Cột) -->
+        <div class="lg:col-span-5 p-6 rounded-3xl bg-black/60 border border-amber-500/30 backdrop-blur-md">
+          <h3 class="font-serif font-bold text-lg text-amber-200 mb-2 flex items-center gap-2">
+            <span>🪷</span> Dâng Sớ Cầu An Trực Tuyến
+          </h3>
+          <p class="text-xs text-stone-300 mb-4 leading-relaxed">
+            Kính dâng lời nguyện cầu cho cha mẹ, người thân và gia đạo được bình an, nghiệp chướng tiêu trừ.
+          </p>
+
+          <form id="prayer-form" class="space-y-3.5 text-xs">
+            <div>
+              <label class="block font-bold text-amber-300 uppercase mb-1">Họ Tên / Pháp Danh:</label>
+              <input type="text" id="prayer-name" 
+                     placeholder="Ví dụ: Phật tử Diệu Âm, Con Tuấn..." 
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-stone-900/90 border border-amber-600/40 text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+            </div>
+
+            <div>
+              <label class="block font-bold text-amber-300 uppercase mb-1">Lời Khấn Nguyện Cầu An:</label>
+              <textarea id="prayer-content" rows="3" required
+                        placeholder="Con xin thành tâm cầu nguyện cho cha mẹ sống lâu khỏe mạnh, gia đạo ấm êm, thân tâm luôn an lạc..." 
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-stone-900/90 border border-amber-600/40 text-stone-100 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"></textarea>
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-950/50">
+              <span>🙏</span>
+              <span>Dâng Lời Nguyện Lên Tam Bảo</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Sổ Cầu An Cộng Đồng (7 Cột) -->
+        <div class="lg:col-span-7 p-6 rounded-3xl bg-black/60 border border-amber-500/30 backdrop-blur-md">
+          <h3 class="font-serif font-bold text-lg text-amber-200 mb-2 flex items-center gap-2">
+            <i data-lucide="scroll" class="w-5 h-5 text-amber-400"></i>
+            Sổ Cầu An Chùa LIDO
+          </h3>
+          <p class="text-xs text-stone-300 mb-4">Các lời khấn nguyện thiện lành từ quý Phật tử và thính giả xa gần:</p>
+
+          <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2" id="prayers-list-container">
+            <!-- Render từ app.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== BANNER ĐẶC BIỆT: THƯ VIỆN PHẬT HỌC LIDO ==================== -->
+  <section class="py-10 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-900 via-stone-900 to-amber-950 text-white shadow-xl relative overflow-hidden border border-emerald-700/40">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-2xl"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-2 text-center md:text-left">
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-700/60 text-emerald-200 text-xs font-bold uppercase tracking-wider border border-emerald-500/30">
+              📖 Tủ Sách Phật Giáo Nguyên Thủy — Đọc Miễn Phí
             </span>
-            <input 
-              type="text" 
-              id="search-input" 
-              class="search-input" 
-              placeholder="Tìm kinh sách, tác giả, pháp môn..." 
-              aria-label="Tìm kiếm trong tủ sách"
-            >
-          </div>
-        </div>
-
-        <!-- Books Grid Loaded Dynamically -->
-        <div class="books-grid" id="books-grid" aria-live="polite">
-          <!-- Injected via JavaScript from site_data.json -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         KHU VỰC 3: THIỀN VIỆN TRỰC TUYẾN VÀ NHẠC THIỀN LIDO
-         ========================================================================== -->
-    <section id="meditation" class="section-wrapper zen-meditation-ambient" aria-label="Thiền viện trực tuyến và nhạc thiền" data-sc-act="flow">
-      <div class="container">
-        <div class="section-header" data-sc-in="rise">
-          <span class="section-subtitle">Thanh Âm Tĩnh Lặng • Tần Số 432Hz</span>
-          <h2 class="section-title">Thiền Viện Trực Tuyến & <span class="text-gradient-gold">Nhạc Thiền LIDO</span></h2>
-          <p class="section-desc">
-            Không gian nghe nhạc thiền kết hợp lời vàng răn dạy trong Kinh Nikāya từ kênh YouTube LIDO Meditation (@1995lido), giúp thân tâm buông xả phiền não.
-          </p>
-        </div>
-
-        <!-- Video Player Grid (Click-to-play embeds, complying with YouTube ToS & performance guidelines) -->
-        <div class="videos-grid" id="videos-grid">
-          <!-- Injected via JavaScript from site_data.json -->
-        </div>
-
-        <!-- Health Disclaimer Box -->
-        <div class="health-disclaimer-box">
-          <strong>⚠️ Tuyên Bố Miễn Trừ Trách Nhiệm Sức Khỏe:</strong><br>
-          Các tác phẩm âm nhạc tần số 432Hz mang tính chất hỗ trợ thư giãn, nuôi dưỡng sự tĩnh lặng và định tâm khi hành thiền; không thay thế cho các chẩn đoán, tư vấn hoặc phác đồ điều trị y khoa chuyên nghiệp.
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         KHU VỰC 4: HỘ TRÌ CHÁNH PHÁP (DHARMA PATRONAGE)
-         ========================================================================== -->
-    <section id="support" class="section-wrapper zen-section-alt" aria-label="Hộ trì Chánh pháp" data-sc-act="flow">
-      <div class="container">
-        <div class="donate-luxury-box" data-sc-in="rise">
-          <div>
-            <div class="badge badge-terracotta" style="margin-bottom: 1.25rem;">
-              Phước Báu Bố Thí Pháp (Dhamma Dāna)
-            </div>
-            <h2 class="donate-title">Hộ Trì Tủ Sách &amp; Nhạc Thiền LIDO</h2>
-            <p class="donate-desc">
-              <i>"Pháp thí thắng mọi thí, Pháp vị thắng mọi vị"</i> — Nếu hữu duyên và hoan hỷ, quý vị có thể tùy tâm trợ duyên để LIDO duy trì website và kênh nhạc thiền, đồng thời tiếp tục sáng tạo, chia sẻ những giai điệu an lành hoàn toàn miễn phí đến cộng đồng.
+            <h3 class="font-serif font-bold text-xl sm:text-2xl text-emerald-100">
+              Thư Viện Tham Khảo Phật Học LIDO
+            </h3>
+            <p class="text-xs sm:text-sm text-stone-300 max-w-xl leading-relaxed">
+              Nơi bạn có thể tìm đọc các tài liệu Phật học, kinh điển Nikāya và những trước tác thực hành được giới thiệu qua các nguồn tham khảo. Đọc, suy ngẫm và ứng dụng lời Phật dạy vào cuộc sống.
             </p>
-            <div class="bank-meta-card">
-              <div class="bank-row">
-                <span class="bank-row-label">Ngân hàng:</span>
-                <span class="bank-row-val" id="donate-bank-name">BIDV — Ngân Hàng TMCP Đầu Tư &amp; Phát Triển Việt Nam</span>
-              </div>
-              <div class="bank-row">
-                <span class="bank-row-label">Chủ tài khoản:</span>
-                <span class="bank-row-val" id="donate-acc-name">NGUYEN ANH TUAN</span>
-              </div>
-              <div class="bank-row">
-                <span class="bank-row-label">Số tài khoản:</span>
-                <span class="bank-row-val" style="color: var(--primary-gold, #e5c378); font-size: 1.2rem; letter-spacing: 0.05em;" id="donate-acc-number">1401132757</span>
-              </div>
-              <div class="bank-row">
-                <span class="bank-row-label">Cú pháp chuyển:</span>
-                <span class="bank-row-val" style="font-style: italic;" id="donate-syntax">Ho Tri Tu Sach LIDO</span>
-              </div>
+          </div>
+          <div class="shrink-0">
+            <a href="https://tuanweb2026.github.io/lido-buddhist-library/" target="_blank" rel="noopener noreferrer"
+               class="px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-950/40 transition-all flex items-center gap-2">
+              <span>Ghé Thăm Thư Viện</span>
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== KHU VỰC CHÍNH: CHỌN GÓI & QUÉT MÃ QR ==================== -->
+  <section id="donate-section" class="py-10 px-4 sm:px-6 relative">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center mb-8">
+        <span class="text-xs uppercase tracking-widest text-amber-700 font-bold">Chung Tay Hộ Trì LIDO</span>
+        <h2 class="font-serif font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
+          Chọn Gói Gieo Duyên Hoan Hỷ
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-500 mt-2 max-w-xl mx-auto">
+          Mọi sự trợ duyên đều hoàn toàn tự nguyện. Dù có đóng góp hay không, quý vị vẫn luôn được chào đón đến với âm nhạc thiền định và thư viện Phật học của LIDO.
+        </p>
+        <div class="mt-3.5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs sm:text-sm font-semibold">
+          <span>🍵</span>
+          <span>Thích phong cách gửi tách trà ấm cúng mộc mạc?</span>
+          <a href="ung-ho.html" class="underline font-bold hover:text-emerald-950">Mở trang Tách Trà Ấm @1995lido →</a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- CỘT TRÁI (7 CỘT): DANH SÁCH GÓI GIEO DUYÊN -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="space-y-3" id="tiers-container">
+            <!-- Render từ app.js -->
+          </div>
+
+          <!-- Ô nhập số tiền tùy chọn (hiện khi chọn Bồ Đề Tâm) -->
+          <div id="custom-amount-box" class="hidden p-5 rounded-2xl bg-amber-50/70 border border-amber-300 transition-all">
+            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">
+              Nhập Số Tiền Tùy Tâm Của Bạn:
+            </label>
+            <div class="relative">
+              <input type="text" id="custom-amount-input" oninput="handleCustomAmountChange(this.value)"
+                     placeholder="Ví dụ: 30.000, 200.000..." 
+                     class="w-full px-4 py-3 rounded-xl border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 font-extrabold text-amber-900 text-lg bg-white">
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 font-bold text-sm">VNĐ</span>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted, #A6B4AC); margin-top: 1rem; line-height: 1.6; font-style: italic;">
-              Mọi sự trợ duyên đều xuất phát từ tâm hoan hỷ và hoàn toàn tùy hỷ, không có bất kỳ sự bắt buộc nào. Dù có trợ duyên hay không, quý vị vẫn luôn được chào đón đến với thư viện tham khảo Phật học và âm nhạc thiền định miễn phí của LIDO.
+            <p class="text-[11px] text-stone-500 mt-1.5 italic">
+              * Mã QR bên cạnh sẽ tự động cập nhật ngay khi bạn nhập số tiền.
             </p>
-            <div style="margin-top: 1.25rem;">
-              <a href="ung-ho.html" class="btn-primary-terracotta" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 10px 20px; font-weight: 600; border-radius: 9999px;">
-                <span>🍵 Mở Trang Hộ Trì Chi Tiết (Gửi Tách Trà / Lời Nhắn) →</span>
-              </a>
-            </div>
           </div>
-          <!-- VietQR Box Động -->
-          <div class="qr-box-inner">
-            <img id="vietqr-img" class="qr-poster-img" alt="Mã VietQR BIDV Chuyển Khoản" src="assets/bidv_qr.png">
-            <div style="font-size: 1rem; font-weight: 700; color: #FFFDF9;">Quét Mã VietQR Chuyển Khoản</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted, #A6B4AC); margin-top: 0.35rem;">
-              Đóng góp tùy tâm • Không ấn định số tiền • Kiểm tra kỹ tên người nhận trước khi chuyển
+
+          <!-- Thông điệp cam kết -->
+          <div class="p-4 rounded-xl bg-stone-100/90 border border-stone-200 text-xs text-stone-600 flex items-start gap-3">
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
+            <div>
+              <strong class="text-stone-800">Cam Kết Phụng Sự:</strong> LIDO mong muốn tiếp tục duy trì website, phát triển kênh nhạc thiền và sáng tạo thêm những giai điệu an lành để chia sẻ miễn phí đến cộng đồng. LIDO chân thành tri ân sự đồng hành của quý vị! 🙏
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand-logo">
-            <div class="brand-icon-emblem">🪷</div>
-            <div class="brand-text">
-              <span class="brand-title">LIDO BUDDHIST LIBRARY</span>
-              <span class="brand-tagline">Đạo Phật Gốc • Không Gian 3D</span>
+        <!-- CỘT PHẢI (5 CỘT): MÃ VIETQR & THÔNG TIN CHUYỂN KHOẢN -->
+        <div class="lg:col-span-5">
+          <div class="zen-card p-6 rounded-3xl halo-glow border-2 border-amber-200/90 relative">
+            
+            <!-- Huy hiệu quét mã -->
+            <div class="text-center mb-4">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
+                Quét Mã VietQR Nhanh
+              </span>
+              <p class="text-[11px] text-stone-500 mt-1">Tương thích Vietcombank, MB, Techcombank, MoMo và mọi ngân hàng</p>
             </div>
+
+            <!-- Khung ảnh QR Code -->
+            <div class="bg-white p-3 rounded-2xl shadow-inner border border-stone-200 text-center relative max-w-[280px] mx-auto">
+              <img id="qr-image" 
+                   src="assets/bidv_qr.png" 
+                   alt="Mã QR Chuyển Khoản Ủng Hộ BIDV NGUYEN ANH TUAN" 
+                   class="w-full h-auto rounded-xl mx-auto transition-transform hover:scale-[1.02] duration-300">
+              
+              <div class="mt-2 text-[11px] text-stone-400 font-medium flex items-center justify-center gap-1">
+                <i data-lucide="scan" class="w-3.5 h-3.5"></i> Mở App Ngân Hàng để quét
+              </div>
+            </div>
+
+            <!-- Thông tin tài khoản chi tiết với nút Copy -->
+            <div class="mt-6 space-y-2.5 text-xs">
+              
+              <!-- Ngân hàng -->
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                <span class="text-stone-500 font-medium">Ngân hàng:</span>
+                <span class="font-bold text-stone-800 text-right" id="display-bank-name">BIDV (Đầu Tư & Phát Triển Việt Nam)</span>
+              </div>
+
+              <!-- Số tài khoản -->
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                <div>
+                  <span class="text-stone-500 font-medium block">Số tài khoản:</span>
+                  <span class="font-extrabold text-amber-800 text-base font-mono tracking-wider" id="display-account-number">
+                    1401132757
+                  </span>
+                </div>
+                <button onclick="copyToClipboard(currentBank.accountNumber, 'Số tài khoản')"
+                        class="px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold flex items-center gap-1 active:scale-95 transition-all"
+                        title="Sao chép số tài khoản">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              <!-- Chủ tài khoản -->
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                <span class="text-stone-500 font-medium">Chủ tài khoản:</span>
+                <span class="font-bold text-stone-900 tracking-wide uppercase" id="display-account-holder">
+                  NGUYEN ANH TUAN
+                </span>
+              </div>
+
+              <!-- Số tiền -->
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                <span class="text-stone-500 font-medium">Số tiền gieo duyên:</span>
+                <span class="font-black text-amber-700 text-sm" id="display-amount">20.000 đ</span>
+              </div>
+
+              <!-- Nội dung CK -->
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                <div>
+                  <span class="text-stone-500 font-medium block">Nội dung CK:</span>
+                  <span class="font-bold text-stone-800 font-mono text-xs" id="display-message">
+                    1995LIDO HO TRI TEA
+                  </span>
+                </div>
+                <button onclick="copyToClipboard(document.getElementById('display-message').textContent, 'Nội dung chuyển khoản')"
+                        class="px-2.5 py-1.5 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold flex items-center gap-1 active:scale-95 transition-all"
+                        title="Sao chép nội dung">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Nút chỉnh sửa STK của chính bạn -->
+            <div class="mt-4 pt-4 border-t border-stone-200/80 text-center">
+              <button onclick="openBankConfigModal()" 
+                      class="text-xs text-amber-700 hover:text-amber-900 font-medium flex items-center justify-center gap-1 mx-auto hover:underline">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                Bạn muốn đổi sang STK thật của mình? Bấm vào đây
+              </button>
+            </div>
+
           </div>
-          <p>
-            Dự án số hóa kho tàng kinh điển Phật giáo Nguyên thủy và nhạc thiền định tâm 432Hz. Phụng sự cộng đồng với tinh thần Chánh kiến, Từ bi và Trí tuệ.
-          </p>
         </div>
 
-        <div class="footer-col">
-          <h4 class="footer-heading">Tủ Sách Đại Tạng</h4>
-          <ul class="footer-links-list">
-            <li><a href="https://daophatgoc.com/kinh-nikaya/kinh-trung-bo/" target="_blank" rel="noopener">Kinh Trung Bộ</a></li>
-            <li><a href="https://daophatgoc.com/kinh-nikaya/kinh-truong-bo/" target="_blank" rel="noopener">Kinh Trường Bộ</a></li>
-            <li><a href="https://daophatgoc.com/kinh-nikaya/kinh-tuong-ung-bo/" target="_blank" rel="noopener">Kinh Tương Ưng Bộ</a></li>
-            <li><a href="https://daophatgoc.com/kinh-nikaya/kinh-tang-chi-bo/" target="_blank" rel="noopener">Kinh Tăng Chi Bộ</a></li>
-            <li><a href="https://daophatgoc.com/kinh-nikaya/kinh-tieu-bo/" target="_blank" rel="noopener">Kinh Tiểu Bộ (Pháp Cú)</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4 class="footer-heading">Liên Kết Phụng Sự</h4>
-          <ul class="footer-links-list">
-            <li><a href="kinh-sach.html">📖 Tủ Sách Zen Reader</a></li>
-            <li><a href="chua-online.html">🪷 Đi Chùa Online &amp; Thỉnh Quẻ</a></li>
-            <li><a href="ung-ho.html">🍵 Trang Hộ Trì &amp; Gửi Tách Trà</a></li>
-            <li><a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener">Kênh YouTube Nhạc Thiền @1995lido</a></li>
-            <li><a href="https://daophatgoc.com" target="_blank" rel="noopener">Nguồn Kinh: Đạo Phật Gốc</a></li>
-          </ul>
-        </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>© 2026 LIDO Buddhist Library. Bản thử nghiệm Local Prototype V1 được xây dựng độc lập và bảo vệ dữ liệu sản xuất.</p>
+    </div>
+  </section>
+
+  <!-- ==================== TÁC PHẨM THỰC TẾ & CHAPTERS KÊNH @1995LIDO ==================== -->
+  <section id="video-showcase" class="py-16 px-4 sm:px-6 bg-[#F5EEE4]/60 border-y border-stone-200/70 relative">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs uppercase tracking-widest text-amber-700 font-bold">Tác Phẩm Nổi Bật Kênh @1995lido</span>
+        <h2 class="font-serif font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
+          Tịnh Tâm Liên Hoa (Đóa Sen Tĩnh Tâm Giữa Cõi Đời)
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-600 mt-2">
+          Âm thanh 432Hz Miracle Tone • Đàn Tranh, Sáo Trúc, Chuông Xoay Tây Tạng • Thời lượng 2 Giờ 28 Phút
+        </p>
       </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Video Player YouTube Thực Tế Của Kênh (7 CỘT) -->
+        <div class="lg:col-span-7">
+          <div class="rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-300/80 bg-black aspect-video relative">
+            <iframe class="w-full h-full" 
+                    src="https://www.youtube.com/embed/T0tzayJ7oYI?rel=0" 
+                    title="Tịnh Tâm Liên Hoa - Nhạc Thiền 1995 Lido" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-600 px-2">
+            <span class="flex items-center gap-1.5 font-medium">
+              <i data-lucide="music" class="w-4 h-4 text-amber-700"></i> Đàn Tranh (Guzheng) & Sáo Trúc (Dizi)
+            </span>
+            <span class="flex items-center gap-1.5 font-medium">
+              <i data-lucide="clock" class="w-4 h-4 text-emerald-700"></i> 148 Phút Thiền Định / Ngủ Sâu
+            </span>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI" target="_blank" class="text-red-600 font-bold hover:underline flex items-center gap-1">
+              Xem trực tiếp trên YouTube <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mục Lục Thời Gian / Chapters Của Video (5 CỘT) -->
+        <div class="lg:col-span-5 zen-card p-6 rounded-3xl border border-stone-200/90 shadow-sm">
+          <h3 class="font-serif font-bold text-base text-stone-900 mb-3 flex items-center gap-2">
+            <i data-lucide="list-ordered" class="w-4 h-4 text-amber-700"></i>
+            Mục Lục Thời Gian (Chapters)
+          </h3>
+          <p class="text-xs text-stone-500 mb-4">Nhấp vào từng mốc thời gian để theo dõi các khúc nhạc tĩnh tâm:</p>
+
+          <div class="space-y-2 text-xs">
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">00:00:00</span>
+              <span class="text-stone-700 text-right">Chuông Thiền Tĩnh Tâm, Hơi Thở</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI&t=900s" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-amber-50/50 border border-stone-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">00:15:00</span>
+              <span class="text-stone-700 text-right">Lắng Lại Tâm Tư, Buông Xả</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI&t=2400s" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-amber-50/50 border border-stone-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">00:40:00</span>
+              <span class="text-stone-700 text-right">Tần Số 432Hz Chữa Lành</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI&t=4200s" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-amber-50/50 border border-stone-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">01:10:00</span>
+              <span class="text-stone-700 text-right">Vạn Sự Tùy Duyên, Tâm An</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI&t=6300s" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-amber-50/50 border border-stone-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">01:45:00</span>
+              <span class="text-stone-700 text-right">Yên Tĩnh Của Vũ Trụ</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=T0tzayJ7oYI&t=8100s" target="_blank" 
+               class="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-amber-50/50 border border-stone-200 transition-all text-stone-800">
+              <span class="font-bold text-amber-800 font-mono">02:15:00</span>
+              <span class="text-stone-700 text-right">Giấc Ngủ Bình Yên, Tự Tại</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SỨ MỆNH & CHIỀU SÂU NHÂN VĂN ==================== -->
+  <section class="py-16 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs uppercase tracking-widest text-amber-700 font-bold">Hành Trình Phụng Sự</span>
+        <h2 class="font-serif font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
+          Tại Sao Chúng Tôi Cần Sự Trợ Duyên Của Bạn?
+        </h2>
+        <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+          Không đơn thuần là một kênh phát nhạc, <strong class="text-stone-800">@1995lido</strong> và <strong class="text-emerald-800">Thư Viện Phật Học LIDO</strong> mong muốn kiến tạo một ốc đảo bình yên giữa thời đại công nghệ xô bồ, nơi âm nhạc trị liệu và trí tuệ Phật Đà cùng nâng đỡ tâm hồn bạn.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="missions-container">
+        <!-- Render từ app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SỔ LƯU BÚT HOAN HỶ & GÓP Ý ==================== -->
+  <section class="py-16 px-4 sm:px-6 bg-[#FAF6F0] border-t border-stone-200/80">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs uppercase tracking-widest text-amber-700 font-bold">Kết Nối Thiện Duyên</span>
+        <h2 class="font-serif font-bold text-2xl sm:text-3xl text-stone-900 mt-1">
+          Sổ Lưu Bút Hoan Hỷ & Góp Ý Xây Dựng
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-600 mt-2">
+          Cảm nhận của bạn khi nghe nhạc hoặc những lời góp ý chân thành là kim chỉ nam quý báu để kênh ngày một hoàn thiện hơn.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Form gửi lời chúc / Góp ý (5 CỘT) -->
+        <div class="lg:col-span-5 zen-card p-6 rounded-3xl border border-stone-200 shadow-sm">
+          <h3 class="font-serif font-bold text-lg text-stone-900 mb-4 flex items-center gap-2">
+            <i data-lucide="message-square-heart" class="w-5 h-5 text-amber-700"></i>
+            Gửi Lời Chúc Hoặc Góp Ý
+          </h3>
+
+          <form id="wish-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
+                Tên / Pháp Danh của bạn:
+              </label>
+              <input type="text" id="wish-name" 
+                     placeholder="Ví dụ: Phật tử Diệu Âm, Bạn Minh..." 
+                     class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
+                Lời nhắn nhủ / Góp ý cải tiến kênh:
+              </label>
+              <textarea id="wish-message" rows="4" required
+                        placeholder="Hãy chia sẻ cảm nhận khi nghe nhạc thiền hoặc đọc sách Phật học LIDO..." 
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white"></textarea>
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-3 rounded-xl btn-zen text-sm font-bold flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Gửi Lời Nhắn Thiện Lành
+            </button>
+          </form>
+        </div>
+
+        <!-- Danh sách lời chúc cộng đồng (7 CỘT) -->
+        <div class="lg:col-span-7">
+          <div class="space-y-3.5 max-h-[460px] overflow-y-auto pr-2" id="wishes-container">
+            <!-- Render từ app.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== HỒI HƯỚNG CÔNG ĐỨC & CHÂN TRANG ==================== -->
+  <footer class="bg-[#1F1916] text-stone-300 pt-16 pb-12 px-4 sm:px-6 mt-auto border-t border-amber-900/30">
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      
+      <!-- Hoa sen trang nghiêm -->
+      <div class="w-12 h-12 rounded-full bg-amber-900/50 text-amber-300 flex items-center justify-center mx-auto text-2xl border border-amber-700/50">
+        🪷
+      </div>
+
+      <!-- Kệ Hồi Hướng -->
+      <div class="font-serif italic text-amber-200/90 text-sm sm:text-base leading-relaxed max-w-lg mx-auto py-2">
+        "Nguyện đem công đức này,<br>
+        Hướng về khắp tất cả.<br>
+        Đệ tử và chúng sanh,<br>
+        Đều trọn thành Phật đạo."
+      </div>
+
+      <div class="h-px bg-stone-800 w-32 mx-auto"></div>
+
+      <!-- Bản quyền & Kênh -->
+      <p class="text-xs text-stone-500">
+        © Bản quyền thuộc về <strong class="text-amber-400">Thảo Dương TV | Nhạc Thiền & Phật Pháp Tĩnh Tâm (@1995lido)</strong>.<br>
+        Hộ trì & phát triển Thư viện Phật học LIDO và Đi Chùa Online.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-stone-400">
+        <a href="chua-online.html" class="hover:text-amber-300 transition-colors flex items-center gap-1">
+          <span>🛕</span> Đi Chùa Online
+        </a>
+        <span>•</span>
+        <a href="kinh-sach.html" class="hover:text-emerald-400 transition-colors flex items-center gap-1">
+          <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Tủ Sách Zen Reader
+        </a>
+        <span>•</span>
+        <a href="ung-ho.html" class="hover:text-amber-300 transition-colors flex items-center gap-1">
+          <span>🍵</span> Gửi Tách Trà
+        </a>
+        <span>•</span>
+        <a href="cong-cu/than-so-hoc/" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span>🔮</span> Thần Số Học
+        </a>
+        <span>•</span>
+        <a href="index-3d.html" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span>✨</span> Không Gian 3D
+        </a>
+        <span>•</span>
+        <a href="https://www.youtube.com/@1995lido" target="_blank" class="hover:text-red-400 transition-colors flex items-center gap-1">
+          <i data-lucide="youtube" class="w-3.5 h-3.5"></i> YouTube @1995lido
+        </a>
+      </div>
+
     </div>
   </footer>
 
-  <!-- MODAL ĐỌC KINH 3D TOÀN MÀN HÌNH (ZEN 3D PERSPECTIVE SCRIPTURE) -->
-  <div class="zen-reader-modal" id="zen-reader-modal" role="dialog" aria-modal="true" aria-labelledby="modal-book-title" aria-describedby="modal-book-desc">
-    <!-- Header Modal -->
-    <div class="reader-header">
-      <div class="reader-book-info">
-        <span class="reader-badge">Kinh Nikāya • Đạo Phật Gốc</span>
+  <!-- ==================== MODAL RÚT QUẺ PHÁP CÚ ==================== -->
+  <div id="fortune-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
+    <div class="bg-gradient-to-b from-[#2B1D14] to-[#18110B] text-amber-100 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border-2 border-amber-500/60 relative animate-zen-breath">
+      
+      <div class="text-center mb-4">
+        <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-widest border border-amber-500/40" id="fortune-stt">
+          Quẻ Số 01
+        </span>
+        <h3 class="font-serif font-bold text-xl text-amber-200 mt-2">
+          Lời Phật Dạy — Tuệ Giác Đầu Ngày
+        </h3>
+      </div>
+
+      <!-- Câu Kệ Pháp Cú -->
+      <div class="p-5 rounded-2xl bg-black/40 border border-amber-500/30 text-center my-4">
+        <p class="font-serif italic text-base sm:text-lg text-amber-200 whitespace-pre-line leading-relaxed" id="fortune-verse">
+          Ý dẫn đầu các pháp...
+        </p>
+        <span class="block text-xs text-amber-400/80 font-bold mt-3" id="fortune-source">
+          Kinh Pháp Cú
+        </span>
+      </div>
+
+      <!-- Lời Bình & Ý Nghĩa Thực Hành -->
+      <div class="p-3.5 rounded-xl bg-amber-950/40 border border-amber-600/30 text-xs text-stone-300 leading-relaxed">
+        <strong class="text-amber-300 block mb-1">💡 Lời khuyên tu tập & Đời sống:</strong>
+        <span id="fortune-meaning">Giữ tâm ý thiện lành...</span>
+      </div>
+
+      <div class="mt-6 text-center">
+        <button onclick="closeFortuneModal()" 
+                class="px-8 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-lg shadow-amber-950/50">
+          Hoan Hỷ Tiếp Nhận 🙏
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL CẤU HÌNH NHANH STK ==================== -->
+  <div id="config-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 relative animate-zen-breath">
+      
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-serif font-bold text-lg text-stone-900 flex items-center gap-2">
+          <i data-lucide="credit-card" class="w-5 h-5 text-amber-700"></i>
+          Đổi Sang STK Thật Của Bạn
+        </h3>
+        <button onclick="closeBankConfigModal()" class="text-stone-400 hover:text-stone-700 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-stone-500 mb-4 leading-relaxed">
+        Nhập thông tin tài khoản ngân hàng của bạn vào đây. Hệ thống sẽ tự động cập nhật mã QR và lưu trực tiếp trên máy của bạn.
+      </p>
+
+      <form id="bank-config-form" class="space-y-3.5 text-xs">
         <div>
-          <h2 class="reader-title" id="modal-book-title">KINH TRUNG BỘ (MAJJHIMA NIKĀYA) — BẢN 3D</h2>
-          <span id="modal-book-desc" style="font-size: 12px; color: #d0c8be;">Cố Đại Lão HT. Thích Minh Châu dịch Việt • Bảo chứng: daophatgoc.com</span>
-          <div class="reader-toolbar">
-            <button class="reader-tool-btn" onclick="adjustFontSize(-1)" aria-label="Giảm cỡ chữ">A- Nhỏ</button>
-            <button class="reader-tool-btn" onclick="adjustFontSize(1)" aria-label="Tăng cỡ chữ">A+ Lớn</button>
-            <button class="reader-tool-btn" onclick="setReaderTheme('default')" aria-label="Giao diện trang giấy cổ">Giấy Cổ</button>
-            <button class="reader-tool-btn" onclick="setReaderTheme('sepia')" aria-label="Giao diện ngà thanh tịnh">Màu Ngà</button>
-            <button class="reader-tool-btn" onclick="setReaderTheme('dark')" aria-label="Giao diện ban đêm">Bóng Đêm</button>
-          </div>
-        </div>
-      </div>
-      <button class="btn-close-reader" id="btn-close-reader" onclick="closeZen3DReader()" aria-label="Đóng giao diện đọc sách 3D (Phím Escape)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-        <span>Đóng Sách</span>
-      </button>
-    </div>
-
-    <!-- Sân khấu Lật Sách 3D Năng Động (Trọn Bộ Kinh Sách) -->
-    <div class="zen-book-stage" style="padding: 20px 0;">
-      <div class="zen-3d-book" id="modal-3d-book" style="height: 480px;">
-        <div class="zen-book-shadow"></div>
-
-        <!-- TRANG TRÁI (Left Page) -->
-        <div class="leaf-static-left" id="modal-page-left">
-          <div class="page-gold-border">
-            <div class="page-chapter-tag" id="m-left-tag">Kinh Trung Bộ</div>
-            <div class="page-title" id="m-left-title">Tiêu Đề</div>
-            <div class="page-body-text" id="m-left-body">Nội dung</div>
-            <div class="page-footer-num" id="m-left-foot">Trang 1</div>
-          </div>
+          <label class="block font-bold text-stone-700 uppercase mb-1">Mã Ngân Hàng VietQR (Ví dụ: MB, VCB, TCB, ACB, VPB...):</label>
+          <input type="text" id="config-bank-id" required
+                 placeholder="MB, VCB, TCB, ACB..." 
+                 class="w-full px-3 py-2 rounded-xl border border-stone-300 font-mono text-sm uppercase">
         </div>
 
-        <!-- TỜ LẬT 3D CHUYỂN ĐỘNG (Single Dynamic 3D Flipping Leaf) -->
-        <div class="zen-book-leaf" id="m-flipping-leaf" style="z-index: 10;">
-          <!-- Mặt Phải (Trước khi lật) -->
-          <div class="leaf-face" id="m-flip-front">
-            <div class="page-gold-border">
-              <div class="page-chapter-tag" id="m-flip-front-tag">Kinh Trung Bộ</div>
-              <div class="page-title" id="m-flip-front-title">Tiêu Đề</div>
-              <div class="page-body-text" id="m-flip-front-body">Nội dung</div>
-              <div class="page-footer-num" id="m-flip-front-foot">Trang 2</div>
-            </div>
-          </div>
-          <!-- Mặt Sau (Sau khi lật sang trái) -->
-          <div class="leaf-face leaf-back" id="m-flip-back">
-            <div class="page-gold-border">
-              <div class="page-chapter-tag" id="m-flip-back-tag">Kinh Trung Bộ</div>
-              <div class="page-title" id="m-flip-back-title">Tiêu Đề</div>
-              <div class="page-body-text" id="m-flip-back-body">Nội dung</div>
-              <div class="page-footer-num" id="m-flip-back-foot">Trang 3</div>
-            </div>
-          </div>
+        <div>
+          <label class="block font-bold text-stone-700 uppercase mb-1">Tên Đầy Đủ Của Ngân Hàng:</label>
+          <input type="text" id="config-bank-name" required
+                 placeholder="Ví dụ: MB Bank (Ngân Hàng Quân Đội)" 
+                 class="w-full px-3 py-2 rounded-xl border border-stone-300 text-sm">
         </div>
 
-        <!-- TRANG PHẢI NỀN (Right Static Base) -->
-        <div class="zen-book-leaf" id="modal-page-right" style="z-index: 1;">
-          <div class="leaf-face">
-            <div class="page-gold-border">
-              <div class="page-chapter-tag" id="m-right-tag">Kinh Trung Bộ</div>
-              <div class="page-title" id="m-right-title">Tiêu Đề</div>
-              <div class="page-body-text" id="m-right-body">Nội dung</div>
-              <div class="page-footer-num" id="m-right-foot">Trang 2</div>
-            </div>
-          </div>
+        <div>
+          <label class="block font-bold text-stone-700 uppercase mb-1">Số Tài Khoản Của Bạn:</label>
+          <input type="text" id="config-account-number" required
+                 placeholder="Nhập số tài khoản thật của bạn" 
+                 class="w-full px-3 py-2 rounded-xl border border-stone-300 font-mono text-sm">
         </div>
 
-      </div>
-    </div>
+        <div>
+          <label class="block font-bold text-stone-700 uppercase mb-1">Tên Chủ Tài Khoản (Viết hoa không dấu):</label>
+          <input type="text" id="config-account-holder" required
+                 placeholder="Ví dụ: NGUYEN VAN A" 
+                 class="w-full px-3 py-2 rounded-xl border border-stone-300 uppercase text-sm">
+        </div>
 
-    <!-- Controls Lật Trang của Modal -->
-    <div class="book-nav-bar" style="margin-top: 10px;">
-      <button class="btn-book-turn" onclick="turn50ModalPage(-2)" aria-label="Lật về 2 trang trước">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-right: 4px;">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-        Lật Về Trang Trước
-      </button>
-      <div class="book-page-status" id="modal-turn-indicator" style="color: #d4af37; min-width: 170px;" aria-live="polite">
-        Trang 1 - 2 / 27
-      </div>
-      <button class="btn-book-turn" onclick="turn50ModalPage(2)" aria-label="Lật tiếp 2 trang sau">
-        Lật Tiếp Trang Sau
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -2px; margin-left: 4px;">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
-    </div>
+        <div class="flex items-center gap-2 pt-3">
+          <button type="button" onclick="closeBankConfigModal()" 
+                  class="flex-1 py-2.5 rounded-xl border border-stone-300 text-stone-700 font-bold hover:bg-stone-100">
+            Hủy Bỏ
+          </button>
+          <button type="submit" 
+                  class="flex-1 py-2.5 rounded-xl btn-zen font-bold">
+            Lưu Thay Đổi
+          </button>
+        </div>
+      </form>
 
-    <!-- Footer Modal -->
-    <div class="reader-footer">
-      <span>💡 Dùng nút lật trang hoặc phím [◀ / ▶] để duyệt từng trang kinh sách sống động (Phím [ESC] để đóng)</span>
-      <span>Đọc toàn văn: <a href="https://daophatgoc.com/kinh-nikaya/kinh-trung-bo/" target="_blank" rel="noopener">daophatgoc.com ↗</a></span>
     </div>
   </div>
 
-  <!-- Local Offline-Ready Three.js Libraries -->
-  <script src="js/three.min.js"></script>
-  <script src="js/OrbitControls.js"></script>
-
-  <!-- 10 Bộ Kinh Sách 3D Database -->
-  <script src="data/lido_all_books_3d.js"></script>
-
-  <!-- Application Logic & 3D Cinematic Labyrinth Engine -->
-  <script src="js/sacred-labyrinth-3d.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/scrollcraft.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.ScrollCraft && typeof window.ScrollCraft.mount === 'function') {
-        window.ScrollCraft.mount();
-      }
-    });
-  </script>
-  <!-- ==========================================================================
-       LIDO UPGRADE: PERSISTENT FLOATING AUDIO DOCK (432Hz ZEN SOUNDSCAPE)
-       ========================================================================== -->
-  <div class="lido-audio-dock" id="lido-audio-dock" role="region" aria-label="Thanh phát nhạc thiền định tâm 432Hz">
-    <button class="audio-dock-btn" id="dock-play-btn" onclick="toggleZenAmbientAudio()" aria-label="Bật / Tắt nhạc thiền 432Hz">
-      <svg id="dock-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-    </button>
-    <div class="audio-dock-info" onclick="toggleZenAmbientAudio()">
-      <div class="audio-dock-title">
-        <span>432Hz ĐỊNH TÂM</span>
-        <div class="audio-eq-waves" id="dock-eq-waves">
-          <span class="audio-eq-bar"></span>
-          <span class="audio-eq-bar"></span>
-          <span class="audio-eq-bar"></span>
-          <span class="audio-eq-bar"></span>
-        </div>
-      </div>
-      <span class="audio-dock-sub" id="dock-audio-status">Sóng Alpha An Lạc • Bấm để nghe</span>
-    </div>
-    <!-- Hidden iframe for YouTube IFrame API audio streaming -->
-    <div id="lido-yt-hidden-player" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
-    <select class="audio-dock-select" id="dock-sound-selector" onchange="changeZenAmbientTrack(this.value)" aria-label="Chọn bài nhạc thiền LIDO">
-      <option value="T0tzayJ7oYI">1. Tịnh Tâm Liên Hoa (432Hz)</option>
-      <option value="IR25mm93aCo">2. Vô Ưu Tĩnh Lặng (2.5 Giờ)</option>
-      <option value="pRfoEtGl_Ng">3. Cổ Cầm Dạ Ảnh (852Hz)</option>
-    </select>
+  <!-- ==================== TOAST THÔNG BÁO ==================== -->
+  <div id="toast" class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-stone-900 text-white shadow-2xl border border-stone-700 text-xs sm:text-sm font-medium">
+    <span class="text-amber-400 text-base">✨</span>
+    <span id="toast-message">Đã sao chép vào bộ nhớ tạm!</span>
   </div>
 
+  <!-- Script ứng dụng -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
