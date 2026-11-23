@@ -96,7 +96,7 @@ const APP_CONFIG = {
     },
     {
       icon: "shield-heart",
-      title: "Cộng Đồng Chung Tay Hộ Trì",
+      title: "Cộng Đồng Gieo Duyên Lành",
       desc: "Mọi sự trợ duyên đều hoàn toàn tự nguyện, minh bạch để duy trì website thư viện và sản xuất âm nhạc thiền định phục vụ cộng đồng."
     }
   ]
