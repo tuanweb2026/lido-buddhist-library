@@ -20,7 +20,7 @@
 
   class LidoTracker {
     constructor() {
-      this.currentViews = parseInt(localStorage.getItem(STORAGE_VIEW_KEY) || '25', 10);
+      this.currentViews = parseInt(localStorage.getItem(STORAGE_VIEW_KEY) || '55', 10);
       this.init();
     }
 
@@ -37,7 +37,7 @@
 
     // Cập nhật tất cả badge đếm trên giao diện
     updateUI(count) {
-      if (!count || isNaN(count)) count = 25;
+      if (!count || isNaN(count)) count = 55;
       const formatted = Number(count).toLocaleString('vi-VN');
       
       const elMain = document.getElementById('lido-visitor-count');
