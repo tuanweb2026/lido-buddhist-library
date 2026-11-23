@@ -103,6 +103,12 @@
           <span class="hidden lg:inline">Bản 3D</span>
         </a>
 
+        <!-- Badge Lượt Xem Header -->
+        <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-900/90 text-amber-300 border border-amber-500/30 text-xs font-semibold shadow-sm" title="Tổng lượt xem Thư Viện LIDO">
+          <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span class="text-stone-300 font-normal">Lượt xem:</span>
+          <span class="lido-visitor-count-val font-mono font-bold text-amber-400">25</span>
+        </div>
 
         <!-- Kênh YouTube -->
         <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener noreferrer" 
@@ -121,10 +127,18 @@
 
     <div class="max-w-4xl mx-auto text-center relative z-10">
       
-      <!-- Huy hiệu phụng sự -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300/80 text-amber-900 text-xs sm:text-sm font-medium mb-5 shadow-sm">
-        <span class="text-amber-600 text-sm">🪷</span>
-        <span>Về Miền Tỉnh Thức — Nơi Nương Tựa Của Tâm Hồn</span>
+      <!-- Huy hiệu phụng sự & Lượt xem Cloud Vĩnh Viễn -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-2.5 mb-5">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300/80 text-amber-900 text-xs sm:text-sm font-medium shadow-sm">
+          <span class="text-amber-600 text-sm">🪷</span>
+          <span>Về Miền Tỉnh Thức — Nơi Nương Tựa Của Tâm Hồn</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-900/95 text-amber-300 border border-amber-500/40 text-xs sm:text-sm font-semibold shadow-md shadow-stone-900/20" title="Tổng số lượt độc giả hữu duyên ghé thăm Thư Viện LIDO (Lưu trữ vĩnh viễn trên Cloud)">
+          <i data-lucide="eye" class="w-4 h-4 text-amber-400 animate-pulse"></i>
+          <span class="text-stone-300 font-normal">Lượt xem:</span>
+          <span id="lido-visitor-count" class="lido-visitor-count-val font-mono font-bold text-amber-400">25</span>
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping" title="Bộ đếm hoạt động trực tuyến"></span>
+        </div>
       </div>
 
       <!-- Tiêu đề chính -->
@@ -698,6 +712,15 @@
 
             <div>
               <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
+                Email liên hệ của bạn (Tùy chọn để nhận hồi âm):
+              </label>
+              <input type="email" id="wish-email" 
+                     placeholder="Ví dụ: banminh@gmail.com..." 
+                     class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
                 Lời nhắn nhủ / Góp ý cải tiến kênh:
               </label>
               <textarea id="wish-message" rows="4" required
@@ -749,6 +772,13 @@
         © Bản quyền thuộc về <strong class="text-amber-400">Thảo Dương TV | Nhạc Thiền & Phật Pháp Tĩnh Tâm (@1995lido)</strong>.<br>
         Hộ trì & phát triển Thư viện Phật học LIDO và Đi Chùa Online.
       </p>
+
+      <!-- Badge Lượt Xem Footer -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900/90 text-stone-300 text-xs border border-amber-600/30 shadow-sm mx-auto">
+        <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span>Tổng lượt ghé thăm thư viện:</span>
+        <strong class="lido-visitor-count-val font-mono font-bold text-amber-400">25</strong>
+      </div>
 
       <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-stone-400">
         <a href="chua-online.html" class="hover:text-amber-300 transition-colors flex items-center gap-1">
@@ -825,8 +855,9 @@
     <span id="toast-message">Đã sao chép vào bộ nhớ tạm!</span>
   </div>
 
-  <!-- Script ứng dụng -->
+  <!-- Script ứng dụng & Bộ đếm lượt xem vĩnh viễn -->
   <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="js/tracker.js"></script>
 </body>
 </html>

@@ -455,6 +455,14 @@ function submitPrayer(e) {
   showToast("🙏 Đã dâng lời khấn nguyện lên Tam Bảo. Nguyện sở cầu như ý, sở nguyện tòng tâm!");
   playSingingBowl(true);
   triggerLotusPetals();
+
+  if (typeof window.sendLidoIdentityNotification === "function") {
+    window.sendLidoIdentityNotification({
+      name: name,
+      message: content,
+      type: "Lời Khấn Nguyện Cầu An"
+    });
+  }
 }
 
 // =============================================================================
@@ -507,9 +515,11 @@ function renderWishes() {
 function submitWish(e) {
   e.preventDefault();
   const nameInput = document.getElementById("wish-name");
+  const emailInput = document.getElementById("wish-email");
   const msgInput = document.getElementById("wish-message");
 
   const name = nameInput.value.trim() || "Phật tử ẩn danh";
+  const email = emailInput ? emailInput.value.trim() : "";
   const message = msgInput.value.trim();
 
   if (!message) {
@@ -531,9 +541,19 @@ function submitWish(e) {
 
   renderWishes();
   msgInput.value = "";
+  if (emailInput) emailInput.value = "";
   showToast("Công đức vô lượng! Lời chúc của bạn đã được ghi nhận.");
   triggerLotusPetals();
   playSingingBowl(true);
+
+  if (typeof window.sendLidoIdentityNotification === "function") {
+    window.sendLidoIdentityNotification({
+      name: name,
+      email: email,
+      message: message,
+      type: "Sổ Lưu Bút & Góp Ý Thiện Lành"
+    });
+  }
 }
 
 // =============================================================================

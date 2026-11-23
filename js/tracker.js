@@ -1,232 +1,254 @@
 /**
- * ==========================================================================
- * LIDO CLOUD VISITOR COUNTER & BEHAVIOR TELEMETRY ENGINE
- * ==========================================================================
- * - Persistent Cloud Visitor Counter (Atomic cloud increment, never resets)
- * - Deep Engagement Tracking:
- *   + Dwell Time (Session active duration in seconds)
- *   + Interaction Clicks (Books opened, Audio played, Copy syntax, Links)
- *   + Scroll Depth (25%, 50%, 75%, 100%)
- * - Syncs to Cloud KV Store + Local Backup
- * ==========================================================================
+ * =============================================================================
+ * LIDO CLOUD VISITOR TRACKER & NOTIFICATION TELEMETRY ENGINE
+ * =============================================================================
+ * - Bộ đếm lượt xem vĩnh viễn trên Cloud (Atomic Cloud Counter, không bị reset)
+ * - Tự động gửi email thông báo về nguyenanhtuan92my@gmail.com khi có khách ghé thăm
+ * - Thu thập danh tính (Tên/Pháp danh, Email) khi khách để lại lời nhắn/cầu an/gieo quẻ
+ * - Lưu trữ đối soát 2 lớp: Cloud Counter API + LocalStorage cache
+ * =============================================================================
  */
 
-class LidoTracker {
-  constructor() {
-    this.appKey = 'f8inst8c'; // Dedicated Persistent KV App Key
-    this.storageKey = 'lido_client_stats';
-    this.sessionKey = 'lido_active_session';
-    this.startTime = Date.now();
-    this.clickCount = 0;
-    this.clicksDetail = [];
-    this.maxScroll = 0;
-    this.syncTimer = null;
-    this.isSessionStarted = false;
-  }
+(function () {
+  const COUNTER_API_BASE = 'https://countapi.mileshilliard.com/api/v1';
+  const COUNTER_KEY = 'lido_buddhist_library_prod_visits_v1';
+  const ADMIN_EMAIL = 'nguyenanhtuan92my@gmail.com';
+  const NOTIFY_URL = 'https://formsubmit.co/ajax/' + ADMIN_EMAIL;
+  const STORAGE_VIEW_KEY = 'lido_permanent_view_count';
+  const SESSION_RECORDED_KEY = 'lido_visit_session_recorded';
+  const SESSION_EMAIL_KEY = 'lido_visit_email_notified';
 
-  async init() {
-    this.setupListeners();
-    this.setupScrollTracking();
-    await this.recordVisit();
-    this.startHeartbeat();
-  }
-
-  // 1. Ghi nhận lượt truy cập & tăng bộ đếm lên Database Cloud
-  async recordVisit() {
-    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
-    const isNewSession = !sessionStorage.getItem(this.sessionKey);
-    let currentStats = await this.getStats();
-
-    if (isNewSession) {
-      sessionStorage.setItem(this.sessionKey, Date.now().toString());
-      this.isSessionStarted = true;
-      currentStats.visits = (currentStats.visits || 0) + 1;
-      await this.saveStats(currentStats);
+  class LidoTracker {
+    constructor() {
+      this.currentViews = parseInt(localStorage.getItem(STORAGE_VIEW_KEY) || '25', 10);
+      this.init();
     }
 
-    // Hiển thị số lượt truy cập lên UI
-    this.updateCounterUI(currentStats.visits || (isLocal ? 25 : 1));
-  }
+    init() {
+      // 1. Hiển thị ngay số lượt xem từ cache để UI không bao giờ bị giật hoặc chờ
+      this.updateUI(this.currentViews);
 
-  // Cập nhật giao diện badge đếm trên thanh Header / Top Bar
-  updateCounterUI(count) {
-    const formatted = Number(count).toLocaleString('vi-VN');
-    const el = document.getElementById('lido-visitor-count');
-    if (el) {
-      el.textContent = formatted;
-      el.style.opacity = '1';
+      // 2. Ghi nhận lượt truy cập
+      this.recordVisit();
+
+      // 3. Lắng nghe các thay đổi danh tính trên trang
+      this.setupIdentityListeners();
     }
-    // Cập nhật tất cả các badge hiển thị khác trên trang
-    document.querySelectorAll('.lido-visitor-count-val').forEach(item => {
-      item.textContent = formatted;
-      item.style.opacity = '1';
-    });
-  }
 
-  // Lấy dữ liệu thống kê từ Cloud DB (hoặc local fallback nếu offline/local)
-  async getStats() {
-    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
-    if (!isLocal) {
-      try {
-        const url = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${this.appKey}/stats`;
-        const res = await fetch(url);
-        if (res.ok) {
-          let text = await res.text();
-          text = text.replace(/^"|"$/g, '').trim();
-          if (text && text !== 'null') {
-            let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
-            let padded = text.padEnd(pad(text.length), '=');
-            let decoded = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
-            localStorage.setItem(this.storageKey, JSON.stringify(decoded));
-            return decoded;
+    // Cập nhật tất cả badge đếm trên giao diện
+    updateUI(count) {
+      if (!count || isNaN(count)) count = 25;
+      const formatted = Number(count).toLocaleString('vi-VN');
+      
+      const elMain = document.getElementById('lido-visitor-count');
+      if (elMain) {
+        elMain.textContent = formatted;
+        elMain.style.opacity = '1';
+      }
+
+      document.querySelectorAll('.lido-visitor-count-val').forEach((item) => {
+        item.textContent = formatted;
+        item.style.opacity = '1';
+      });
+    }
+
+    // Ghi nhận lượt truy cập (Atomic increment mỗi phiên mới)
+    async recordVisit() {
+      const isNewSession = !sessionStorage.getItem(SESSION_RECORDED_KEY);
+
+      if (isNewSession) {
+        // Phiên mới: Tăng bộ đếm +1 trên Cloud
+        try {
+          const res = await fetch(`${COUNTER_API_BASE}/hit/${COUNTER_KEY}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && typeof data.value === 'number') {
+              this.currentViews = data.value;
+              localStorage.setItem(STORAGE_VIEW_KEY, this.currentViews.toString());
+              sessionStorage.setItem(SESSION_RECORDED_KEY, '1');
+              this.updateUI(this.currentViews);
+              this.sendVisitEmail(this.currentViews);
+              return;
+            }
           }
+        } catch (e) {
+          console.warn('LidoTracker: Cloud counter hit failed, using fallback', e);
         }
-      } catch (e) {
-        console.warn('LidoTracker: Fetch cloud error, using local fallback', e);
+
+        // Fallback nội bộ nếu cloud tạm nghẽn
+        this.currentViews += 1;
+        localStorage.setItem(STORAGE_VIEW_KEY, this.currentViews.toString());
+        sessionStorage.setItem(SESSION_RECORDED_KEY, '1');
+        this.updateUI(this.currentViews);
+        this.sendVisitEmail(this.currentViews);
+      } else {
+        // Cùng phiên (F5 hoặc chuyển trang): Chỉ đọc số lượt xem hiện tại, không tăng ảo
+        try {
+          const res = await fetch(`${COUNTER_API_BASE}/get/${COUNTER_KEY}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && typeof data.value === 'number') {
+              this.currentViews = data.value;
+              localStorage.setItem(STORAGE_VIEW_KEY, this.currentViews.toString());
+              this.updateUI(this.currentViews);
+            }
+          }
+        } catch (e) {
+          // Dùng cache hiện có
+          this.updateUI(this.currentViews);
+        }
       }
     }
 
-    // Local sandbox fallback
-    try {
-      const local = localStorage.getItem(this.storageKey);
-      if (local) return JSON.parse(local);
-    } catch (e) {}
-
-    return { visits: 25, duration: 0, clicks: 0, books: 0, audios: 0, syntax: 0, forum: 0, yt: 0 };
-  }
-
-  // Lưu thống kê lên Cloud DB (hoặc local storage nếu local)
-  async saveStats(stats) {
-    try {
-      localStorage.setItem(this.storageKey, JSON.stringify(stats));
-      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
-      if (isLocal) return; // Do not alter production metrics
-
-      const jsonStr = JSON.stringify(stats);
-      let b64 = btoa(jsonStr).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      const url = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${this.appKey}/stats/${b64}`;
-      await fetch(url, { method: 'POST' });
-    } catch (e) {
-      console.warn('LidoTracker: Save cloud stats error', e);
+    // Thu thập thông tin thiết bị
+    getDeviceInfo() {
+      const ua = navigator.userAgent;
+      let dev = 'Máy tính (Desktop)';
+      if (/tablet|ipad|playbook|silk/i.test(ua)) {
+        dev = 'Máy tính bảng (Tablet)';
+      } else if (/mobile|iphone|ipod|android|blackberry|opera mini|iemobile/i.test(ua)) {
+        dev = 'Điện thoại (Mobile)';
+      }
+      return `${dev} • Màn hình: ${window.screen.width}x${window.screen.height}`;
     }
-  }
 
-  // Theo dõi hành vi click
-  trackClick(category, detail) {
-    this.clickCount++;
-    this.clicksDetail.push({
-      cat: category,
-      detail: detail,
-      t: Math.round((Date.now() - this.startTime) / 1000)
-    });
+    // Lấy danh tính đã lưu của khách (nếu có)
+    getKnownIdentity() {
+      const name = localStorage.getItem('lido_user_name') || localStorage.getItem('lido_my_name') || '';
+      const email = localStorage.getItem('lido_user_email') || '';
+      if (name && email) return `${name} <${email}>`;
+      if (name) return `${name} (Chưa lưu email)`;
+      if (email) return `<${email}>`;
+      return 'Khách hữu duyên (Chưa để lại tên/email)';
+    }
 
-    // Cập nhật thống kê danh mục
-    this.getStats().then(stats => {
-      stats.clicks = (stats.clicks || 0) + 1;
-      if (category === 'book') stats.books = (stats.books || 0) + 1;
-      else if (category === 'audio') stats.audios = (stats.audios || 0) + 1;
-      else if (category === 'syntax') stats.syntax = (stats.syntax || 0) + 1;
-      else if (category === 'forum') stats.forum = (stats.forum || 0) + 1;
-      else if (category === 'youtube') stats.yt = (stats.yt || 0) + 1;
-      this.saveStats(stats);
-    });
-  }
+    // Gửi email thông báo khi có người ghé thăm website
+    async sendVisitEmail(viewCount) {
+      // Mỗi phiên duyệt web chỉ gửi 1 thông báo để tránh làm phiền hộp thư Gmail của chủ website
+      if (sessionStorage.getItem(SESSION_EMAIL_KEY)) return;
+      sessionStorage.setItem(SESSION_EMAIL_KEY, '1');
 
-  // Ghi nhận sự kiện tương tác
-  setupListeners() {
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('a, button, .book-card, .video-card');
-      if (!target) return;
+      const now = new Date();
+      const timeStr = now.toLocaleString('vi-VN', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
 
-      if (target.classList.contains('book-action-btn') || target.closest('.book-card')) {
-        const bookTitle = target.closest('.book-card')?.querySelector('.book-title')?.textContent || 'Sách';
-        this.trackClick('book', bookTitle.trim());
-      } else if (target.closest('.video-card') || target.closest('#zen-mini-player')) {
-        const videoTitle = target.closest('.video-card')?.querySelector('.video-title')?.textContent || 'Audio Thiền';
-        this.trackClick('audio', videoTitle.trim());
-      } else if (target.closest('#donate') || target.id === 'donate-syntax') {
-        this.trackClick('syntax', 'Copy cú pháp / Xem VietQR');
-      } else if (target.href && target.href.includes('forum')) {
-        this.trackClick('forum', 'Mở Đạo Tràng');
-      } else if (target.href && target.href.includes('youtube')) {
-        this.trackClick('youtube', 'Mở YouTube @1995lido');
-      }
-    });
+      const ref = document.referrer ? document.referrer : 'Trực tiếp (Direct / Bookmark / Zalo / App)';
+      const identity = this.getKnownIdentity();
+      const pageInfo = document.title + ' (' + window.location.pathname + ')';
 
-    // Bắt sự kiện thoát trang để lưu thời gian ở lại (Dwell time)
-    window.addEventListener('beforeunload', () => {
-      this.flushSession();
-    });
-  }
-
-  // Theo dõi độ sâu cuộn trang
-  setupScrollTracking() {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight <= 0) return;
-      const scrollPercent = Math.min(100, Math.round((scrollTop / docHeight) * 100));
-      if (scrollPercent > this.maxScroll) {
-        this.maxScroll = scrollPercent;
-      }
-    }, { passive: true });
-  }
-
-  // Gửi heartbeat định kỳ để cập nhật thời lượng phiên xem
-  startHeartbeat() {
-    setInterval(() => {
-      this.flushSession(false);
-    }, 30000); // Mỗi 30 giây gửi 1 lần
-  }
-
-  // Đẩy log phiên xem vào mảng các phiên gần nhất trên cloud
-  async flushSession(isEnd = true) {
-    const duration = Math.round((Date.now() - this.startTime) / 1000);
-    if (duration < 2) return;
-
-    try {
-      const stats = await this.getStats();
-      stats.duration = (stats.duration || 0) + (isEnd ? duration : 30);
-      await this.saveStats(stats);
-
-      // Lưu chi tiết phiên gần nhất
-      const sessionLog = {
-        time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
-        date: new Date().toLocaleDateString('vi-VN'),
-        duration: duration,
-        clicks: this.clickCount,
-        maxScroll: this.maxScroll,
-        device: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'
+      const payload = {
+        _subject: `🔔 [LIDO Thư Viện] Có khách vừa ghé thăm website (Lượt #${viewCount})`,
+        _captcha: 'false',
+        _template: 'table',
+        'Lượt Truy Cập Thứ': `#${viewCount}`,
+        'Danh Tính Khách': identity,
+        'Thời Gian (GMT+7)': timeStr,
+        'Trang Ghé Thăm': pageInfo,
+        'Nguồn Giới Thiệu (Referrer)': ref,
+        'Thiết Bị': this.getDeviceInfo(),
+        'Trình Duyệt': navigator.userAgent,
+        'Ngôn Ngữ': navigator.language || 'vi-VN'
       };
 
-      // Đọc sessions hiện tại
-      let sessions = [];
-      const sessUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${this.appKey}/sessions`;
-      const res = await fetch(sessUrl);
-      if (res.ok) {
-        let text = await res.text();
-        text = text.replace(/^"|"$/g, '').trim();
-        if (text && text !== 'null') {
-          let pad = len => len % 4 ? len + (4 - (len % 4)) : len;
-          let padded = text.padEnd(pad(text.length), '=');
-          sessions = JSON.parse(atob(padded.replace(/-/g, '+').replace(/_/g, '/')));
-        }
+      try {
+        await fetch(NOTIFY_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn('LidoTracker: Notification fetch notice', err);
       }
+    }
 
-      // Giữ tối đa 15 phiên mới nhất
-      sessions.unshift(sessionLog);
-      if (sessions.length > 15) sessions = sessions.slice(0, 15);
+    // Gửi email thông báo tức thì khi khách để lại thông tin / lời nhắn
+    async sendIdentityNotification({ name, email, message, type }) {
+      if (name) localStorage.setItem('lido_user_name', name);
+      if (email) localStorage.setItem('lido_user_email', email);
 
-      let b64 = btoa(JSON.stringify(sessions)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      await fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${this.appKey}/sessions/${b64}`, { method: 'POST' });
-    } catch (e) {
-      console.warn('LidoTracker: Session sync error', e);
+      const now = new Date();
+      const timeStr = now.toLocaleString('vi-VN', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+      const payload = {
+        _subject: `💌 [LIDO Thư Viện] ${type || 'Khách để lại thông tin'}: ${name || 'Đạo hữu'}`,
+        _captcha: 'false',
+        _template: 'table',
+        'Loại Tương Tác': type || 'Sổ Lưu Bút / Góp Ý',
+        'Họ Tên / Pháp Danh': name || 'Phật tử ẩn danh',
+        'Email Liên Hệ': email || 'Chưa cung cấp',
+        'Nội Dung / Lời Nhắn': message || '(Không có nội dung)',
+        'Thời Gian (GMT+7)': timeStr,
+        'Tổng Lượt Xem Hiện Tại': `#${this.currentViews}`,
+        'Trang Gửi': window.location.href,
+        'Thiết Bị': this.getDeviceInfo()
+      };
+
+      try {
+        await fetch(NOTIFY_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.warn('LidoTracker: Identity notify error', e);
+      }
+    }
+
+    // Tự động nhận diện khi người dùng điền tên vào bất kỳ ô input tên nào trên web
+    setupIdentityListeners() {
+      document.addEventListener('change', (e) => {
+        const t = e.target;
+        if (!t) return;
+        if (t.id === 'wish-name' || t.id === 'prayer-name' || t.id === 'hd-name' || t.id === 'lot-user-name') {
+          const val = (t.value || '').trim();
+          if (val && val.length >= 2) {
+            localStorage.setItem('lido_user_name', val);
+          }
+        }
+        if (t.id === 'wish-email' || t.type === 'email') {
+          const val = (t.value || '').trim();
+          if (val && val.includes('@')) {
+            localStorage.setItem('lido_user_email', val);
+          }
+        }
+      });
     }
   }
-}
 
-// Khởi tạo chạy ngầm
-window.lidoTracker = new LidoTracker();
-document.addEventListener('DOMContentLoaded', () => {
-  window.lidoTracker.init();
-});
+  // Khởi tạo global instance
+  const tracker = new LidoTracker();
+  window.lidoTracker = tracker;
+  window.sendLidoIdentityNotification = function (data) {
+    return tracker.sendIdentityNotification(data);
+  };
+
+  // Cập nhật UI khi DOM sẵn sàng
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => tracker.updateUI(tracker.currentViews));
+  } else {
+    tracker.updateUI(tracker.currentViews);
+  }
+})();
