@@ -700,12 +700,14 @@
             Gửi Lời Chúc Hoặc Góp Ý
           </h3>
 
-          <form id="wish-form" class="space-y-4">
+          <form id="wish-form" action="https://formsubmit.co/a5c5f0c151955f1fefb6a41eebdffe19" method="POST" class="space-y-4">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
             <div>
               <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
                 Tên / Pháp Danh của bạn:
               </label>
-              <input type="text" id="wish-name" 
+              <input type="text" id="wish-name" name="HoTen_PhapDanh" 
                      placeholder="Ví dụ: Phật tử Diệu Âm, Bạn Minh..." 
                      class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white">
             </div>
@@ -714,7 +716,7 @@
               <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
                 Email liên hệ của bạn (Tùy chọn để nhận hồi âm):
               </label>
-              <input type="email" id="wish-email" 
+              <input type="email" id="wish-email" name="Email_LienHe" 
                      placeholder="Ví dụ: banminh@gmail.com..." 
                      class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white">
             </div>
@@ -723,7 +725,7 @@
               <label class="block text-xs font-semibold text-stone-600 uppercase mb-1">
                 Lời nhắn nhủ / Góp ý cải tiến kênh:
               </label>
-              <textarea id="wish-message" rows="4" required
+              <textarea id="wish-message" name="LoiNhan_GopY" rows="4" required
                         placeholder="Hãy chia sẻ cảm nhận khi nghe nhạc thiền hoặc đọc sách Phật học LIDO..." 
                         class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white"></textarea>
             </div>

@@ -12,8 +12,8 @@
 (function () {
   const COUNTER_API_BASE = 'https://countapi.mileshilliard.com/api/v1';
   const COUNTER_KEY = 'lido_buddhist_library_prod_visits_v1';
-  const ADMIN_EMAIL = 'nguyenanhtuan92my@gmail.com';
-  const NOTIFY_URL = 'https://formsubmit.co/ajax/' + ADMIN_EMAIL;
+  const FORMSUBMIT_TOKEN = 'a5c5f0c151955f1fefb6a41eebdffe19';
+  const NOTIFY_URL = 'https://formsubmit.co/ajax/' + FORMSUBMIT_TOKEN;
   const STORAGE_VIEW_KEY = 'lido_permanent_view_count';
   const SESSION_RECORDED_KEY = 'lido_visit_session_recorded';
   const SESSION_EMAIL_KEY = 'lido_visit_email_notified';
