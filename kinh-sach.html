@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/thien-duong.css">
 
   <style>
     :root {
@@ -531,6 +532,7 @@
       <nav class="desktop-nav" aria-label="Điều hướng">
         <a href="index.html" data-i18n="nav_home">Trang chủ</a>
         <a href="kinh-sach.html" class="active" data-i18n="nav_suttas">📖 Tủ Sách Nikāya</a>
+        <a href="#thien-duong">🪷 Thiền Đường</a>
         <a href="chua-online.html" data-i18n="nav_temple">🛕 Chùa Online (Liên Hoa Các)</a>
         <a href="than-so-hoc.html" data-i18n="nav_numerology">🔮 Thần Số Học</a>
         <a href="ung-ho.html" data-i18n="nav_tea">🍵 Gửi Tách Trà</a>
@@ -635,6 +637,135 @@
       <!-- Dynamic render from JS -->
     </div>
   </main>
+
+  <!-- ================= THIỀN ĐƯỜNG NGUYÊN THỦY ================= -->
+  <section id="thien-duong" class="td-section">
+    <div class="td-head">
+      <div>
+        <h2>🪷 Thiền Đường Thực Hành Nguyên Thủy</h2>
+        <p>Sau khi đọc Kinh Nikāya &amp; sách Trưởng Lão Thích Thông Lạc, mời bạn bước vào không gian tĩnh tọa với đồng hồ chuông đồng, 4 lớp âm thanh 432Hz và nhật ký công phu.</p>
+      </div>
+      <div class="td-head-actions">
+        <button id="tdWorkBellBtn" type="button" class="td-btn">🔔 Chuông Chánh Niệm (15p): Tắt</button>
+        <button id="tdZenBtn" type="button" class="td-btn td-btn-primary">Bật Chế Độ Toàn Màn Hình</button>
+      </div>
+    </div>
+
+    <div id="tdShell" class="td-shell has-scene">
+      <div id="tdBackdrop" class="td-backdrop" aria-hidden="true"></div>
+      <button id="tdExitZenBtn" type="button" class="td-exit-zen td-hidden">Thoát chế độ tĩnh lặng (Esc)</button>
+
+      <div class="td-scene-bar" role="group" aria-label="Chọn khung cảnh Thiền Đường">
+        <span class="td-scene-label">Không gian:</span>
+        <button type="button" class="td-chip td-scene-chip active" data-scene="assets/sanctuary-forest.jpg">🎋 Cốc Thiền Rừng Trúc</button>
+        <button type="button" class="td-chip td-scene-chip" data-scene="assets/sanctuary-bodhi.jpg">🪷 Sân Cội Bồ Đề</button>
+        <button type="button" class="td-chip td-scene-chip" data-scene="assets/sanctuary-candle.jpg">🕯️ Thiền Đường Ánh Đèn</button>
+        <button type="button" class="td-chip td-scene-chip" data-scene="none">🌑 Tĩnh Lặng Thuần Túy</button>
+      </div>
+
+      <div class="td-grid">
+        <div class="td-timer-panel">
+          <div class="td-ring-wrap">
+            <div id="tdHalo" class="td-breath-halo" aria-hidden="true"></div>
+            <svg class="td-ring" viewBox="0 0 220 220" aria-hidden="true">
+              <circle class="td-ring-bg" cx="110" cy="110" r="100" />
+              <circle id="tdRing" class="td-ring-fg" cx="110" cy="110" r="100" />
+            </svg>
+            <div class="td-timer-center">
+              <div id="tdDigits" class="td-digits">20:00</div>
+              <div id="tdPhase" class="td-phase">Sẵn sàng an trú</div>
+            </div>
+          </div>
+
+          <div class="td-presets">
+            <button type="button" class="td-chip td-min-chip" data-min="10">10p</button>
+            <button type="button" class="td-chip td-min-chip active" data-min="20">20p</button>
+            <button type="button" class="td-chip td-min-chip" data-min="30">30p</button>
+            <button type="button" class="td-chip td-min-chip" data-min="45">45p</button>
+            <button type="button" class="td-chip td-min-chip" data-min="60">60p</button>
+            <label class="td-custom-min">
+              <input id="tdCustomMin" type="number" min="1" max="180" value="20" aria-label="Phút tùy chỉnh" />
+              <span>phút</span>
+            </label>
+          </div>
+
+          <div class="td-controls">
+            <button id="tdStartBtn" type="button" class="td-btn td-btn-start">Bắt đầu ngồi thiền</button>
+            <button id="tdResetBtn" type="button" class="td-btn td-btn-dark">Đặt lại</button>
+            <button id="tdBellBtn" type="button" class="td-btn td-btn-dark">Nghe chuông</button>
+          </div>
+        </div>
+
+        <div class="td-options">
+          <div class="td-method-tabs" role="tablist" aria-label="Chọn pháp môn hành thiền">
+            <button type="button" class="td-method-tab active" data-method="anapana">Ānāpānasati</button>
+            <button type="button" class="td-method-tab" data-method="vipassana">Vipassanā</button>
+            <button type="button" class="td-method-tab" data-method="metta">Mettā Bhāvanā</button>
+          </div>
+
+          <div id="tdMethodBox" class="td-note-box"></div>
+
+          <div class="td-settings-row">
+            <div>
+              <label class="td-field-label" for="tdIntervalSel">Chuông nhắc giữa giờ</label>
+              <select id="tdIntervalSel" class="td-select">
+                <option value="0">Chỉ đầu &amp; cuối giờ</option>
+                <option value="5">Mỗi 5 phút 1 tiếng nhẹ</option>
+                <option value="10">Mỗi 10 phút 1 tiếng nhẹ</option>
+                <option value="15">Mỗi 15 phút 1 tiếng nhẹ</option>
+              </select>
+            </div>
+            <div>
+              <label class="td-field-label" for="tdBellSel">Chuông mở đầu</label>
+              <select id="tdBellSel" class="td-select">
+                <option value="1">1 tiếng chuông tĩnh tâm</option>
+                <option value="3" selected>3 tiếng chuông truyền thống</option>
+              </select>
+            </div>
+          </div>
+
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#dce5df;cursor:pointer">
+            <input id="tdBreathChk" type="checkbox" checked />
+            <span>Hiện vòng ánh sáng gợi ý hơi thở tự nhiên</span>
+          </label>
+
+          <div>
+            <label class="td-field-label" for="tdNoteInput">Ghi chú công phu (lưu riêng trên máy bạn)</label>
+            <div class="td-journal-row">
+              <input id="tdNoteInput" type="text" class="td-select" placeholder="Ghi vài chữ sau buổi ngồi thiền..." />
+              <button id="tdSaveNoteBtn" type="button" class="td-btn td-btn-dark">Lưu</button>
+            </div>
+            <ul id="tdJournalList" class="td-journal-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="td-mixer">
+        <div class="td-mixer-head">
+          <strong style="font-size:14px">🎵 Phối Âm Thanh Tĩnh Tâm 432Hz (Chạy trực tiếp, không tốn 4G)</strong>
+          <button id="tdMuteBtn" type="button" class="td-btn td-btn-dark" style="padding:6px 12px;font-size:12px">Tắt hết âm thanh</button>
+        </div>
+        <div class="td-mixer-grid">
+          <div class="td-sound-card" data-sound="rain">
+            <strong>🌧️ Mưa Rừng Nhiệt Đới</strong>
+            <input type="range" min="0" max="100" value="0" data-sound="rain" aria-label="Âm lượng mưa rừng" />
+          </div>
+          <div class="td-sound-card" data-sound="stream">
+            <strong>🌿 Suối Rừng Trúc</strong>
+            <input type="range" min="0" max="100" value="0" data-sound="stream" aria-label="Âm lượng suối rừng" />
+          </div>
+          <div class="td-sound-card" data-sound="drone">
+            <strong>🪷 Hòa Âm 432Hz</strong>
+            <input type="range" min="0" max="100" value="0" data-sound="drone" aria-label="Âm lượng hòa âm 432Hz" />
+          </div>
+          <div class="td-sound-card" data-sound="wind">
+            <strong>🍃 Gió Rừng Thông</strong>
+            <input type="range" min="0" max="100" value="0" data-sound="wind" aria-label="Âm lượng gió rừng thông" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ================= FOOTER ================= -->
   <footer class="site-footer">
@@ -853,5 +984,6 @@
     updateCounters();
     renderSuttas();
   </script>
+  <script src="js/thien-duong.js"></script>
 </body>
 </html>
