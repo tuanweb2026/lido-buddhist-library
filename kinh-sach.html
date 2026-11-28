@@ -605,7 +605,7 @@
         <span>🍃</span> <span data-i18n="filter_dao_phat_goc">Sách Trưởng Lão Thích Thông Lạc</span>
       </button>
       <button type="button" class="pill-btn" data-filter="dai-tang-nikaya" onclick="filterCategory('dai-tang-nikaya', this)">
-        <span>🏛️</span> Tuyển Tập 10 Bộ Kinh 3D
+        <span>🏛️</span> <span data-i18n="filter_10_nikaya">Tuyển Tập 10 Bộ Kinh 3D</span>
       </button>
       <button type="button" class="pill-btn" data-filter="saved" onclick="filterCategory('saved', this)">
         <span>❤️</span> <span data-i18n="filter_saved">Bài đã lưu</span> (<span id="count-saved">0</span>)
@@ -618,7 +618,7 @@
     <div class="dhammapada-card">
       <div class="dhammapada-icon">🪷</div>
       <div class="dhammapada-text">
-        <h4>Lời Vàng Kinh Pháp Cú (Dhammapada • Kệ số 5)</h4>
+        <h4 data-i18n="dhammapada_heading">Lời Vàng Kinh Pháp Cú (Dhammapada • Kệ số 5)</h4>
         <p id="zen-quote">"Hận thù diệt hận thù, đời này không thể có. Từ bi diệt hận thù, là định luật ngàn thu."</p>
       </div>
     </div>
@@ -627,8 +627,8 @@
   <!-- ================= CATALOG GRID ================= -->
   <main class="catalog-section">
     <div class="catalog-count">
-      <div>Đang hiển thị: <b id="displayed-count">0</b> tác phẩm / bài kinh</div>
-      <div style="font-size:12px">Nguồn đối chiếu: <a href="https://daophatgoc.com/" target="_blank" rel="noopener">daophatgoc.com ↗</a></div>
+      <div><span data-i18n="displaying_prefix">Đang hiển thị:</span> <b id="displayed-count">0</b> <span data-i18n="displaying_suffix">tác phẩm / bài kinh</span></div>
+      <div style="font-size:12px"><span data-i18n="ref_source">Nguồn đối chiếu:</span> <a href="https://daophatgoc.com/" target="_blank" rel="noopener">daophatgoc.com ↗</a></div>
     </div>
 
     <div class="sutta-grid" id="sutta-grid-container">
@@ -664,9 +664,9 @@
   </footer>
 
   <!-- SCRIPT DATA & APP -->
-  <script src="data/kinh_sach_data.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/tracker.js"></script>
+  <script src="data/kinh_sach_data.js?v=2.2"></script>
+  <script src="js/i18n.js?v=2.2"></script>
+  <script src="js/tracker.js?v=2.2"></script>
   <script>
     var currentFilter = 'all';
     var searchQuery = '';
@@ -680,22 +680,39 @@
 
     var allSuttas = window.KINH_SACH_CATALOG || [];
 
-    // Quotes carousel
-    var ZEN_QUOTES = [
+    // Quotes carousel (Bilingual)
+    var ZEN_QUOTES_VI = [
       "Hận thù diệt hận thù, đời này không thể có. Từ bi diệt hận thù, là định luật ngàn thu. (Pháp Cú 5)",
       "Tâm dẫn đầu các pháp, tâm làm chủ, tâm tạo. Nếu với tâm thanh tịnh, nói năng hay hành động, an lạc sẽ theo ta như bóng không rời hình. (Pháp Cú 2)",
       "Chiến thắng vạn quân thù nơi chiến trường không bằng tự chiến thắng chính mình. Chiến thắng chính mình là chiến công oanh liệt nhất. (Pháp Cú 103)",
       "Không làm mọi điều ác, thành tựu các hạnh lành, giữ tâm ý trong sạch, chính lời chư Phật dạy. (Pháp Cú 183)",
       "Dễ thấy lỗi của người, khó thấy lỗi của mình. Người ta sàng sảy lỗi người như sàng thóc, còn lỗi mình thì che giấu. (Pháp Cú 252)"
     ];
+    var ZEN_QUOTES_EN = [
+      "Hatred does not cease by hatred, but only by love; this is the eternal rule. (Dhammapada 5)",
+      "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If one speaks or acts with a pure mind, happiness follows like a shadow. (Dhammapada 2)",
+      "Though one should conquer a million men in battle, yet he indeed is the greatest victor who has conquered himself. (Dhammapada 103)",
+      "To avoid all evil, to cultivate the good, and to purify one's mind — this is the teaching of the Buddhas. (Dhammapada 183)",
+      "Easily seen are others' faults, hard indeed to see are one's own. Like chaff one winnows other's faults, but one's own one hides. (Dhammapada 252)"
+    ];
     var qIndex = 0;
+    function updateQuoteUI() {
+      var isEn = (window.getLidoLanguage && window.getLidoLanguage() === 'en');
+      var list = isEn ? ZEN_QUOTES_EN : ZEN_QUOTES_VI;
+      var el = document.getElementById('zen-quote');
+      if (el) {
+        el.textContent = list[qIndex % list.length];
+      }
+    }
     setInterval(function(){
-      qIndex = (qIndex + 1) % ZEN_QUOTES.length;
+      var isEn = (window.getLidoLanguage && window.getLidoLanguage() === 'en');
+      var list = isEn ? ZEN_QUOTES_EN : ZEN_QUOTES_VI;
+      qIndex = (qIndex + 1) % list.length;
       var el = document.getElementById('zen-quote');
       if (el) {
         el.style.opacity = 0;
         setTimeout(function(){
-          el.textContent = ZEN_QUOTES[qIndex];
+          el.textContent = list[qIndex];
           el.style.opacity = 1;
         }, 300);
       }
@@ -786,6 +803,7 @@
 
     // Lắng nghe sự kiện đổi ngôn ngữ để render lại tủ sách ngay lập tức
     window.addEventListener('lido-lang-changed', function() {
+      updateQuoteUI();
       renderSuttas();
     });
 
