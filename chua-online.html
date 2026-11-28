@@ -1033,10 +1033,23 @@
           </select>
         </div>
 
+        <!-- BADGE LƯỢT XEM VÀ CHUYỂN ĐỔI NGÔN NGỮ -->
+        <div class="chua-visitor-pill" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:12px;background:#1E293B;color:#FDE68A;font-size:12px;font-weight:600;border:1px solid rgba(245,158,11,0.3);" title="Tổng lượt xem Thư Viện LIDO">
+          <span style="font-size:12px">👁️</span>
+          <span class="lido-visitor-count-label" data-i18n="views_label">Lượt xem:</span>
+          <span class="lido-visitor-count-val font-mono" style="font-weight:700;color:#FBBF24">55</span>
+        </div>
+
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
+
         <nav class="nav-links" aria-label="Điều hướng">
-          <a href="index.html" class="nav-pill" style="border-color:var(--gold-main);color:var(--gold-bright)">🏠 Trang Chủ</a>
-          <a href="kinh-sach.html" class="nav-pill" style="border-color:#F59E0B;color:#FDE68A">📖 Tủ Sách Nikāya</a>
-          <a href="ung-ho.html" class="nav-pill" style="border-color:#10B981;color:#6EE7B7">🍵 Gửi Tách Trà</a>
+          <a href="index.html" class="nav-pill" style="border-color:var(--gold-main);color:var(--gold-bright)" data-i18n="nav_home">🏠 Trang Chủ</a>
+          <a href="kinh-sach.html" class="nav-pill" style="border-color:#F59E0B;color:#FDE68A" data-i18n="nav_suttas">📖 Tủ Sách Nikāya</a>
+          <a href="ung-ho.html" class="nav-pill" style="border-color:#10B981;color:#6EE7B7" data-i18n="nav_tea">🍵 Gửi Tách Trà</a>
           <a href="#tinh-tam" class="nav-pill">🔔 Gõ Mõ · Chuông</a>
           <a href="#ho-sen" class="nav-pill">🏮 Hồ Sen</a>
           <a href="#gieo-que" class="nav-pill">🎋 Gieo Quẻ</a>
@@ -2967,6 +2980,7 @@ Hoa thơm nở giữa đời.</pre>
       fetch('/api/dang-xem?ma=' + encodeURIComponent(ma) + '&trang=' + encodeURIComponent(location.pathname) + '&nguon=' + encodeURIComponent(nguon) + '&ref=' + encodeURIComponent(document.referrer || '') + '&pv=1').catch(() => {});
     })();
   </script>
+  <script src="js/i18n.js"></script>
   <script src="js/tracker.js"></script>
 </body>
 </html>

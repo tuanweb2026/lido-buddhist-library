@@ -95,7 +95,7 @@
            class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-emerald-300 transition-all shadow-sm"
            title="Khám phá Tủ Sách Phật Giáo Nguyên Thủy">
           <i data-lucide="book-marked" class="w-3.5 h-3.5 text-emerald-700"></i>
-          <span>Tủ Sách Nikāya</span>
+          <span data-i18n="nav_suttas_short">Tủ Sách Nikāya</span>
         </a>
 
         <!-- Không gian 3D -->
@@ -103,15 +103,22 @@
            class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-amber-300 transition-all shadow-sm"
            title="Khám phá Không Gian Phật Giáo 3D">
           <span>✨</span>
-          <span class="hidden lg:inline">Bản 3D</span>
+          <span class="hidden lg:inline" data-i18n="nav_3d">Bản 3D</span>
         </a>
 
         <!-- Badge Lượt Xem Header -->
         <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-900/90 text-amber-300 border border-amber-500/30 text-xs font-semibold shadow-sm" title="Tổng lượt xem Thư Viện LIDO">
           <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span class="text-stone-300 font-normal">Lượt xem:</span>
+          <span class="lido-visitor-count-label text-stone-300 font-normal" data-i18n="views_label">Lượt xem:</span>
           <span class="lido-visitor-count-val font-mono font-bold text-amber-400">55</span>
         </div>
+
+        <!-- Language Switcher Button -->
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
 
         <!-- Kênh YouTube -->
         <a href="https://www.youtube.com/@1995lido" target="_blank" rel="noopener noreferrer" 
@@ -134,11 +141,11 @@
       <div class="inline-flex flex-wrap items-center justify-center gap-2.5 mb-5">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300/80 text-amber-900 text-xs sm:text-sm font-medium shadow-sm">
           <span class="text-amber-600 text-sm">🪷</span>
-          <span>Về Miền Tỉnh Thức — Nơi Nương Tựa Của Tâm Hồn</span>
+          <span data-i18n="hero_badge">Về Miền Tỉnh Thức — Nơi Nương Tựa Của Tâm Hồn</span>
         </div>
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-900/95 text-amber-300 border border-amber-500/40 text-xs sm:text-sm font-semibold shadow-md shadow-stone-900/20" title="Tổng số lượt độc giả hữu duyên ghé thăm Thư Viện LIDO (Lưu trữ vĩnh viễn trên Cloud)">
           <i data-lucide="eye" class="w-4 h-4 text-amber-400 animate-pulse"></i>
-          <span class="text-stone-300 font-normal">Lượt xem:</span>
+          <span class="lido-visitor-count-label text-stone-300 font-normal" data-i18n="views_label">Lượt xem:</span>
           <span id="lido-visitor-count" class="lido-visitor-count-val font-mono font-bold text-amber-400">55</span>
           <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping" title="Bộ đếm hoạt động trực tuyến"></span>
         </div>
@@ -862,6 +869,7 @@
 
   <!-- Script ứng dụng & Bộ đếm lượt xem vĩnh viễn -->
   <script src="config.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="app.js"></script>
   <script src="js/tracker.js"></script>
 </body>

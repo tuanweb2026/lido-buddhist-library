@@ -523,23 +523,37 @@
       <a class="brand-logo" href="index.html" aria-label="Trang chủ Nhạc Thiền 1995 Lido">
         <div class="brand-icon">🪷</div>
         <div class="brand-name">
-          <span>Nhạc Thiền 1995 Lido</span>
-          <small>&amp; Thư Viện Phật Học Nikāya</small>
+          <span data-i18n="brand_title">Nhạc Thiền 1995 Lido</span>
+          <small data-i18n="brand_sub">&amp; Thư Viện Phật Học Nikāya</small>
         </div>
       </a>
 
       <nav class="desktop-nav" aria-label="Điều hướng">
-        <a href="index.html">Trang chủ</a>
-        <a href="kinh-sach.html" class="active">📖 Tủ Sách Nikāya</a>
-        <a href="chua-online.html">🛕 Chùa Online (Liên Hoa Các)</a>
-        <a href="than-so-hoc.html">🔮 Thần Số Học</a>
-        <a href="ung-ho.html">🍵 Gửi Tách Trà</a>
+        <a href="index.html" data-i18n="nav_home">Trang chủ</a>
+        <a href="kinh-sach.html" class="active" data-i18n="nav_suttas">📖 Tủ Sách Nikāya</a>
+        <a href="chua-online.html" data-i18n="nav_temple">🛕 Chùa Online (Liên Hoa Các)</a>
+        <a href="than-so-hoc.html" data-i18n="nav_numerology">🔮 Thần Số Học</a>
+        <a href="ung-ho.html" data-i18n="nav_tea">🍵 Gửi Tách Trà</a>
       </nav>
 
-      <div class="header-actions">
+      <div class="header-actions" style="display:flex;align-items:center;gap:10px;">
+        <!-- Badge Lượt Xem Header -->
+        <div class="header-visitor-pill" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:12px;background:#1E293B;color:#FDE68A;font-size:12px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="Tổng lượt xem Thư Viện LIDO">
+          <span style="font-size:12px">👁️</span>
+          <span class="lido-visitor-count-label" data-i18n="views_label">Lượt xem:</span>
+          <span class="lido-visitor-count-val font-mono" style="font-weight:700;color:#FBBF24">55</span>
+        </div>
+
+        <!-- Language Switcher Button -->
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
+
         <a class="header-tea-btn" href="ung-ho.html" aria-label="Gửi một tách trà">
           <span>🍵</span>
-          <span>Gửi một tách trà</span>
+          <span data-i18n="btn_support_tea">Gửi một tách trà</span>
         </a>
       </div>
     </div>
@@ -551,10 +565,10 @@
       <div class="hero-copy">
         <span class="hero-tag">
           <span>📖</span>
-          <span>ĐẠI TẠNG NIKĀYA &amp; ĐẠO PHẬT GỐC · MIỄN PHÍ 100%</span>
+          <span data-i18n="catalog_hero_tag">ĐẠI TẠNG NIKĀYA &amp; ĐẠO PHẬT GỐC · MIỄN PHÍ 100%</span>
         </span>
-        <h1>Tủ Sách Phật Giáo Nguyên Thủy<br>Cho những ngày tâm an yên</h1>
-        <p>
+        <h1 data-i18n="catalog_hero_title">Tủ Sách Phật Giáo Nguyên Thủy</h1>
+        <p data-i18n="catalog_hero_desc">
           Tuyển tập kinh điển Phật giáo Nguyên thủy gốc tiếng Pāḷi (Hòa thượng Thích Minh Châu dịch Việt) và các tác phẩm thực hành xả tâm của Trưởng Lão Thích Thông Lạc từ nguồn tham khảo <b>daophatgoc.com</b>. Mời bạn thảnh thơi nhấp ngụm trà và cùng bước vào cội nguồn lời Phật dạy.
         </p>
       </div>
@@ -573,6 +587,7 @@
     <div class="search-box-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" id="inp-search" class="search-input" 
+             data-i18n-placeholder="search_placeholder"
              placeholder="Tìm kiếm bài kinh, lời Phật dạy (ví dụ: Niệm Xứ, Lậu hoặc, Xả tâm, Định Niệm, Đoạn Giảm...)" 
              oninput="handleSearch(this.value)">
       <button type="button" id="btn-clear-search" class="clear-search-btn" onclick="clearSearch()">✕</button>
@@ -581,19 +596,19 @@
     <!-- FILTER PILLS -->
     <div class="filter-pills" role="tablist" aria-label="Bộ lọc kinh sách">
       <button type="button" class="pill-btn active" data-filter="all" onclick="filterCategory('all', this)">
-        <span>🪷</span> Tất cả kinh sách (<span id="count-all">0</span>)
+        <span>🪷</span> <span data-i18n="filter_all">Tất cả kinh sách</span> (<span id="count-all">0</span>)
       </button>
       <button type="button" class="pill-btn" data-filter="kinh-trung-bo" onclick="filterCategory('kinh-trung-bo', this)">
-        <span>📜</span> Kinh Trung Bộ (Majjhima)
+        <span>📜</span> <span data-i18n="filter_trung_bo">Kinh Trung Bộ (Majjhima)</span>
       </button>
       <button type="button" class="pill-btn" data-filter="sach-chon-nhu" onclick="filterCategory('sach-chon-nhu', this)">
-        <span>🍃</span> Sách Trưởng Lão Thích Thông Lạc
+        <span>🍃</span> <span data-i18n="filter_dao_phat_goc">Sách Trưởng Lão Thích Thông Lạc</span>
       </button>
       <button type="button" class="pill-btn" data-filter="dai-tang-nikaya" onclick="filterCategory('dai-tang-nikaya', this)">
         <span>🏛️</span> Tuyển Tập 10 Bộ Kinh 3D
       </button>
       <button type="button" class="pill-btn" data-filter="saved" onclick="filterCategory('saved', this)">
-        <span>❤️</span> Bài đã lưu (<span id="count-saved">0</span>)
+        <span>❤️</span> <span data-i18n="filter_saved">Bài đã lưu</span> (<span id="count-saved">0</span>)
       </button>
     </div>
   </section>
@@ -650,6 +665,8 @@
 
   <!-- SCRIPT DATA & APP -->
   <script src="data/kinh_sach_data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/tracker.js"></script>
   <script>
     var currentFilter = 'all';
     var searchQuery = '';
@@ -690,6 +707,7 @@
     }
 
     function renderSuttas() {
+      var isEn = (window.getLidoLanguage && window.getLidoLanguage() === 'en');
       var container = document.getElementById('sutta-grid-container');
       container.innerHTML = '';
 
@@ -704,8 +722,8 @@
         // Filter by search
         if (searchQuery) {
           var q = searchQuery.toLowerCase();
-          var matchTitle = item.title.toLowerCase().indexOf(q) !== -1;
-          var matchSummary = (item.summary || '').toLowerCase().indexOf(q) !== -1;
+          var matchTitle = (item.title || '').toLowerCase().indexOf(q) !== -1 || ((item.title_en || '').toLowerCase().indexOf(q) !== -1);
+          var matchSummary = (item.summary || '').toLowerCase().indexOf(q) !== -1 || ((item.summary_en || '').toLowerCase().indexOf(q) !== -1);
           var matchPali = (item.pali_title || '').toLowerCase().indexOf(q) !== -1;
           if (!matchTitle && !matchSummary && !matchPali) return false;
         }
@@ -716,7 +734,9 @@
       document.getElementById('displayed-count').textContent = filtered.length;
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div class="empty-state"><span>🍃</span><h3>Không tìm thấy bài kinh phù hợp</h3><p>Hãy thử tìm bằng từ khóa khác hoặc chuyển sang danh mục "Tất cả".</p></div>';
+        var emptyTitle = isEn ? 'No matching discourses found' : 'Không tìm thấy bài kinh phù hợp';
+        var emptyDesc = isEn ? 'Try searching with different keywords or select "All Suttas".' : 'Hãy thử tìm bằng từ khóa khác hoặc chuyển sang danh mục "Tất cả".';
+        container.innerHTML = '<div class="empty-state"><span>🍃</span><h3>' + emptyTitle + '</h3><p>' + emptyDesc + '</p></div>';
         return;
       }
 
@@ -725,29 +745,37 @@
         var card = document.createElement('article');
         card.className = 'sutta-card';
         
-        var audioBadge = sutta.audio_url ? '<span class="sutta-audio-pill">🔊 Có MP3</span>' : '';
-        var bookmarkBtn = '<button type="button" class="btn-bookmark ' + (isSaved ? 'bookmarked' : '') + '" onclick="toggleBookmark(\'' + sutta.id + '\', this)" title="' + (isSaved ? 'Bỏ lưu' : 'Lưu bài đọc') + '">'
-                        + (isSaved ? '❤️ Đã lưu' : '🤍 Lưu')
+        var suttaTitle = isEn ? (sutta.title_en || sutta.title) : sutta.title;
+        var suttaCat = isEn ? (sutta.category_name_en || sutta.category_name || 'Canon') : (sutta.category_name || 'Kinh Điển');
+        var suttaTime = isEn ? (sutta.reading_time_en || sutta.reading_time || '10 min read') : (sutta.reading_time || '10 phút đọc');
+        var suttaSummary = isEn ? (sutta.summary_en || sutta.summary) : sutta.summary;
+        var readLabel = isEn ? 'Read Sutta' : 'Đọc bài kinh';
+        var saveLabel = isSaved ? (isEn ? '❤️ Saved' : '❤️ Đã lưu') : (isEn ? '🤍 Save' : '🤍 Lưu');
+        var bookmarkTitle = isSaved ? (isEn ? 'Remove bookmark' : 'Bỏ lưu') : (isEn ? 'Save to bookshelf' : 'Lưu bài đọc');
+
+        var audioBadge = sutta.audio_url ? '<span class="sutta-audio-pill">' + (isEn ? '🔊 Audio' : '🔊 Có MP3') + '</span>' : '';
+        var bookmarkBtn = '<button type="button" class="btn-bookmark ' + (isSaved ? 'bookmarked' : '') + '" onclick="toggleBookmark(\'' + sutta.id + '\', this)" title="' + bookmarkTitle + '">'
+                        + saveLabel
                         + '</button>';
 
         card.innerHTML = 
           '<div>' +
             '<div class="sutta-card-meta">' +
-              '<span class="sutta-tag">' + (sutta.category_name || 'Kinh Điển') + '</span>' +
+              '<span class="sutta-tag">' + suttaCat + '</span>' +
               '<div style="display:flex;align-items:center;gap:6px">' +
                 audioBadge +
-                '<span class="sutta-time">⏱️ ' + sutta.reading_time + '</span>' +
+                '<span class="sutta-time">⏱️ ' + suttaTime + '</span>' +
               '</div>' +
             '</div>' +
             '<h3 class="sutta-title">' +
-              '<a href="doc-kinh.html?id=' + sutta.id + '">' + sutta.title + '</a>' +
+              '<a href="doc-kinh.html?id=' + sutta.id + '">' + suttaTitle + '</a>' +
             '</h3>' +
             (sutta.pali_title ? '<div class="sutta-pali">' + sutta.pali_title + '</div>' : '') +
-            '<p class="sutta-summary">' + sutta.summary + '</p>' +
+            '<p class="sutta-summary">' + suttaSummary + '</p>' +
           '</div>' +
           '<div class="sutta-card-footer">' +
             '<a href="doc-kinh.html?id=' + sutta.id + '" class="btn-read-sutta">' +
-              '<span>Đọc bài kinh</span> →' +
+              '<span>' + readLabel + '</span> →' +
             '</a>' +
             bookmarkBtn +
           '</div>';
@@ -755,6 +783,11 @@
         container.appendChild(card);
       });
     }
+
+    // Lắng nghe sự kiện đổi ngôn ngữ để render lại tủ sách ngay lập tức
+    window.addEventListener('lido-lang-changed', function() {
+      renderSuttas();
+    });
 
     function filterCategory(cat, btn) {
       currentFilter = cat;

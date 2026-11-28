@@ -744,16 +744,32 @@
       </a>
 
       <nav class="desktop-nav" aria-label="Điều hướng">
-        <a href="index.html">Trang chủ</a>
-        <a href="kinh-sach.html">📖 Tủ Sách Nikāya</a>
-        <a href="chua-online.html">🛕 Chùa Online (Liên Hoa Các)</a>
-        <a href="than-so-hoc.html">🔮 Thần Số Học</a>
+        <a href="index.html" data-i18n="nav_home">Trang chủ</a>
+        <a href="kinh-sach.html" data-i18n="nav_suttas">📖 Tủ Sách Nikāya</a>
+        <a href="chua-online.html" data-i18n="nav_temple">🛕 Chùa Online (Liên Hoa Các)</a>
+        <a href="than-so-hoc.html" data-i18n="nav_numerology">🔮 Thần Số Học</a>
       </nav>
 
-      <a class="header-support-btn" href="ung-ho.html" aria-label="Ủng hộ kênh">
-        <span>🍵</span>
-        <span>Gửi một tách trà</span>
-      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <!-- Badge Lượt Xem Header -->
+        <div class="header-visitor-pill" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:12px;background:#1E293B;color:#FDE68A;font-size:12px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="Tổng lượt xem Thư Viện LIDO">
+          <span style="font-size:12px">👁️</span>
+          <span class="lido-visitor-count-label" data-i18n="views_label">Lượt xem:</span>
+          <span class="lido-visitor-count-val font-mono" style="font-weight:700;color:#FBBF24">55</span>
+        </div>
+
+        <!-- Language Switcher Button -->
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
+
+        <a class="header-support-btn" href="ung-ho.html" aria-label="Ủng hộ kênh">
+          <span>🍵</span>
+          <span data-i18n="btn_support_tea">Gửi một tách trà</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -1268,5 +1284,7 @@
     // Khởi tạo lần đầu
     updateUI();
   </script>
+  <script src="js/i18n.js"></script>
+  <script src="js/tracker.js"></script>
 </body>
 </html>

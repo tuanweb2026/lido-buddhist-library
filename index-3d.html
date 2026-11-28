@@ -52,10 +52,17 @@
               <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
-            Lượt xem:
+            <span class="lido-visitor-count-label" data-i18n="views_label">Lượt xem:</span>
           </span>
           <span class="num lido-visitor-count-val" id="lido-visitor-count">55</span>
         </div>
+
+        <!-- Language Switcher Button -->
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
 
         <ul class="nav-links" id="main-nav-links">
           <li><a href="#hero" class="nav-link active">Trang Chủ</a></li>
@@ -762,6 +769,7 @@
   <!-- Application Logic & 3D Cinematic Labyrinth Engine -->
   <script src="js/sacred-labyrinth-3d.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/tracker.js"></script>
   <script src="js/scrollcraft.js"></script>
   <script>

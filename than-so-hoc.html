@@ -402,7 +402,23 @@ footer{
       <a href="#faq">Hỏi đáp</a>
       <a href="index.html" style="color:var(--gold-light)">🌿 Về Trang Chủ @1995lido</a>
     </nav>
-    <a class="btn-gold" href="#tra-cuu" style="padding:9px 18px;font-size:13.5px;white-space:nowrap;flex-shrink:0">🔮 Tra cứu 0đ</a>
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+      <!-- Badge Lượt Xem Header -->
+      <div class="header-visitor-pill" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:12px;background:#1E293B;color:#FDE68A;font-size:12px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="Tổng lượt xem Thư Viện LIDO">
+        <span style="font-size:12px">👁️</span>
+        <span class="lido-visitor-count-label" data-i18n="views_label">Lượt xem:</span>
+        <span class="lido-visitor-count-val font-mono" style="font-weight:700;color:#FBBF24">55</span>
+      </div>
+
+      <!-- Language Switcher Button -->
+      <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+        <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+        <span class="lido-lang-sep">|</span>
+        <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+      </button>
+
+      <a class="btn-gold" href="#tra-cuu" style="padding:9px 18px;font-size:13.5px;white-space:nowrap;flex-shrink:0">🔮 Tra cứu 0đ</a>
+    </div>
   </div>
 </header>
 
@@ -1055,5 +1071,7 @@ footer{
   };
 })();
 </script>
+<script src="js/i18n.js"></script>
+<script src="js/tracker.js"></script>
 </body>
 </html>

@@ -704,22 +704,36 @@
     <div class="toolbar-inner">
       <a href="kinh-sach.html" class="btn-back-shelf" title="Quay lại Tủ Sách">
         <span>←</span>
-        <span>Tủ Sách</span>
+        <span data-i18n="reader_back_shelf">Tủ Sách</span>
       </a>
 
       <div class="toolbar-title" id="tb-title">Kinh Niệm Xứ</div>
 
       <div class="toolbar-actions">
+        <!-- Visitor Badge in Reader Toolbar -->
+        <div class="reader-visitor-pill" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:9999px;background:rgba(0,0,0,0.06);font-size:11.5px;font-weight:600;" title="Tổng lượt xem Thư Viện LIDO">
+          <span style="font-size:12px">👁️</span>
+          <span class="lido-visitor-count-label">Lượt xem:</span>
+          <span class="lido-visitor-count-val" style="font-weight:700;color:var(--gold-reader)">55</span>
+        </div>
+
+        <!-- Language Switcher Button -->
+        <button type="button" class="lido-lang-switcher-btn" onclick="toggleLidoLanguage()" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lido-lang-opt lido-lang-vi active">🇻🇳 VI</span>
+          <span class="lido-lang-sep">|</span>
+          <span class="lido-lang-opt lido-lang-en">🇬🇧 EN</span>
+        </button>
+
         <!-- Settings Button -->
         <button type="button" class="tool-btn" onclick="openSettingsModal()" title="Tùy chỉnh giao diện đọc">
           <span>⚙️</span>
-          <span style="font-size:12px">Đọc</span>
+          <span style="font-size:12px" data-i18n="reader_btn_settings">Đọc</span>
         </button>
 
         <!-- TOC Drawer Button -->
         <button type="button" class="tool-btn" onclick="toggleTocDrawer(true)" title="Mục lục bài kinh">
           <span>📑</span>
-          <span style="font-size:12px">Mục lục</span>
+          <span style="font-size:12px" data-i18n="reader_btn_toc">Mục lục</span>
         </button>
 
         <!-- Bookmark Button -->
@@ -754,15 +768,15 @@
     <div class="audio-player-card" id="audio-card" style="display:none">
       <div class="audio-icon">🎧</div>
       <div class="audio-info">
-        <b>Bản Đọc Âm Thanh Cổ Truyền</b>
-        <small id="audio-lbl">Lắng nghe giọng tụng kinh tĩnh tâm, định tĩnh thân tâm</small>
+        <b data-i18n="reader_audio_heading">Bản Đọc Âm Thanh Cổ Truyền</b>
+        <small id="audio-lbl" data-i18n="reader_audio_desc">Lắng nghe giọng tụng kinh tĩnh tâm, định tĩnh thân tâm</small>
       </div>
       <audio id="sutta-audio-player" controls preload="metadata"></audio>
     </div>
 
     <!-- SUMMARY CALLOUT -->
     <div class="summary-callout" id="summary-box">
-      <strong>Đôi Dòng Cốt Tủy</strong>
+      <strong data-i18n="reader_summary_heading">Đôi Dòng Cốt Tủy</strong>
       <div id="summary-text">...</div>
     </div>
 
@@ -775,11 +789,11 @@
     <footer class="sutta-footer">
       <div class="sutta-nav-buttons">
         <a href="#" id="btn-prev-sutta" class="nav-sutta-btn">
-          <small>← Bài kinh trước</small>
+          <small data-i18n="reader_prev_label">← Bài kinh trước</small>
           <span id="prev-sutta-title">...</span>
         </a>
         <a href="#" id="btn-next-sutta" class="nav-sutta-btn" style="text-align:right">
-          <small>Bài kinh tiếp theo →</small>
+          <small data-i18n="reader_next_label">Bài kinh tiếp theo →</small>
           <span id="next-sutta-title">...</span>
         </a>
       </div>
@@ -806,13 +820,13 @@
   <div class="modal-backdrop" id="settings-backdrop" onclick="closeSettingsModal(event)">
     <div class="settings-modal" onclick="event.stopPropagation()">
       <div class="modal-head">
-        <h3>⚙️ Tùy Chỉnh Giao Diện Đọc</h3>
+        <h3 data-i18n="reader_modal_title">⚙️ Tùy Chỉnh Giao Diện Đọc</h3>
         <button type="button" class="btn-close-modal" onclick="closeSettingsModal()">✕</button>
       </div>
 
       <!-- CỠ CHỮ -->
       <div class="setting-group">
-        <span class="setting-label">Cỡ Chữ</span>
+        <span class="setting-label" data-i18n="reader_font_size_label">Cỡ Chữ</span>
         <div class="size-controls">
           <button type="button" class="size-btn" data-sz="15.5px" onclick="changeFontSize('15.5px', this)">A-</button>
           <button type="button" class="size-btn active" data-sz="17.5px" onclick="changeFontSize('17.5px', this)">Vừa</button>
@@ -823,7 +837,7 @@
 
       <!-- MÀU NỀN -->
       <div class="setting-group">
-        <span class="setting-label">Chế Độ Màu</span>
+        <span class="setting-label" data-i18n="reader_theme_label">Chế Độ Màu</span>
         <div class="theme-grid">
           <div class="theme-chip active" data-thm="cream" style="background:#FCFAF7;color:#24352F" onclick="changeTheme('cream', this)">
             Giấy mộc
@@ -845,7 +859,7 @@
 
       <!-- PHÔNG CHỮ -->
       <div class="setting-group">
-        <span class="setting-label">Phông Chữ</span>
+        <span class="setting-label" data-i18n="reader_font_label">Phông Chữ</span>
         <div class="font-options">
           <button type="button" class="font-btn active" data-fnt="lora" style="font-family:'Lora',serif" onclick="changeFont('lora', this)">
             Lora
@@ -864,7 +878,7 @@
   <!-- ================= TOC DRAWER (MỤC LỤC BÀI KINH) ================= -->
   <div class="toc-drawer" id="toc-drawer">
     <div class="toc-head">
-      <h3>📑 Mục Lục Kinh Sách</h3>
+      <h3 data-i18n="reader_toc_title">📑 Mục Lục Kinh Sách</h3>
       <button type="button" class="btn-close-modal" onclick="toggleTocDrawer(false)">✕</button>
     </div>
     <div class="toc-list" id="toc-list-container">
@@ -877,6 +891,8 @@
 
   <!-- DATA & SCRIPTS -->
   <script src="data/kinh_sach_data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/tracker.js"></script>
   <script>
     var catalog = window.KINH_SACH_CATALOG || [];
     var currentSutta = null;
@@ -916,13 +932,16 @@
 
     // Populate TOC Drawer
     function renderToc() {
+      var isEn = (window.getLidoLanguage && window.getLidoLanguage() === 'en');
       var container = document.getElementById('toc-list-container');
       container.innerHTML = '';
       catalog.forEach(function(item, idx) {
         var a = document.createElement('a');
         a.className = 'toc-item' + (item.id === currentSutta.id ? ' active' : '');
         a.href = '?id=' + encodeURIComponent(item.id);
-        a.innerHTML = '<small>' + (item.category_name || 'Kinh Điển') + '</small>' + item.title;
+        var catName = isEn ? (item.category_name_en || item.category_name || 'Canon') : (item.category_name || 'Kinh Điển');
+        var suttaTitle = isEn ? (item.title_en || item.title) : item.title;
+        a.innerHTML = '<small>' + catName + '</small>' + suttaTitle;
         a.onclick = function(e) {
           e.preventDefault();
           selectSutta(idx);
@@ -935,18 +954,26 @@
     // Render Current Sutta
     function renderSutta() {
       if (!currentSutta) return;
+      var isEn = (window.getLidoLanguage && window.getLidoLanguage() === 'en');
 
-      document.title = currentSutta.title + " | Tủ Sách Phật Giáo LIDO";
-      document.getElementById('tb-title').textContent = currentSutta.title;
-      document.getElementById('sutta-cat-badge').textContent = currentSutta.category_name || 'Kinh Điển';
-      document.getElementById('sutta-read-time').textContent = '⏱️ ' + (currentSutta.reading_time || '10 phút đọc');
-      document.getElementById('sutta-heading').textContent = currentSutta.title;
+      var title = isEn ? (currentSutta.title_en || currentSutta.title) : currentSutta.title;
+      var catName = isEn ? (currentSutta.category_name_en || currentSutta.category_name || 'Canon') : (currentSutta.category_name || 'Kinh Điển');
+      var readTime = isEn ? (currentSutta.reading_time_en || currentSutta.reading_time || '10 min read') : (currentSutta.reading_time || '10 phút đọc');
+      var summary = isEn ? (currentSutta.summary_en || currentSutta.summary) : (currentSutta.summary || 'Lời Phật dạy nguyên thủy.');
+      var translator = isEn ? (currentSutta.translator_en || currentSutta.translator || 'Ven. Bhikkhu Bodhi & Minh Châu') : (currentSutta.translator || 'HT. Thích Minh Châu');
+      var content = isEn ? (currentSutta.content_html_en || currentSutta.content_html) : (currentSutta.content_html || '<p>Đang cập nhật nội dung...</p>');
+
+      document.title = title + " | " + (isEn ? "LIDO Buddhist Bookshelf" : "Tủ Sách Phật Giáo LIDO");
+      document.getElementById('tb-title').textContent = title;
+      document.getElementById('sutta-cat-badge').textContent = catName;
+      document.getElementById('sutta-read-time').textContent = '⏱️ ' + readTime;
+      document.getElementById('sutta-heading').textContent = title;
       document.getElementById('sutta-pali').textContent = currentSutta.pali_title || '';
-      document.getElementById('sutta-author').textContent = currentSutta.translator || 'HT. Thích Minh Châu';
+      document.getElementById('sutta-author').textContent = translator;
       document.getElementById('sutta-source-link').href = currentSutta.source_url || 'https://daophatgoc.com/';
 
       // Summary
-      document.getElementById('summary-text').textContent = currentSutta.summary || 'Lời Phật dạy nguyên thủy.';
+      document.getElementById('summary-text').textContent = summary;
 
       // Audio
       var audioCard = document.getElementById('audio-card');
@@ -959,7 +986,7 @@
       }
 
       // Content
-      document.getElementById('sutta-body').innerHTML = currentSutta.content_html || '<p>Đang cập nhật nội dung...</p>';
+      document.getElementById('sutta-body').innerHTML = content;
 
       // Prev / Next Sutta
       var prevIdx = (currentIndex > 0) ? currentIndex - 1 : catalog.length - 1;
@@ -973,7 +1000,7 @@
         e.preventDefault();
         selectSutta(prevIdx);
       };
-      document.getElementById('prev-sutta-title').textContent = prevSutta.title;
+      document.getElementById('prev-sutta-title').textContent = isEn ? (prevSutta.title_en || prevSutta.title) : prevSutta.title;
 
       var btnNext = document.getElementById('btn-next-sutta');
       btnNext.href = '?id=' + encodeURIComponent(nextSutta.id);
@@ -981,11 +1008,21 @@
         e.preventDefault();
         selectSutta(nextIdx);
       };
-      document.getElementById('next-sutta-title').textContent = nextSutta.title;
+      document.getElementById('next-sutta-title').textContent = isEn ? (nextSutta.title_en || nextSutta.title) : nextSutta.title;
+
+      // Update static headings if i18n
+      if (window.lidoI18n) {
+        window.lidoI18n.applyTranslations();
+      }
 
       updateBookmarkButton();
       renderToc();
     }
+
+    // Lắng nghe sự kiện chuyển ngôn ngữ để cập nhật bài kinh tức thì
+    window.addEventListener('lido-lang-changed', function() {
+      renderSutta();
+    });
 
     // Support browser Back/Forward buttons
     window.addEventListener('popstate', function() {

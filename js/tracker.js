@@ -38,7 +38,10 @@
     // Cập nhật tất cả badge đếm trên giao diện
     updateUI(count) {
       if (!count || isNaN(count)) count = 55;
-      const formatted = Number(count).toLocaleString('vi-VN');
+      const lang = (window.getLidoLanguage ? window.getLidoLanguage() : 'vi');
+      const locale = (lang === 'en') ? 'en-US' : 'vi-VN';
+      const formatted = Number(count).toLocaleString(locale);
+      const labelText = (lang === 'en') ? 'Views:' : 'Lượt xem:';
       
       const elMain = document.getElementById('lido-visitor-count');
       if (elMain) {
@@ -49,6 +52,10 @@
       document.querySelectorAll('.lido-visitor-count-val').forEach((item) => {
         item.textContent = formatted;
         item.style.opacity = '1';
+      });
+
+      document.querySelectorAll('.lido-visitor-count-label').forEach((item) => {
+        item.textContent = labelText;
       });
     }
 
@@ -251,4 +258,9 @@
   } else {
     tracker.updateUI(tracker.currentViews);
   }
+
+  // Lắng nghe đổi ngôn ngữ để cập nhật nhãn lượt xem tức thì
+  window.addEventListener('lido-lang-changed', () => {
+    tracker.updateUI(tracker.currentViews);
+  });
 })();
